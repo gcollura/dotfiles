@@ -1,0 +1,104 @@
+""" NeoBundle setup
+set nocompatible " Be iMproved
+filetype off
+
+if has('vim_starting')
+   set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+
+call neobundle#rc(expand('~/.vim/bundle'))
+
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+" Load configurations
+source $HOME/.vim/bundles.vim
+source $HOME/.vim/mappings.vim
+source $HOME/.vim/filetypes.vim
+
+""" Files and backup
+
+" History size
+set history=50
+
+" Saving and reloading
+set confirm
+set autoread
+
+" Autosave
+au FocusLost * silent! wa
+
+" Encoding                                                                                
+set encoding=utf-8                                                                        
+" Default fileformat.                                                                     
+set fileformat=unix                                                                       
+" Automatic recognition of a new line cord.                                               
+set fileformats=unix,dos,mac                                                              
+
+" Persistent undo
+" set hidden " Old
+set undodir=$HOME/.vim/undo " Where to save undo(s)
+set undofile " Save undo when switching buffer or closing files
+
+""" Editing
+
+" Indentation/tab settings
+set autoindent
+set smartindent
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+set smarttab
+
+" Turn off word wrapping
+set nowrap
+
+" Sane backspace behaviour
+set backspace=indent,eol,start
+
+""" Spell Checking
+
+set nospell
+set spelllang=en
+set spellsuggest=5
+
+""" Completion
+
+set wildmenu
+"stuff to ignore when tab completing
+set wildignore=*.o,*.obj,*~,*.png,*.gif,*.jpg,*.jpeg,*.zip,*.jar,*.gem,coverage/**,log/**,*.pyc,*~
+
+""" Search
+
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set gdefault
+
+" set lazyredraw
+set laststatus=2
+" Hide show mode while using airline
+set noshowmode
+" Enable modelines
+set modeline
+
+" Numbers
+set number
+set relativenumber
+set numberwidth=5
+
+" Highlight current line
+set cursorline
+
+if has("win32") || has("win64")
+    set shellslash
+endif
+
+" Syntax highlighting and colorscheme
+syntax on
+if has("gui_running")
+    colorscheme luna
+else
+    colorscheme luna-term
+endif
