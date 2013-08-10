@@ -2,6 +2,15 @@
 set nocompatible " Be iMproved
 filetype off
 
+" Force the use of python2
+if has('python')
+    py print 'Using Python 2.'
+elseif has('python3')
+    py3 print('Using Python 3. Some bundles may not work.')
+else
+    echo 'No python support.'
+endif
+
 if has('vim_starting')
    set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
@@ -27,12 +36,12 @@ set autoread
 " Autosave
 au FocusLost * silent! wa
 
-" Encoding                                                                                
-set encoding=utf-8                                                                        
-" Default fileformat.                                                                     
-set fileformat=unix                                                                       
-" Automatic recognition of a new line cord.                                               
-set fileformats=unix,dos,mac                                                              
+" Encoding
+set encoding=utf-8
+" Default fileformat.
+set fileformat=unix
+" Automatic recognition of a new line cord.
+set fileformats=unix,dos,mac
 
 " Persistent undo
 " set hidden " Old
