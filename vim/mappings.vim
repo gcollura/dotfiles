@@ -56,3 +56,8 @@ nnoremap <leader>q :bd % <CR>
 " Column scroll-binding on <leader>sb
 noremap <silent> <leader>sb :<C-u>let @z=&so<CR>:set so=0 noscb<CR>:bo vs<CR>
             \ Ljzt:setl scb<CR><C-w>p:setl scb<CR>:let &so=@z<CR>
+
+" Quickly switch to buffer number. eg: 3! 6! 34!
+nnoremap <expr> ! v:count ? ":<C-u>b<C-r>=v:count<CR><CR>" : "!"
+" Quickly delete buffer. eg: 3~ 6~
+nnoremap <expr> ~ v:count ? ":<C-u>bd<C-r>=v:count<CR><CR>" : "~"

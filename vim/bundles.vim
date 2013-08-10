@@ -65,9 +65,9 @@ let g:ycm_confirm_extra_conf = 0 " NOTE: Extremely insecure!
 " Syntastic
 NeoBundle 'scrooloose/syntastic'
 
-" IndentLine
-NeoBundle 'Yggdroot/indentLine'
-nnoremap <F11> :IndentLinesToggle <CR>
+" IndentLine - Disabled until performance aren't improved
+" NeoBundle 'Yggdroot/indentLine'
+" nnoremap <F11> :IndentLinesToggle <CR>
 
 " C++11 support
 NeoBundleLazy 'random-cpp/cpp-vim', { 'autoload' : {

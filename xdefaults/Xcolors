@@ -1,0 +1,83 @@
+! Colorscheme
+
+! Common
+#define fgcolor     #e5e5e5
+#define bgcolor     #212121
+
+#define yellow      #fff159 e4d00a
+#define orange      #ff8036 da8a67
+#define red         #ff4040
+#define magenta     #f64a8a
+#define violet      #ff8da1
+#define blue        #60bdf4
+#define cyan        #00bcbc
+#define green       #008b00
+
+!darkgreen
+#define base0       #002b2b 
+!darkgrey
+#define base00      #474747
+!darkblue
+#define base1       #80a0ff
+#define base01      #87ceeb
+!darkred
+#define base2       #d80000
+!black
+#define base02      #262626
+#define base03      #2e2e2e
+!darkyellow
+#define base3       #bada55
+!Darkmagenta
+#define base4       #7e40a5
+
+! Molokai
+! URxvt*background: #101010
+! URxvt.background: rgba:2700/2800/2200/f000
+! *background: #101010
+! *foreground: #f8f8f2
+! *cursorColor: #8000BA
+! *color0: #101010
+! *color1: #960050
+! *color2: #66aa11
+! *color3: #c47f2c
+! *color4: #30309b
+! *color5: #7e40a5
+! *color6: #89b6e2
+! *color7: #9999aa
+! *color8: #303030
+! *color9: #ff0090
+! *color10: #80ff00
+! *color11: #ffba68
+! *color12: #5f5fee
+! *color13: #bb88dd
+! *color14: #4eb4fa
+! *color15: #d0d0d0
+
+*background:        bgcolor
+URxvt*background:   rgba:2100/2100/2100/f000
+*foreground:        fgcolor
+*cursorColor:       fgcolor
+! Black
+*color0:            base02
+*color8:            base03
+! Darkred + red
+*color1:            base2
+*color9:            red
+! Darkgreen + green
+*color2:            green
+*color10:           base0
+! Darkyellow + yellow
+*color3:            base3
+*color11:           yellow
+! Darkblue + blue
+*color4:            base1
+*color12:           blue
+! Darkmagenta + magenta
+*color5:            base4
+*color13:           magenta
+! Darkcyan + cyan
+*color6:            base1
+*color14:           cyan
+! Lightgrey + white
+*color7:            base01
+*color15:           fgcolor
