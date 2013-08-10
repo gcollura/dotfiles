@@ -4,11 +4,9 @@ filetype off
 
 " Force the use of python2
 if has('python')
-    py print 'Using Python 2.'
+    py a = 1
 elseif has('python3')
-    py3 print('Using Python 3. Some bundles may not work.')
-else
-    echo 'No python support.'
+    py3 a = 1
 endif
 
 if has('vim_starting')
@@ -22,7 +20,8 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 " Load configurations
 source $HOME/.vim/bundles.vim
 source $HOME/.vim/mappings.vim
-source $HOME/.vim/filetypes.vim
+source $HOME/.vim/filetype.vim
+source $HOME/.vim/custom.vim
 
 """ Files and backup
 
