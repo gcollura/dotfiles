@@ -2,17 +2,16 @@
 
 function! <SID>StripTrailingWhitespaces()
     " Save cursor position
-    let l = line(".")
-    let c = col(".")
+    let pos = getpos(".")
     " Save last search
-    let _s=@/
+    let search = getreg('/')
 
     " Delete whitespaces
     %s/\s\+$//e
 
     " Restore everything
-    call cursor(l, c)
-    let @/=_s
+    call setpos('.', pos)
+    call setreg('/', search)
 endfunction
 
 autocmd FileType c,cpp,java,php,ruby,python,vim autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()

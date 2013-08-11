@@ -47,6 +47,11 @@ set fileformats=unix,dos,mac
 set undodir=$HOME/.vim/undo " Where to save undo(s)
 set undofile " Save undo when switching buffer or closing files
 
+" Folding
+set foldmethod=indent " Convenient with C++
+" No folding when loading files
+au BufRead * normal zR
+
 """ Editing
 
 " Indentation/tab settings

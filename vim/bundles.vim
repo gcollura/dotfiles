@@ -90,6 +90,8 @@ NeoBundleLazy 'sjl/gundo.vim', { 'autoload' : {
             \ }}
 nnoremap <F3> :GundoToggle <CR>
 
+NeoBundle 'Raimondi/delimitMate'
+
 " Vim statusline
 NeoBundle 'bling/vim-airline'
 let g:airline_enable_syntastic = 0

@@ -4,7 +4,7 @@
 #define fgcolor     #e5e5e5
 #define bgcolor     #212121
 
-#define yellow      #fff159 
+#define yellow      #fff159
 #define orange      #ff8036 da8a67
 #define red         #ff4040
 #define magenta     #f64a8a
@@ -14,7 +14,7 @@
 #define green       #008b00
 
 !darkyellow
-#define base0       #e4d00a 
+#define base0       #e4d00a
 !darkgrey
 #define base00      #474747
 !darkblue
@@ -70,8 +70,8 @@ URxvt*background:   rgba:2100/2100/2100/f000
 *color3:            base0
 *color11:           yellow
 ! Darkblue + blue
-*color4:            base1
-*color12:           blue
+*color4:            blue
+*color12:           base1
 ! Darkmagenta + magenta
 *color5:            magenta
 *color13:           base4

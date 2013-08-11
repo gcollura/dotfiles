@@ -11,10 +11,10 @@ Xft.rgba: rgb
 ! Xterm
 xterm*termName: xterm-256color
 xterm*saveLines: 4096
-xterm*faceName: xft:Ubuntu Mono:size=11,xft:Monospace:size=11:antialias=true:hinting=true
+xterm*faceName: xft:Ubuntu Mono derivative Powerline:size=11,xft:Monospace:size=11
 xterm*scrollKey: true
 xterm*scrollTtyOutput: false
-xterm*scrollBar: true
+xterm*scrollBar: false
 xterm*rightScrollBar: true
 xterm*jumpScroll: true
 xterm*multiScroll: true
