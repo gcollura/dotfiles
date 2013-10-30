@@ -1,6 +1,6 @@
 echo "Installing..."
 cp Xresources ~/.Xresources
-cp Xcolors    ~/.config/Xcolors
+cp Xcolors*    ~/.config/
 
 xrdb -merge ~/.Xresources
 echo "Done."

@@ -49,6 +49,7 @@ set undofile " Save undo when switching buffer or closing files
 
 " Folding
 set foldmethod=indent " Convenient with C++
+set nofoldenable " Folding disable by default
 " No folding when loading files
 au BufRead * normal zR
 
@@ -111,7 +112,8 @@ endif
 " Syntax highlighting and colorscheme
 syntax on
 if has("gui_running")
-    colorscheme luna
+    set background=light
+    colorscheme solarized
 else
     colorscheme luna-term
 endif

@@ -1,4 +1,4 @@
-! Colorscheme
+! Colorscheme luna
 
 ! Common
 #define fgcolor     #e5e5e5
@@ -28,30 +28,7 @@
 !darkgreen
 #define base3       #bada55
 !Darkmagenta
-#define base4       #7e40a5
-
-! Molokai
-! URxvt*background: #101010
-! URxvt.background: rgba:2700/2800/2200/f000
-! *background: #101010
-! *foreground: #f8f8f2
-! *cursorColor: #8000BA
-! *color0: #101010
-! *color1: #960050
-! *color2: #66aa11
-! *color3: #c47f2c
-! *color4: #30309b
-! *color5: #7e40a5
-! *color6: #89b6e2
-! *color7: #9999aa
-! *color8: #303030
-! *color9: #ff0090
-! *color10: #80ff00
-! *color11: #ffba68
-! *color12: #5f5fee
-! *color13: #bb88dd
-! *color14: #4eb4fa
-! *color15: #d0d0d0
+#define base4       #d70a53
 
 *background:        bgcolor
 URxvt*background:   rgba:2100/2100/2100/f000
@@ -73,8 +50,8 @@ URxvt*background:   rgba:2100/2100/2100/f000
 *color4:            blue
 *color12:           base1
 ! Darkmagenta + magenta
-*color5:            magenta
-*color13:           base4
+*color5:            base4
+*color13:           magenta
 ! Darkcyan + cyan
 *color6:            base1
 *color14:           cyan

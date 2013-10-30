@@ -22,19 +22,19 @@ xterm*vt100*geometry: 100x30
 xterm*charClass: 33:48,35:48,37:48,43:48,45-47:48,64:48,95:48,126:48
 
 ! Urxvt
-URxvt.font: xft:Ubuntu Mono derivative Powerline:size=11,xft:Monospace:size=11
-URxvt.letterSpace: -2
-URxvt.lineSpace: -2
-URxvt.scrollKey: true
-URxvt.depth: 32
-URxvt.loginShell: true
-URxvt.geometry: 100x30
-URxvt.saveLines: 10000
-URxvt.cutchars: "`\"'&()*,:;<=>?[\\]^{|}$"
-URxvt.scrollBar: false
-URxvt.visualBell: true
-URxvt.fading: 15
-URxvt.meta8: 0
+URxvt*font: xft:Ubuntu Mono derivative Powerline:size=11,xft:Monospace:size=11
+URxvt*letterSpace: -2
+URxvt*lineSpace: -2
+URxvt*scrollKey: false
+URxvt*depth: 32
+URxvt*loginShell: true
+URxvt*geometry: 100x30
+URxvt*saveLines: 10000
+URxvt*cutchars: "`\"'&()*,:;<=>?[\\]^{|}$"
+URxvt*scrollBar: false
+URxvt*visualBell: true
+URxvt*fading: 15
+URxvt*meta8: 0
 
 ! Urxvt plugins
 *VT100.Translations: #override \
@@ -51,4 +51,4 @@ URxvt.keysym.Shift-Control-V: perl:clipboard:paste
 URxvt.iso14755: false
 URxvt.perl-ext-common: default,clipboard
 
-#include ".config/Xcolors"
+#include ".config/Xcolors.luna"

@@ -2,10 +2,10 @@ echo "Installing random-cpp's vim config distribution"
 echo
 echo "Copying to $HOME directory. Attention, may overwrite previous configurations."
 mkdir -p $HOME/.vim/
-cp vimrc $HOME/.vimrc
-cp gvimrc $HOME/.gvimrc
+#cp vimrc $HOME/.vimrc
+#cp gvimrc $HOME/.gvimrc
 echo
-cp *.vim $HOME/.vim/
+cp * $HOME/.vim/
 cp ycm_extra_conf.py $HOME/.vim/
 echo
 echo "Cloning Shougo/neobundle.vim"

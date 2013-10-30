@@ -55,12 +55,12 @@ let g:UltiSnipsJumpForwardTrigger="<Tab>"
 let g:UltiSnipsListSnippets="<C-Tab>"
 
 " Completion support
-NeoBundle 'Valloric/YouCompleteMe'
-let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_extra_conf.py'
-let g:ycm_key_invoke_completion = '<C-a>'
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_complete_in_comments = 1
-let g:ycm_confirm_extra_conf = 0 " NOTE: Extremely insecure!
+" NeoBundle 'Valloric/YouCompleteMe'
+" let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_extra_conf.py'
+" let g:ycm_key_invoke_completion = '<C-a>'
+" let g:ycm_autoclose_preview_window_after_insertion = 1
+" let g:ycm_complete_in_comments = 1
+" let g:ycm_confirm_extra_conf = 0 " NOTE: Extremely insecure!
 
 " Syntastic
 NeoBundle 'scrooloose/syntastic'
@@ -91,6 +91,15 @@ NeoBundleLazy 'sjl/gundo.vim', { 'autoload' : {
 nnoremap <F3> :GundoToggle <CR>
 
 NeoBundle 'Raimondi/delimitMate'
+
+NeoBundle 'xolox/vim-misc'
+NeoBundleLazy 'xolox/vim-lua-ftplugin', { 'autoload' : {
+            \ 'filetypes': 'lua',
+            \ }}
+let g:lua_check_syntax = 0
+let g:lua_complete_omni = 1
+let g:lua_complete_dynamic = 0
+
 
 " Vim statusline
 NeoBundle 'bling/vim-airline'
