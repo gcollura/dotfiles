@@ -1,20 +1,29 @@
 """ Shortcuts and mappings
 
-" Firefox-like shortcuts
-map <C-t> :tabnew<CR>
-map <C-F4> :tabclose<CR>
+imap jj <Esc>
 
+" Firefox-like shortcuts
+map <leader>tt :tabnew<CR>
+map <leader>TT :tabclose<CR>
+
+" GVim only
 " cycle through buffers with <ALT><Left> and <ALT><Right>
-map <M-Left> :bprev<CR>
-map <M-Right> :bnext<CR>
+nmap <silent> <A-H> :bprev<CR>
+nmap <silent> <A-L> :bnext<CR>
+
+" Window navigation
+nmap <silent> <A-k> :wincmd k<CR>
+nmap <silent> <A-j> :wincmd j<CR>
+nmap <silent> <A-h> :wincmd h<CR>
+nmap <silent> <A-l> :wincmd l<CR>
 
 " Show my CPUs Temp
-command! Settings :e ~/.vimrc
+command! Settings :e ~/.vim/vimrc
 command! BashRc :e ~/.bashrc
 command! ZshRc :e ~/.zshrc
 command! W :w
 command! Q :q
-command! Wsudo :w !sudo tee % >/dev/null
+command! Wsudo :w !sudo tee % >/dev/null <CR><CR>
 
 " CTRL-X and SHIFT-Del are Cut
 vnoremap <C-X> "+x
@@ -27,21 +36,18 @@ vnoremap <C-Insert> "+y
 " CTRL-V and SHIFT-Insert are Paste
 map <C-V> "+gP
 map <S-Insert> "+gP
-" Insert and command-line mode
-map! <C-V> <C-R>+
-map! <S-Insert> <C-R>+
+" command-line mode
+cnoremap <C-V> <C-R>+
+cnoremap <S-Insert> <C-R>+
+" Insert
+inoremap <C-V> <F9><C-r>+<F9>
+inoremap <S-Insert> <F9><C-r>+<F9>
 
 " Use CTRL-Q to do what CTRL-V used to do
 noremap <C-Q> <C-V>
 
 " Toggle search highlight
-map <S-h> :set invhlsearch<CR>
-
-" Window navigation
-nmap <silent> <A-k> :wincmd k<CR>
-nmap <silent> <A-j> :wincmd j<CR>
-nmap <silent> <A-h> :wincmd h<CR>
-nmap <silent> <A-l> :wincmd l<CR>
+map <Space> :set nohlsearch<CR>
 
 " vpaste
 map vp :exec "w !vpaste ft=".&ft<CR>
@@ -57,7 +63,5 @@ nnoremap <leader>q :bd % <CR>
 noremap <silent> <leader>sb :<C-u>let @z=&so<CR>:set so=0 noscb<CR>:bo vs<CR>
             \ Ljzt:setl scb<CR><C-w>p:setl scb<CR>:let &so=@z<CR>
 
-" Quickly switch to buffer number. eg: 3! 6! 34!
-nnoremap <expr> ! v:count ? ":<C-u>b<C-r>=v:count<CR><CR>" : "!"
-" Quickly delete buffer. eg: 3~ 6~
-nnoremap <expr> ~ v:count ? ":<C-u>bd<C-r>=v:count<CR><CR>" : "~"
+" delitMate autoclose and indent
+inoremap {<CR> {<CR>}<C-o>O

@@ -8,19 +8,18 @@ I have enabled through [NeoBundle], which is a very powerful vim plugin manager.
 work to download, update and add/remove plugins when needed.
 `bundles.vim` contains the complete lists and some configuration.
  * [YouCompleteMe]
+ * [cpp-vim]
  * [indentLine]
- * [vim-luna]
- * [Unite.vim]
+ * [molokai]
+ * [NERDTree]
  * [UltiSnips]
- * [Gundo]
  * [vim-commentary]
- * And many more...
 
 Installation
 ------------
 If you like how I configured vim and you want something similar on you pc, just download `<repo-name>`
-somewhere and then run `./install.sh` (backup all previous configurations before).
-ATTENTION: This configuration is intended to be a personal backup repo, just in case of fire.
+in your `$HOME/.vim` or where you know vim will look into for its startup configuration.
+One day I'll write and installation script to do all the work, I promise.
 
 Credits
 -------
@@ -29,9 +28,9 @@ Also thanks `ddellaquila` for his configurations and ideas.
 
 [NeoBundle]:https://github.com/Shougo/neobundle.vim
 [YouCompleteMe]:https://github.com/Valloric/YouCompleteMe
+[cpp-vim]:https://github.com/vim-jp/cpp-vim
 [indentLine]:https://github.com/Yggdroot/indentLine
-[molokai]:https://github.com/Pychimp/vim-luna
-[Unite]:https://github.com/Shoudo/unite.vim
+[molokai]:https://github.com/tomasr/molokai
+[NERDTree]:https://github.com/scrooloose/nerdtree
 [UltiSnips]:https://github.com/SirVer/ultisnips
-[Gundo]:https://github.com/sjl/gundo.vim
 [vim-commentary]:https://github.com/tpope/vim-commentary

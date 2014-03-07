@@ -14,5 +14,5 @@ git clone git@github.com:Shougo/neobundle.vim.git $HOME/.vim/bundle/neobundle.vi
 echo "Updating all plugins"
 vim +NeoBundleInstall +q
 echo
-mkdir -p $HOME/.vim/undo $HOME/.vim/session
+mkdir -p $HOME/.vim/undo $HOME/.vim/sessions
 echo "Done"

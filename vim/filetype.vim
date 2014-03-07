@@ -25,7 +25,7 @@ autocmd FileType xhtml  set tabstop=2|set shiftwidth=2
 autocmd FileType xml    set tabstop=2|set shiftwidth=2
 
 " Vala
-autocmd FileType vala   set efm=%f:%l.%c-%[%^:]%#:\ %t%[%^:]%#:\ %m
+autocmd BufRead *.vala,*.vapi set efm=%f:%l.%c-%[%^:]%#:\ %t%[%^:]%#:\ %m
 
 " Python
 autocmd FileType python set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class

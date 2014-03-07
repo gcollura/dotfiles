@@ -1,5 +1,8 @@
-""" NeoBundle setup
-set nocompatible " Be iMproved
+" randomcpp's vimrc
+
+if &compatible
+    set nocompatible " Be iMproved
+endif
 filetype off
 
 " Force the use of python2
@@ -10,23 +13,16 @@ elseif has('python3')
 endif
 
 if has('vim_starting')
-   set runtimepath+=~/.vim/bundle/neobundle.vim/
+    set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
 call neobundle#rc(expand('~/.vim/bundle'))
-
 NeoBundleFetch 'Shougo/neobundle.vim'
-
-" Load configurations
-source $HOME/.vim/bundles.vim
-source $HOME/.vim/mappings.vim
-source $HOME/.vim/filetype.vim
-source $HOME/.vim/custom.vim
 
 """ Files and backup
 
 " History size
-set history=50
+set history=100
 
 " Saving and reloading
 set confirm
@@ -64,11 +60,17 @@ set softtabstop=4
 set expandtab
 set smarttab
 
+" Change the way backslashes are used in search patterns
+set magic
+
 " Turn off word wrapping
 set nowrap
 
 " Sane backspace behaviour
 set backspace=indent,eol,start
+
+" Set default clipboard
+set clipboard+=unnamedplus
 
 """ Spell Checking
 
@@ -80,7 +82,7 @@ set spellsuggest=5
 
 set wildmenu
 "stuff to ignore when tab completing
-set wildignore=*.o,*.obj,*~,*.png,*.gif,*.jpg,*.jpeg,*.zip,*.jar,*.gem,coverage/**,log/**,*.pyc,*~
+set wildignore=*.o,*.png,*.gif,*.jpg,*.jpeg,*.zip,*.jar,*.gem,coverage/**,log/**,*.pyc,*~,build/**
 
 """ Search
 
@@ -89,6 +91,9 @@ set incsearch
 set ignorecase
 set smartcase
 set gdefault
+
+
+""" Display
 
 " set lazyredraw
 set laststatus=2
@@ -102,18 +107,38 @@ set number
 set relativenumber
 set numberwidth=5
 
+set scrolloff=4
+
 " Highlight current line
 set cursorline
+
+" Column
+set textwidth=80
+set colorcolumn=+1
+
+" Session options
+set sessionoptions=buffers,curdir,tabpages,unix
+
+set pastetoggle=<F9>
 
 if has("win32") || has("win64")
     set shellslash
 endif
 
+" Load configurations
+source $HOME/.vim/bundles.vim
+source $HOME/.vim/mappings.vim
+source $HOME/.vim/filetype.vim
+source $HOME/.vim/custom.vim
+
 " Syntax highlighting and colorscheme
 syntax on
 if has("gui_running")
     set background=light
-    colorscheme solarized
+    colorscheme atom
+    let g:airline_theme = 'lucius'
 else
+    set background=dark
     colorscheme luna-term
+    let g:airline_theme = 'luna'
 endif

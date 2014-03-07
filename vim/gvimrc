@@ -1,17 +1,19 @@
 " GUI is running or is about to start.
 " Resize gvim window.
-set lines=38
-set columns=120
+
+set lines=42
+set columns=130
+
 if has("gui_gtk2")
     set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 11
     " No useless vertical space between lines, more contents
-    set linespace=-2 
+    set linespace=-2
 elseif has("gui_win32")
     set guifont=Ubuntu\ Mono\ for\ Powerline:h10
 endif
 
 set guioptions=-m  " No Menubar
-set guioptions=-T " No Toolbar
+set guioptions=-T  " No Toolbar
 set guioptions=-S  " No scrollbar
 set guioptions=-e  " No guitablabel
 set guioptions=+c  " No confirm windows

@@ -1,6 +1,6 @@
 import os
 import ycm_core
-import vim
+# import vim
 
 # These are the compilation flags that will be used in case there's no
 # compilation database set (by default, one is not set).
@@ -24,11 +24,11 @@ flags_cpp = flags + [
     # '-I',
     # '/usr/include/c++/4.7/',
     # '-I',
-    # '/usr/include/',    
+    # '/usr/include/',
 ]
 
 flags_c = flags + [
-    '-std=c99',
+    '-ansi',
     '-x',
     'c',
     # '-I',
@@ -84,17 +84,17 @@ def MakeRelativePathsInFlagsAbsolute( flags, working_directory ):
 
 def FlagsForFile( filename ):
 
-    filetype = vim.eval('&filetype')
+    # filetype = vim.eval('&filetype')
 
-    if filetype == 'c':
+    if filename.endswith('c'):
         flags = flags_c
-    elif filetype == 'cpp':
+    elif filename.endswith('cpp'):
         flags = flags_cpp
-    elif filetype == 'h' or filetype == 'hpp':
+    elif filename.endswith('h') or filename.endswith('hpp'):
         flags = flags_cpp
     else:
         flags = flags
-    
+
     if database:
         # Bear in mind that compilation_info.compiler_flags_ does NOT return a
         # python list, but a "list-like" StringVec object
@@ -103,13 +103,6 @@ def FlagsForFile( filename ):
             compilation_info.compiler_flags_,
             compilation_info.compiler_working_dir_ )
 
-        # NOTE: This is just for YouCompleteMe; it's highly likely that your project
-        # does NOT need to remove the stdlib flag. DO NOT USE THIS IN YOUR
-        # ycm_extra_conf IF YOU'RE NOT 100% YOU NEED IT.
-        try:
-            final_flags.remove( '-stdlib=libc++' )
-        except ValueError:
-            pass
     else:
         relative_to = DirectoryOfThisScript()
         final_flags = MakeRelativePathsInFlagsAbsolute( flags, relative_to )

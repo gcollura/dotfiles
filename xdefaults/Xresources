@@ -47,8 +47,16 @@ URxvt*meta8: 0
                     ~Shift ~Ctrl ~Meta <Btn2Up>:insert-selection(PRIMARY, CUT_BUFFER0) \n\
                      Shift ~Ctrl ~Meta <Btn2Up>:insert-selection(CLIPBOARD, CUT_BUFFER1)
 
-URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+URxvt.clipboard.copycmd: xclip -i -selection clipboard
+URxvt.clipboard.pastecmd: xclip -o -selection clipboard
+
+! Keysym
+URxvt.keysym.M-c: perl:clipboard:copy
+URxvt.keysym.M-v: perl:clipboard:paste
+URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
+URxvt.keysym.M-Escape: perl:keyboard-select:activate
+
 URxvt.iso14755: false
-URxvt.perl-ext-common: default,clipboard
+URxvt.perl-ext-common: default,clipboard,keyboard-select
 
 #include ".config/Xcolors.luna"
