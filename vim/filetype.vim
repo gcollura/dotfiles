@@ -29,3 +29,6 @@ autocmd BufRead *.vala,*.vapi set efm=%f:%l.%c-%[%^:]%#:\ %t%[%^:]%#:\ %m
 
 " Python
 autocmd FileType python set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+
+" LaTeX
+autocmd FileType tex setl wrap linebreak textwidth=0
