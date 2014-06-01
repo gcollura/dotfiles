@@ -19,9 +19,8 @@ call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
 call unite#set_profile('files', 'smartcase', 1)
 call unite#custom#source('file_rec/async', 'ignore_pattern', 'build')
-nnoremap <leader>p :Unite -start-insert file_rec/async:! <CR>
-nnoremap <leader>è :Unite grep:. <CR>
-nnoremap <leader>o :Unite -start-insert file_mru <CR>
+nnoremap <leader>p :Unite -start-insert file_rec/async <CR>
+nnoremap <leader>[ :Unite grep:. <CR>
 nnoremap <leader>/ :Unite grep:$buffers <CR>
 nnoremap <leader>l :Unite buffer <CR>
 nnoremap <leader>i :Unite source <CR>
@@ -44,33 +43,31 @@ elseif executable('ack-grep')
     let g:unite_source_grep_recursive_opt = ''
 endif
 
-NeoBundleLazy 'Shougo/vimfiler.vim', { 'autoload' : {
-            \ 'commands' : 'VimFiler',
-            \ }}
+NeoBundle 'Shougo/neomru.vim'
+nnoremap <leader>o :Unite -start-insert neomru/file <CR>
+nnoremap <leader>O :Unite -start-insert -default-action=lcd neomru/directory <CR>
+
+NeoBundle 'Shougo/vimfiler.vim'
 let g:vimfiler_as_default_explorer = 1
-nnoremap <leader>f :VimFiler -toggle -explorer <CR>
+nnoremap <leader>f :VimFilerExplorer -split <CR>
+
+NeoBundle 't9md/vim-choosewin'
+let g:choosewin_overlay_enable = 1
+let g:choosewin_overlay_clear_multibyte = 1
+nnoremap - <Plug>(choosewin)
+
+NeoBundle 'moll/vim-bbye'
+nnoremap <leader>q :Bdelete <CR>
 
 " Ultisnips and Snippets
 NeoBundle 'SirVer/ultisnips'
-let g:UltiSnipsSnippetDirectories = ['bundle/ultisnips/UltiSnips']
-function! g:UltiSnips_Complete()
-    call UltiSnips_ExpandSnippet()
-    if g:ulti_expand_res == 0
-        if pumvisible()
-            return "\<C-n>"
-        else
-            call UltiSnips_JumpForwards()
-            if g:ulti_jump_forwards_res == 0
-                return "\<TAB>"
-            endif
-        endif
-    endif
-    return ""
-endfunction
-" Small workaround to have tab work with YouCompleteMe
-au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
-let g:UltiSnipsJumpForwardTrigger="<Tab>"
-let g:UltiSnipsListSnippets="<C-Tab>"
+NeoBundle 'honza/vim-snippets'
+let g:UltiSnipsSnippetDirectories = ['bundle/honza/vim-snippets']
+let g:UltiSnipsUsePythonVersion = 2
+let g:UltiSnipsListSnippets = '<c-l>'
+let g:UltiSnipsExpandTrigger = '<c-k>'
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " Completion support
 NeoBundle 'Valloric/YouCompleteMe'
@@ -79,6 +76,8 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_complete_in_comments = 1
 let g:ycm_confirm_extra_conf = 0 " NOTE: Extremely insecure!
 let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_warning_symbol = '»'
+let g:ycm_error_symbol = '»'
 
 " Syntastic
 NeoBundle 'scrooloose/syntastic'
@@ -92,10 +91,6 @@ let g:tagbar_autofocus = 1
 let g:tagbar_autoclose = 1
 nmap <F2> :TagbarToggle <CR>
 
-" Vim indent guides
-NeoBundle 'nathanaelkane/vim-indent-guides'
-let g:indent_guides_color_change_percent = 2
-
 " Commentary
 NeoBundle 'tpope/vim-commentary'
 autocmd FileType cpp set commentstring=//\ %s
@@ -103,8 +98,17 @@ autocmd FileType cpp set commentstring=//\ %s
 " Vim fugitive
 NeoBundle 'tpope/vim-fugitive'
 
+" Vim sorround
+NeoBundle 'tpope/vim-surround'
+
+" Vim repeat
+NeoBundle 'tpope/vim-repeat'
+
 " Vim multiple cursors (a.k.a. SublimeText2 multiselection)
 NeoBundle 'terryma/vim-multiple-cursors'
+
+" Vim wildfire, select the closest text object
+NeoBundle 'gcmt/wildfire.vim'
 
 " Gundo
 NeoBundleLazy 'sjl/gundo.vim', { 'autoload' : {
@@ -118,13 +122,7 @@ NeoBundle 'Raimondi/delimitMate'
 " Utility library for vim-session and vim-lua
 NeoBundle 'xolox/vim-misc'
 
-" Easytags - Ctags everywhere
-NeoBundle 'xolox/vim-easytags'
-let g:easytags_file = '~/.vim/tags'
-let g:easytags_dynamic_files = 1
-let g:easytags_updatetime_warn = 0
-
-" Sexy session support
+" Better session support
 NeoBundle 'xolox/vim-session'
 let g:session_autosave_periodic = 5
 let g:session_command_aliases = 1
@@ -133,12 +131,11 @@ let g:session_command_aliases = 1
 NeoBundleLazy 'xolox/vim-lua-ftplugin', { 'autoload' : {
             \ 'filetypes': 'lua',
             \ }}
-let g:lua_check_syntax = 0
+let g:lua_check_syntax = 1
 let g:lua_complete_omni = 1
-let g:lua_complete_dynamic = 0
+let g:lua_complete_dynamic = 1
 
-" Vim go to terminal or go to file manager
-NeoBundle 'justinmk/vim-gtfo'
+NeoBundle 'LaTeX-Box-Team/LaTeX-Box'
 
 " Vim sneak
 NeoBundle 'justinmk/vim-sneak'
@@ -162,6 +159,9 @@ NeoBundle 'cakebaker/scss-syntax.vim'
 NeoBundleLazy 'tkztmk/vim-vala', { 'autoload' : {
             \ 'filetypes': 'vala',
             \ }}
+
+" Qml support
+NeoBundle 'peterhoeg/vim-qml'
 
 " Luna colorscheme
 NeoBundle 'Pychimp/vim-luna'
