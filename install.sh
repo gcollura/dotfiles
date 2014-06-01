@@ -2,6 +2,6 @@ echo -n "Creating symlinks"
 
 set -x
 
-ln -s $(pwd)/tmux.conf ~/.tmux.conf
-ln -s $(pwd)/irssi ~/.irssi
-ln -s $(pwd)/vim ~/.vim
+ln -s $PWD/tmux.conf ~/.tmux.conf
+ln -s $PWD/irssi ~/.irssi
+ln -s $PWD/vim ~/.vim
