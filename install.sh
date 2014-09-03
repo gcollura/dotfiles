@@ -1,7 +1,10 @@
-echo -n "Creating symlinks"
+echo "Creating symlinks"
 
 set -x
 
 ln -s $PWD/tmux.conf ~/.tmux.conf
+ln -s $PWD/tmux ~/.tmux
 ln -s $PWD/irssi ~/.irssi
 ln -s $PWD/vim ~/.vim
+ln -s $PWD/xdefaults/Xresources ~/.Xresources
+ln -s $PWD/xdefaults/Xcolors.infinitered ~/.config
