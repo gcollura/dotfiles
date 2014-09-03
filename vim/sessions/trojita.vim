@@ -1,6 +1,6 @@
-" ~/.vim/sessions/trojita.vim:
+" ~/Projects/dotfiles/vim/sessions/trojita.vim:
 " Vim session script.
-" Created by session.vim 2.4.9 on 01 June 2014 at 21:50:40.
+" Created by session.vim 2.4.9 on 16 June 2014 at 21:22:01.
 " Open this file in Vim and run :source % to restore your session.
 
 set guioptions=+c
@@ -27,9 +27,9 @@ set shortmess=aoO
 badd +19 src/Ubuntu/qml/trojita/Utils.js
 badd +60 src/Ubuntu/qml/trojita/OneMessagePage.qml
 badd +65 src/Ubuntu/qml/trojita/main.qml
-badd +107 src/Ubuntu/qml/trojita/MailboxListPage.qml
+badd +105 src/Ubuntu/qml/trojita/MailboxListPage.qml
 badd +65 src/Ubuntu/qml/trojita/ImapSettings.qml
-badd +57 src/Ubuntu/qml/trojita/MessageListPage.qml
+badd +233 src/Ubuntu/qml/trojita/MessageListPage.qml
 badd +25 src/Ubuntu/qml/trojita/AddressWidget.qml
 badd +29 src/Ubuntu/qml/trojita/AddressField.qml
 badd +1 src/Composer/ContentDisposition.h
@@ -65,9 +65,10 @@ badd +96 src/Imap/Parser/MailAddress.h
 badd +86 src/Composer/MessageComposer.cpp
 badd +36 src/Ubuntu/qml/trojita/PasswordInputSheet.qml
 badd +1 src/Imap/Model/Model.cpp
-badd +45 src/Ubuntu/qml/trojita/MessageListToolbar.qml
+badd +38 src/Ubuntu/qml/trojita/MessageListToolbar.qml
+badd +58 src/Ubuntu/qml/trojita/RefreshableListView.qml
 silent! argdel *
-edit src/Ubuntu/qml/trojita/MailboxListPage.qml
+edit src/Ubuntu/qml/trojita/RefreshableListView.qml
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
@@ -83,27 +84,27 @@ wincmd t
 set winheight=1 winwidth=1
 wincmd =
 " argglobal
-let s:l = 108 - ((20 * winheight(0) + 20) / 40)
+let s:l = 64 - ((33 * winheight(0) + 32) / 64)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-108
-normal! 011|
+64
+normal! 013|
 lcd ~/Projects/trojita
 wincmd w
 " argglobal
 edit ~/Projects/trojita/src/Imap/Model/Model.h
-let s:l = 293 - ((10 * winheight(0) + 11) / 22)
+let s:l = 295 - ((17 * winheight(0) + 16) / 32)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-293
+295
 normal! 0
 lcd ~/Projects/trojita
 wincmd w
 " argglobal
 edit ~/Projects/trojita/src/Imap/Model/Model.cpp
-let s:l = 843 - ((8 * winheight(0) + 8) / 17)
+let s:l = 843 - ((15 * winheight(0) + 15) / 31)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt

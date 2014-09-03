@@ -3,3 +3,5 @@
 *.neobundle/
 .direct_bundles
 tags
+*eclim*
+workbench.xmi

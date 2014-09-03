@@ -1,6 +1,6 @@
-" ~/Projects/dotfiles/vim/sessions/kglt.vim:
+" ~/Projects/dotfiles/vim/sessions/revenge.vim:
 " Vim session script.
-" Created by session.vim 2.6.4 on 11 August 2014 at 19:10:20.
+" Created by session.vim 2.6.4 on 17 August 2014 at 15:44:33.
 " Open this file in Vim and run :source % to restore your session.
 
 set guioptions=+c
@@ -19,35 +19,27 @@ if &cp | set nocp | endif
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
-cd ~/Projects/KGLT
+cd ~/Projects/revenge
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +1 kglt/physics/bullet/bullet_body.cpp
-badd +8 kglt/physics/bullet/bullet_body.h
-badd +1 kglt/physics/bullet/bullet_collidable.cpp
-badd +1 kglt/physics/bullet/bullet_collidable.h
-badd +1 kglt/physics/bullet/bullet_engine.cpp
-badd +16 kglt/physics/bullet/bullet_engine.h
-badd +4 kglt/physics/bullet/bullet_private.h
-badd +17 samples/box_drop_sample.cpp
-badd +23 kglt/stage.cpp
-badd +12 CMakeLists.txt
+badd +8 core/src/com/gcollura/revenge/RevengeGame.java
+badd +1 core/build.gradle
 silent! argdel *
-edit samples/box_drop_sample.cpp
+edit core/src/com/gcollura/revenge/RevengeGame.java
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
 argglobal
-let s:l = 8 - ((7 * winheight(0) + 19) / 39)
+let s:l = 6 - ((5 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-8
-normal! 021|
+6
+normal! 044|
 tabnext 1
 if exists('s:wipebuf')
 "   silent exe 'bwipe ' . s:wipebuf

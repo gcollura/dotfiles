@@ -62,7 +62,7 @@ nnoremap <leader>q :Bdelete <CR>
 " Ultisnips and Snippets
 NeoBundle 'SirVer/ultisnips'
 NeoBundle 'honza/vim-snippets'
-let g:UltiSnipsSnippetDirectories = ['bundle/honza/vim-snippets']
+" let g:UltiSnipsSnippetDirectories = ['bundle/honza/vim-snippets']
 let g:UltiSnipsUsePythonVersion = 2
 let g:UltiSnipsListSnippets = '<c-l>'
 let g:UltiSnipsExpandTrigger = '<c-k>'
@@ -70,7 +70,10 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " Completion support
-NeoBundle 'Valloric/YouCompleteMe'
+NeoBundle 'Valloric/YouCompleteMe', {
+            \ 'build': {
+            \       'unix': './install.sh --clang-completer --system-libclang'
+            \ }, }
 let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_extra_conf.py'
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_complete_in_comments = 1
@@ -163,8 +166,13 @@ NeoBundleLazy 'tkztmk/vim-vala', { 'autoload' : {
 " Qml support
 NeoBundle 'peterhoeg/vim-qml'
 
+" Gradle
+NeoBundle 'tfnico/vim-gradle'
+
 " Luna colorscheme
 NeoBundle 'Pychimp/vim-luna'
 NeoBundle 'Pychimp/vim-sol'
+
+let g:EclimCompletionMethod = 'omnifunc'
 
 filetype plugin indent on

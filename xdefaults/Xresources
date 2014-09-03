@@ -1,11 +1,10 @@
 ! Xft
 
 Xft.autohint: 0
-Xft.lcdfilter:  lcddefault
-!Xft.hintstyle:  hintfull
+Xft.lcdfilter: lcddefault
 Xft.hintstyle: hintslight
 Xft.hinting: 1
-Xft.antialias: 1
+Xft.antialias: 0
 Xft.rgba: rgb
 
 ! Xterm
@@ -22,19 +21,29 @@ xterm*vt100*geometry: 100x30
 xterm*charClass: 33:48,35:48,37:48,43:48,45-47:48,64:48,95:48,126:48
 
 ! Urxvt
-URxvt*font: xft:Ubuntu Mono derivative Powerline:size=11,xft:Monospace:size=11
+URxvt*font: xft:Ubuntu Mono derivative Powerline:size=11:antialias=false,xft:Monospace:size=11
 URxvt*letterSpace: -2
 URxvt*lineSpace: -2
-URxvt*scrollKey: false
-URxvt*depth: 32
+URxvt*scrollKey: true
+URxvt*jumpScroll: true
+URxvt*multiScroll: true
+URxvt*scrollTtyOutput: false
+URxvt*depth: 24
 URxvt*loginShell: true
-URxvt*geometry: 100x30
-URxvt*saveLines: 10000
-URxvt*cutchars: "`\"'&()*,:;<=>?[\\]^{|}$"
+URxvt*geometry: 120x38
+URxvt*cutNewLine: false
+URxvt*saveLines: 100
+!URxvt*cutchars: "`\"'&()*,:;<=>?[\\]^{|}$"
 URxvt*scrollBar: false
-URxvt*visualBell: true
+URxvt*visualBell: false
 URxvt*fading: 15
 URxvt*meta8: 0
+URxvt*buffered: false
+URxvt*dynamicColors: true
+URxvt*inheritPixmap: false
+URxvt*trasparent: true
+URxvt*shading: 15
+
 
 ! Urxvt plugins
 *VT100.Translations: #override \
@@ -55,8 +64,9 @@ URxvt.keysym.M-c: perl:clipboard:copy
 URxvt.keysym.M-v: perl:clipboard:paste
 URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
 URxvt.keysym.M-Escape: perl:keyboard-select:activate
+URxvt.keysym.M-f: perl:keyboard-select:search
 
 URxvt.iso14755: false
 URxvt.perl-ext-common: default,clipboard,keyboard-select
 
-#include ".config/Xcolors.luna"
+#include ".config/Xcolors.infinitered"

@@ -315,8 +315,5 @@ settings = {
     awl_block = "14";
   };
 };
-ignores = ({
-  level = "JOINS PARTS QUITS"; 
-  network = "Freenode"; 
-});
+ignores = ( { level = "JOINS PARTS QUITS"; network = "Freenode"; } );
 logs = { };
