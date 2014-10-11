@@ -1,0 +1,9 @@
+pane	0	1	:saucybacon	0	:-	0	:/home/random/Projects/test-app	1	zsh	:
+pane	0	2	:chroot	0	: 	0	:/home/random/Projects	1	qemu-arm-static	:sudo
+pane	0	2	:chroot	0	: 	1	:/home/random/Projects	0	zsh	:
+pane	0	3	:sudo	1	:*	0	:/home/random/Projects/test-app	0	zsh	:
+pane	0	3	:sudo	1	:*	1	:/home/random	1	sudo	:sudo
+window	0	1	0	:-	c4fd,120x37,0,0,0
+window	0	2	0	: 	53b9,120x37,0,0[120x24,0,0,3,120x12,0,25,4]
+window	0	3	1	:*	e5b8,120x37,0,0[120x18,0,0,2,120x18,0,19,6]
+state	0	0

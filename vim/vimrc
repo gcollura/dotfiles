@@ -130,8 +130,8 @@ source $HOME/.vim/filetype.vim
 syntax on
 if has("gui_running")
     set background=light
-    colorscheme atom
-    let g:airline_theme = 'lucius'
+    colorscheme gotham
+    let g:airline_theme = 'gotham'
 else
     set background=dark
     colorscheme luna-term

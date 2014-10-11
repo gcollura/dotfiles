@@ -17,7 +17,7 @@ let g:unite_prompt = '» '
 let g:unite_source_grep_max_candidates = 200
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
-call unite#set_profile('files', 'smartcase', 1)
+call unite#custom#profile('files', 'context.smartcase', 1)
 call unite#custom#source('file_rec/async', 'ignore_pattern', 'build')
 nnoremap <leader>p :Unite -start-insert file_rec/async <CR>
 nnoremap <leader>[ :Unite grep:. <CR>
@@ -47,6 +47,10 @@ NeoBundle 'Shougo/neomru.vim'
 nnoremap <leader>o :Unite -start-insert neomru/file <CR>
 nnoremap <leader>O :Unite -start-insert -default-action=lcd neomru/directory <CR>
 
+NeoBundle 'Shougo/unite-session'
+let g:unite_source_session_path = '~/.vim/sessions'
+nnoremap <leader>S :Unite -start-insert session <CR>
+
 NeoBundle 'Shougo/vimfiler.vim'
 let g:vimfiler_as_default_explorer = 1
 nnoremap <leader>f :VimFilerExplorer -split <CR>
@@ -62,12 +66,11 @@ nnoremap <leader>q :Bdelete <CR>
 " Ultisnips and Snippets
 NeoBundle 'SirVer/ultisnips'
 NeoBundle 'honza/vim-snippets'
-" let g:UltiSnipsSnippetDirectories = ['bundle/honza/vim-snippets']
 let g:UltiSnipsUsePythonVersion = 2
 let g:UltiSnipsListSnippets = '<c-l>'
 let g:UltiSnipsExpandTrigger = '<c-k>'
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-k>"
+let g:UltiSnipsJumpBackwardTrigger="<c-K>"
 
 " Completion support
 NeoBundle 'Valloric/YouCompleteMe', {
@@ -97,6 +100,7 @@ nmap <F2> :TagbarToggle <CR>
 " Commentary
 NeoBundle 'tpope/vim-commentary'
 autocmd FileType cpp set commentstring=//\ %s
+autocmd FileType cfg set commentstring=#\ %s
 
 " Vim fugitive
 NeoBundle 'tpope/vim-fugitive'
@@ -106,6 +110,9 @@ NeoBundle 'tpope/vim-surround'
 
 " Vim repeat
 NeoBundle 'tpope/vim-repeat'
+
+" Vim eunuch
+NeoBundle 'tpope/vim-eunuch'
 
 " Vim multiple cursors (a.k.a. SublimeText2 multiselection)
 NeoBundle 'terryma/vim-multiple-cursors'
@@ -129,6 +136,8 @@ NeoBundle 'xolox/vim-misc'
 NeoBundle 'xolox/vim-session'
 let g:session_autosave_periodic = 5
 let g:session_command_aliases = 1
+let g:session_autosave = "yes"
+let g:session_persist_colors = 0
 
 " Lua support
 NeoBundleLazy 'xolox/vim-lua-ftplugin', { 'autoload' : {
@@ -137,6 +146,8 @@ NeoBundleLazy 'xolox/vim-lua-ftplugin', { 'autoload' : {
 let g:lua_check_syntax = 1
 let g:lua_complete_omni = 1
 let g:lua_complete_dynamic = 1
+
+NeoBundle 'junegunn/vim-easy-align'
 
 NeoBundle 'LaTeX-Box-Team/LaTeX-Box'
 
@@ -172,6 +183,9 @@ NeoBundle 'tfnico/vim-gradle'
 " Luna colorscheme
 NeoBundle 'Pychimp/vim-luna'
 NeoBundle 'Pychimp/vim-sol'
+
+" Gotham colorscheme
+NeoBundle 'whatyouhide/vim-gotham'
 
 let g:EclimCompletionMethod = 'omnifunc'
 

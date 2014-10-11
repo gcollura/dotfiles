@@ -1,6 +1,6 @@
-" ~/Projects/dotfiles/vim/sessions/gcollura.github.io.vim:
+" ~/Projects/dotfiles/vim/sessions/ogreapp.vim:
 " Vim session script.
-" Created by session.vim 2.7 on 29 September 2014 at 22:04:12.
+" Created by session.vim 2.7 on 23 September 2014 at 01:00:03.
 " Open this file in Vim and run :source % to restore your session.
 
 set guioptions=+c
@@ -19,40 +19,32 @@ if &cp | set nocp | endif
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
-cd ~/Projects/gcollura.github.io
+cd ~/Projects/ogreapp
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +11 index.html
-badd +14 _config.yml
-badd +47 _site/index.html
-badd +3 _layouts/default.html
-badd +6 .gitignore
-badd +23 _includes/header.html
-badd +7 _layouts/post.html
-badd +13 _includes/footer.html
-badd +142 css/main.css
-badd +35 css/syntax.css
-badd +23 projects/index.html
-badd +3 _layouts
-badd +16 about-me/index.html
-badd +22 _posts/2014-03-12-welcome-to-jekyll.markdown
+badd +27 src/TutorialApplication.h
+badd +184 src/TutorialApplication.cpp
+badd +1 CMakeLists.txt
+badd +14 dist/bin/plugins.cfg
+badd +12 dist/bin/resources.cfg
 argglobal
 silent! argdel *
-edit about-me/index.html
+edit src/TutorialApplication.cpp
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
 argglobal
-let s:l = 15 - ((14 * winheight(0) + 17) / 35)
+let s:l = 153 - ((4 * winheight(0) + 25) / 51)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-15
-normal! 052|
+153
+normal! 0
+lcd ~/Projects/ogreapp
 tabnext 1
 if exists('s:wipebuf')
 "   silent exe 'bwipe ' . s:wipebuf

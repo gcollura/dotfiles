@@ -1,0 +1,9 @@
+pane	0	1	:saucybacon	1	:*	0	:/home/random/Projects/saucybacon	1	zsh	:
+pane	0	2	:chroot	0	:-	0	:/home/random/Projects	1	zsh	:
+pane	0	2	:chroot	0	:-	1	:/home/random/Projects	0	zsh	:
+pane	0	3	:zsh	0	: 	0	:/home/random/Projects/test-app	0	zsh	:
+pane	0	3	:zsh	0	: 	1	:/home/random	1	zsh	:
+window	0	1	1	:*	c4fd,120x37,0,0,0
+window	0	2	0	:-	53b4,120x37,0,0[120x24,0,0,1,120x12,0,25,2]
+window	0	3	0	: 	e5b9,120x37,0,0[120x18,0,0,3,120x18,0,19,4]
+state	0	0
