@@ -1,0 +1,7 @@
+pane	0	1	:zsh	1	:*	0	:/home/random/Projects	0	zsh	:
+pane	0	1	:zsh	1	:*	1	:/home/random/Projects/phablet-tools	0	zsh	:
+pane	0	1	:zsh	1	:*	2	:/home/random/Projects/notika	1	zsh	:
+pane	0	2	:wget	0	:#-	0	:/home/random/Downloads/Distros	1	wget	:wget
+window	0	1	1	:*	f0be,273x60,0,0{156x60,0,0,0,116x60,157,0[116x30,157,0,4,116x29,157,31,5]}
+window	0	2	0	:#-	b1de,273x60,0,0,1
+state	0	

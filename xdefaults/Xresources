@@ -60,13 +60,16 @@ URxvt.clipboard.copycmd: xclip -i -selection clipboard
 URxvt.clipboard.pastecmd: xclip -o -selection clipboard
 
 ! Keysym
+URxvt.searchable-scrollback: C-s
 URxvt.keysym.M-c: perl:clipboard:copy
 URxvt.keysym.M-v: perl:clipboard:paste
 URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
 URxvt.keysym.M-Escape: perl:keyboard-select:activate
 URxvt.keysym.M-f: perl:keyboard-select:search
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.matcher.button: 1
 
 URxvt.iso14755: false
-URxvt.perl-ext-common: default,clipboard,keyboard-select
+URxvt.perl-ext-common: default,clipboard,keyboard-select,matcher
 
 #include ".config/Xcolors.infinitered"
