@@ -9,117 +9,119 @@ if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
-    call neobundle#rc(expand('~/.vim/bundle'))
-    NeoBundleFetch 'Shougo/neobundle.vim'
+""" Files and backup
 
-    """ Files and backup
+" History size
+set history=100
 
-    " History size
-    set history=100
+" Saving and reloading
+set confirm
+set autoread
+set hidden
 
-    " Saving and reloading
-    set confirm
-    set autoread
-    set hidden
+" Autosave
+au FocusLost * silent! wa
 
-    " Autosave
-    au FocusLost * silent! wa
+" Encoding
+set encoding=utf-8
+" Default fileformat.
+set fileformat=unix
+" Automatic recognition of a new line cord.
+set fileformats=unix,dos,mac
 
-    " Encoding
-    set encoding=utf-8
-    " Default fileformat.
-    set fileformat=unix
-    " Automatic recognition of a new line cord.
-    set fileformats=unix,dos,mac
+" Persistent undo
+set undodir=$HOME/.vim/undo " Where to save undo(s)
+set undofile " Save undo when switching buffer or closing files
 
-    " Persistent undo
-    set undodir=$HOME/.vim/undo " Where to save undo(s)
-    set undofile " Save undo when switching buffer or closing files
+" Folding
+set foldmethod=indent " Convenient with C++
+set nofoldenable " Folding disable by default
+" No folding when loading files
+au BufRead * normal zR
 
-    " Folding
-    set foldmethod=indent " Convenient with C++
-    set nofoldenable " Folding disable by default
-    " No folding when loading files
-    au BufRead * normal zR
+""" Editing
 
-    """ Editing
+" Indentation/tab settings
+set autoindent
+set smartindent
 
-    " Indentation/tab settings
-    set autoindent
-    set smartindent
-    set tabstop=4
-    set shiftwidth=4
-    set softtabstop=4
-    set expandtab
-    set smarttab
+if v:version > 704 || v:version == 704 && has("patch338")
+    set breakindent
+endif
 
-    " Change the way backslashes are used in search patterns
-    set magic
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+set smarttab
 
-    " Turn off word wrapping
-    set nowrap
+" Change the way backslashes are used in search patterns
+set magic
 
-    " Sane backspace behaviour
-    set backspace=indent,eol,start
+" Turn off word wrapping
+set nowrap
 
-    " Set default clipboard
-    set clipboard+=unnamedplus
+" Sane backspace behaviour
+set backspace=indent,eol,start
 
-    """ Spell Checking
+" Set default clipboard
+set clipboard+=unnamedplus
 
-    set nospell
-    set spelllang=en
-    set spellsuggest=5
+""" Spell Checking
 
-    """ Completion
+set nospell
+set spelllang=en
+set spellsuggest=5
 
-    set wildmenu
-    "stuff to ignore when tab completing
-    set wildignore=*.o,*.png,*.gif,*.jpg,*.jpeg,*.zip,*.jar,*.gem,coverage/**,log/**,*.pyc,*~,build/**
+""" Completion
 
-    """ Search
+set wildmenu
+"stuff to ignore when tab completing
+set wildignore=*.o,*.png,*.gif,*.jpg,*.jpeg,*.zip,*.jar,*.gem,coverage/**,log/**,*.pyc,*~,build/**
 
-    set hlsearch
-    set incsearch
-    set ignorecase
-    set smartcase
-    set gdefault
+""" Search
+
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set gdefault
 
 
-    """ Display
+""" Display
 
-    set lazyredraw
-    set laststatus=2
-    " Hide show mode while using airline
-    set noshowmode
-    " Enable modelines
-    set modeline
+set lazyredraw
+set laststatus=2
+" Hide show mode while using airline
+set noshowmode
+" Enable modelines
+set modeline
 
-    " Numbers
-    set number
-    set relativenumber
-    set numberwidth=5
+" Numbers
+set number
+set relativenumber
+set numberwidth=5
 
-    set scrolloff=4
+set scrolloff=4
 
-    " Highlight current line
-    set cursorline
+" Highlight current line
+set cursorline
 
-    " Column
-    set textwidth=80
-    set colorcolumn=+1
+" Column
+set textwidth=80
+set colorcolumn=+1
 
-    " Matchpairs -- to be moved in ftplugin/html.vim
-    autocmd FileType html setlocal matchpairs+=<:>
+" Matchpairs -- to be moved in ftplugin/html.vim
+autocmd FileType html setlocal matchpairs+=<:>
 
-    " Session options
-    set sessionoptions=buffers,curdir,tabpages,unix
+" Session options
+set sessionoptions=buffers,curdir,tabpages,unix
 
-    set pastetoggle=<F9>
+set pastetoggle=<F9>
 
-    if has("win32") || has("win64")
-        set shellslash
-    endif
+if has("win32") || has("win64")
+    set shellslash
+endif
 
 " Load configurations
 source $HOME/.vim/bundles.vim

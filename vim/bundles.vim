@@ -1,6 +1,10 @@
 """ Bundle setup and configuration
 filetype off
 
+" NeoBundle manages itself
+call neobundle#begin(expand('~/.vim/bundle'))
+NeoBundleFetch 'Shougo/neobundle.vim'
+
 " Vimproc from Shougo
 NeoBundle 'Shougo/vimproc', {
             \ 'build' : {
@@ -15,10 +19,6 @@ NeoBundle 'Shougo/vimproc', {
 NeoBundle 'Shougo/unite.vim'
 let g:unite_prompt = '» '
 let g:unite_source_grep_max_candidates = 200
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#filters#sorter_default#use(['sorter_rank'])
-call unite#custom#profile('files', 'context.smartcase', 1)
-call unite#custom#source('file_rec/async', 'ignore_pattern', 'build')
 nnoremap <leader>p :Unite -start-insert file_rec/async <CR>
 nnoremap <leader>[ :Unite grep:. <CR>
 nnoremap <leader>/ :Unite grep:$buffers <CR>
@@ -68,9 +68,9 @@ NeoBundle 'SirVer/ultisnips'
 NeoBundle 'honza/vim-snippets'
 let g:UltiSnipsUsePythonVersion = 2
 let g:UltiSnipsListSnippets = '<c-l>'
-let g:UltiSnipsExpandTrigger = '<c-k>'
-let g:UltiSnipsJumpForwardTrigger="<c-k>"
-let g:UltiSnipsJumpBackwardTrigger="<c-K>"
+let g:UltiSnipsExpandTrigger = '<c-h>'
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 " Completion support
 NeoBundle 'Valloric/YouCompleteMe', {
@@ -188,5 +188,12 @@ NeoBundle 'Pychimp/vim-sol'
 NeoBundle 'whatyouhide/vim-gotham'
 
 let g:EclimCompletionMethod = 'omnifunc'
+
+call neobundle#end()
+
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#sorter_default#use(['sorter_rank'])
+call unite#custom#profile('files', 'context.smartcase', 1)
+call unite#custom#source('file_rec/async', 'ignore_pattern', 'build')
 
 filetype plugin indent on

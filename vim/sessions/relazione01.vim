@@ -1,6 +1,6 @@
-" ~/Projects/dotfiles/vim/sessions/ubuntu-ui-toolkit.vim:
+" ~/Projects/dotfiles/vim/sessions/relazione01.vim:
 " Vim session script.
-" Created by session.vim 2.7 on 15 October 2014 at 17:21:56.
+" Created by session.vim 2.7 on 18 October 2014 at 02:14:25.
 " Open this file in Vim and run :source % to restore your session.
 
 set guioptions=+c
@@ -15,46 +15,45 @@ if &cp | set nocp | endif
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
-cd ~/Projects/ubuntu-ui-toolkit
+cd ~/Projects/university/assignment/lab01
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +18 examples/ubuntu-ui-toolkit-gallery/ubuntu-ui-toolkit-gallery.qml
-badd +24 gallery.sh
-badd +124 modules/Ubuntu/Components/11/Button.qml
-badd +29 modules/Ubuntu/Components/Themes/Ambiance/ButtonStyle.qml
-badd +25 modules/Ubuntu/Components/Themes/Ambiance/ButtonForeground.qml
-badd +30 modules/Ubuntu/Components/ListItems/LabelVisual.qml
-badd +828 modules/Ubuntu/Components/TextArea.qml
-badd +87 modules/Ubuntu/Components/ListItems/Base.qml
-badd +344 modules/Ubuntu/Components/ListItems/Empty.qml
-badd +37 modules/Ubuntu/Components/AbstractButton.qml
-badd +95 modules/Ubuntu/Components/ActionItem.qml
-badd +245 modules/Ubuntu/Components/ListItems/Standard.qml
-badd +94 modules/Ubuntu/Components/ListItems/Subtitled.qml
-badd +43 modules/Ubuntu/Components/Themes/SuruDark/Palette.qml
-badd +1 modules/Ubuntu/Components/Themes/SuruDark/parent_theme
-badd +35 modules/Ubuntu/Components/UbuntuNumberAnimation.qml
-badd +922 modules/Ubuntu/Components/plugin/shapeitem.cpp
-badd +225 modules/Ubuntu/Components/plugin/plugin.cpp
-badd +111 modules/Ubuntu/Components/plugin/uctheme.cpp
-badd +0 modules/Ubuntu/Components/plugin/unitythemeiconprovider.cpp
+badd +171 relazione01.tex
+badd +73 ~/Projects/dotfiles/vim/bundles.vim
+badd +98 ~/ownCloud/relazioni/lab02/relazione01.tex
+badd +96 ~/ownCloud/relazioni/lab06/relazione06.tex
 argglobal
 silent! argdel *
-edit modules/Ubuntu/Components/plugin/unitythemeiconprovider.cpp
+edit relazione01.tex
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
 argglobal
-let s:l = 108 - ((4 * winheight(0) + 19) / 39)
+let s:l = 171 - ((44 * winheight(0) + 35) / 70)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-108
-normal! 0
+171
+normal! 0307|
+lcd ~/Projects/university/assignment/lab01
+tabedit ~/ownCloud/relazioni/lab02/relazione01.tex
+set splitbelow splitright
+set nosplitbelow
+set nosplitright
+wincmd t
+set winheight=1 winwidth=1
+argglobal
+let s:l = 76 - ((10 * winheight(0) + 35) / 70)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+76
+normal! 012|
+lcd ~/ownCloud/relazioni/lab02
 tabnext 1
 if exists('s:wipebuf')
 "   silent exe 'bwipe ' . s:wipebuf

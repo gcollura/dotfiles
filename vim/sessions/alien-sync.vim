@@ -1,6 +1,6 @@
-" ~/Projects/dotfiles/vim/sessions/ubuntu-ui-toolkit.vim:
+" ~/Projects/dotfiles/vim/sessions/alien-sync.vim:
 " Vim session script.
-" Created by session.vim 2.7 on 15 October 2014 at 17:21:56.
+" Created by session.vim 2.7 on 18 October 2014 at 12:56:38.
 " Open this file in Vim and run :source % to restore your session.
 
 set guioptions=+c
@@ -15,46 +15,52 @@ if &cp | set nocp | endif
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
-cd ~/Projects/ubuntu-ui-toolkit
+cd ~/Projects/alien-sync
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +18 examples/ubuntu-ui-toolkit-gallery/ubuntu-ui-toolkit-gallery.qml
-badd +24 gallery.sh
-badd +124 modules/Ubuntu/Components/11/Button.qml
-badd +29 modules/Ubuntu/Components/Themes/Ambiance/ButtonStyle.qml
-badd +25 modules/Ubuntu/Components/Themes/Ambiance/ButtonForeground.qml
-badd +30 modules/Ubuntu/Components/ListItems/LabelVisual.qml
-badd +828 modules/Ubuntu/Components/TextArea.qml
-badd +87 modules/Ubuntu/Components/ListItems/Base.qml
-badd +344 modules/Ubuntu/Components/ListItems/Empty.qml
-badd +37 modules/Ubuntu/Components/AbstractButton.qml
-badd +95 modules/Ubuntu/Components/ActionItem.qml
-badd +245 modules/Ubuntu/Components/ListItems/Standard.qml
-badd +94 modules/Ubuntu/Components/ListItems/Subtitled.qml
-badd +43 modules/Ubuntu/Components/Themes/SuruDark/Palette.qml
-badd +1 modules/Ubuntu/Components/Themes/SuruDark/parent_theme
-badd +35 modules/Ubuntu/Components/UbuntuNumberAnimation.qml
-badd +922 modules/Ubuntu/Components/plugin/shapeitem.cpp
-badd +225 modules/Ubuntu/Components/plugin/plugin.cpp
-badd +111 modules/Ubuntu/Components/plugin/uctheme.cpp
-badd +0 modules/Ubuntu/Components/plugin/unitythemeiconprovider.cpp
+badd +11 backend/modules/AlienSync/BackendPlugin.cpp
+badd +7 backend/modules/AlienSync/BackendPlugin.h
+badd +70 backend/modules/AlienSync/SubredditListModel.h
+badd +1 backend/modules/AlienSync/SubredditListModel.cpp
+badd +11 backend/CMakeLists.txt
+badd +76 app/ui/HomePage.qml
+badd +45 app/components/LoadingIndicator.qml
+badd +93 app/alien-sync.qml
+badd +53 app/ui/SettingsPage.qml
+badd +37 app/components/SortPanel.qml
+badd +41 app/components/EntryListItem.qml
+badd +14 app/CMakeLists.txt
+badd +69 CMakeLists.txt
+badd +6 app/ui/CMakeLists.txt
+badd +6 app/components/CMakeLists.txt
+badd +6 cmake/Click.cmake
+badd +3 app/graphics/CMakeLists.txt
+badd +5 app/alien-sync.desktop.in
+badd +7 app/components/FlowView.qml
+badd +5 app/components/MediaView.qml
+badd +30 backend/modules/AlienSync/RedditAccount.h
+badd +71 backend/modules/AlienSync/RedditAccount.cpp
+badd +1 backend/modules/AlienSync/RedditApi.h
+badd +3 backend/modules/AlienSync/RedditApi.cpp
+badd +17 backend/modules/AlienSync/ConnectionManager.h
+badd +8 backend/modules/AlienSync/ConnectionManager.cpp
 argglobal
 silent! argdel *
-edit modules/Ubuntu/Components/plugin/unitythemeiconprovider.cpp
+edit backend/modules/AlienSync/SubredditListModel.cpp
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
 argglobal
-let s:l = 108 - ((4 * winheight(0) + 19) / 39)
+let s:l = 1 - ((0 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-108
-normal! 0
+1
+normal! 017|
 tabnext 1
 if exists('s:wipebuf')
 "   silent exe 'bwipe ' . s:wipebuf
