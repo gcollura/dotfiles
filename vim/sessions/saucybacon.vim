@@ -1,6 +1,6 @@
 " ~/Projects/dotfiles/vim/sessions/saucybacon.vim:
 " Vim session script.
-" Created by session.vim 2.7 on 09 October 2014 at 00:58:30.
+" Created by session.vim 2.7 on 13 October 2014 at 22:08:25.
 " Open this file in Vim and run :source % to restore your session.
 
 set guioptions=+c
@@ -21,23 +21,23 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
 endif
 set shortmess=aoO
 badd +64 CMakeLists.txt
-badd +104 app/saucybacon.qml
-badd +54 app/ui/RecipePageToolbar.qml
-badd +42 app/ui/dialogs/DeleteDialog.qml
+badd +66 app/saucybacon.qml
+badd +43 app/ui/RecipePageToolbar.qml
+badd +43 app/ui/dialogs/DeleteDialog.qml
 badd +70 app/backend/Recipe.qml
-badd +267 app/ui/RecipePage.qml
+badd +228 app/ui/RecipePage.qml
 badd +69 app/backend/prototypes.js
 badd +1 app/components/TimePicker.qml
-badd +56 app/components/PhotoLayout.qml
+badd +180 app/components/PhotoLayout.qml
 badd +189 backend/modules/SaucyBacon/RecipeParser.cpp
 badd +45 app/components/IngredientInput.qml
 badd +74 app/components/IngredientLayout.qml
 badd +43 app/ui/dialogs/CategoryDialog.qml
-badd +92 app/ui/SearchPage.qml
+badd +183 app/ui/SearchPage.qml
 badd +11 app/CMakeLists.txt
 badd +195 app/ui/EditPage.qml
 badd +183 app/ui/HomePage.qml
-badd +116 app/components/SquareListItem.qml
+badd +118 app/components/SquareListItem.qml
 badd +181 app/ui/NewRecipePage.qml
 badd +89 app/components/Sidebar.qml
 badd +34 backend/modules/SaucyBacon/Utils.cpp
@@ -45,18 +45,18 @@ badd +18 backend/modules/SaucyBacon/Utils.h
 badd +112 backend/modules/SaucyBacon/Recipe.cpp
 badd +44 backend/modules/SaucyBacon/RecipeParser.h
 badd +42 backend/modules/SaucyBacon/Recipe.h
-badd +71 backend/modules/SaucyBacon/Database.h
+badd +35 backend/modules/SaucyBacon/Database.h
 badd +42 /usr/include/libu1db-qt5/database.h
-badd +127 backend/modules/SaucyBacon/Database.cpp
+badd +95 backend/modules/SaucyBacon/Database.cpp
 badd +27 backend/modules/SaucyBacon/Plugin.cpp
 badd +56 backend/modules/SaucyBacon/Plugin.h
 badd +13 manifest.json
 badd +5 resources/CMakeLists.txt
-badd +15 resources/saucybacon.desktop.in
+badd +13 resources/saucybacon.desktop.in
 badd +1 app/graphics/CMakeLists.txt
-badd +65 app/components/LoadingIndicator.qml
-badd +34 backend/modules/SaucyBacon/RecipeSearch.cpp
-badd +31 backend/modules/SaucyBacon/RecipeSearch.h
+badd +1 app/components/LoadingIndicator.qml
+badd +103 backend/modules/SaucyBacon/RecipeSearch.cpp
+badd +59 backend/modules/SaucyBacon/RecipeSearch.h
 badd +25 app/components/Colors.qml
 badd +54 app/components/RefreshableListView.qml
 badd +1 saucybacon.apparmor
@@ -64,25 +64,25 @@ badd +61 /usr/include/libu1db-qt5/document.h
 badd +37 backend/modules/SaucyBacon/RecipeProperties.h
 badd +59 backend/modules/SaucyBacon/RecipeProperties.cpp
 badd +278 ~/Projects/u1db-qt/src/database.cpp
-badd +56 resources/dbschema.sql
-badd +47 backend/modules/SaucyBacon/QueryThread.h
-badd +227 backend/modules/SaucyBacon/QueryThread.cpp
-badd +0 ~/saucybacon.desktop
+badd +5 resources/dbschema.sql
+badd +62 backend/modules/SaucyBacon/QueryThread.h
+badd +192 backend/modules/SaucyBacon/QueryThread.cpp
+badd +1 ~/saucybacon.desktop
 argglobal
 silent! argdel *
 argadd ~/saucybacon.desktop
-edit app/components/PhotoLayout.qml
+edit app/ui/RecipePage.qml
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
 argglobal
-let s:l = 124 - ((4 * winheight(0) + 26) / 53)
+let s:l = 381 - ((34 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-124
+381
 normal! 0
 lcd ~/Projects/saucybacon
 tabnext 1
