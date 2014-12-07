@@ -82,10 +82,7 @@ let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 " Completion support
-NeoBundle 'Valloric/YouCompleteMe', {
-            \ 'build': {
-            \       'unix': './install.sh --clang-completer --system-libclang'
-            \ }, }
+NeoBundle 'Valloric/YouCompleteMe'
 let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_extra_conf.py'
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_complete_in_comments = 1
