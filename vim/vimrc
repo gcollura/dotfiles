@@ -33,6 +33,10 @@ set fileformats=unix,dos,mac
 set undodir=$HOME/.vim/undo " Where to save undo(s)
 set undofile " Save undo when switching buffer or closing files
 
+" Swap files
+set directory=$HOME/.vim/swap,/tmp
+set backupdir=$HOME/.vim/swap,/tmp
+
 " Folding
 set foldmethod=indent " Convenient with C++
 set nofoldenable " Folding disable by default
@@ -48,6 +52,7 @@ set smartindent
 if v:version > 704 || v:version == 704 && has("patch338")
     set breakindent
 endif
+set showbreak=\ \
 
 set tabstop=4
 set shiftwidth=4
@@ -108,7 +113,7 @@ set scrolloff=4
 set cursorline
 
 " Column
-set textwidth=80
+set textwidth=90
 set colorcolumn=+1
 
 " Matchpairs -- to be moved in ftplugin/html.vim
@@ -131,11 +136,9 @@ source $HOME/.vim/filetype.vim
 " Syntax highlighting and colorscheme
 syntax on
 if has("gui_running")
-    set background=light
-    colorscheme gotham
-    let g:airline_theme = 'gotham'
+    colorscheme atom-dark
+    let g:airline_theme = 'bubblegum'
 else
-    set background=dark
-    colorscheme luna-term
-    let g:airline_theme = 'luna'
+    colorscheme gotham256
+    let g:airline_theme = 'gotham256'
 endif

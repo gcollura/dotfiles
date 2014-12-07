@@ -7,6 +7,9 @@ map Q <nop>
 " Stop that annoying useless piece of window from appearing
 nnoremap q: :
 
+" Motion
+nnoremap j gj
+
 " Tab shortcuts
 map <leader>tt :tabnew<CR>
 map <leader>TT :tabclose<CR>

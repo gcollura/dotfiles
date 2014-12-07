@@ -1,0 +1,11 @@
+pane	0	1	:dekko	0	: 	0	:/home/random/Projects/dekko/build	1	zsh	:
+pane	0	2	:saucybacon	0	: 	0	:/home/random/Projects/saucybacon	1	zsh	:
+pane	0	3	:alien-sync	1	:*	0	:/home/random/Projects/alien-sync/build	1	zsh	:
+pane	0	4	:zsh	0	: 	0	:/home/random/Projects/ureadit	1	zsh	:
+pane	0	5	:zsh	0	:-	0	:/home/random/Projects/ubuntu-ui-toolkit/examples	1	zsh	:
+window	0	1	0	: 	c4fd,120x37,0,0,0
+window	0	2	0	: 	c4fe,120x37,0,0,1
+window	0	3	1	:*	c4ff,120x37,0,0,2
+window	0	4	0	: 	c500,120x37,0,0,3
+window	0	5	0	:-	c501,120x37,0,0,4
+state	0	
