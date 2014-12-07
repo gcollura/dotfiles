@@ -1,0 +1,75 @@
+! Xft
+
+Xft.autohint: 0
+Xft.lcdfilter: lcddefault
+Xft.hintstyle: hintslight
+Xft.hinting: 1
+Xft.antialias: 0
+Xft.rgba: rgb
+
+! Xterm
+xterm*termName: xterm-256color
+xterm*saveLines: 4096
+xterm*faceName: xft:Ubuntu Mono derivative Powerline:size=11,xft:Monospace:size=11
+xterm*scrollKey: true
+xterm*scrollTtyOutput: false
+xterm*scrollBar: false
+xterm*rightScrollBar: true
+xterm*jumpScroll: true
+xterm*multiScroll: true
+xterm*vt100*geometry: 100x30
+xterm*charClass: 33:48,35:48,37:48,43:48,45-47:48,64:48,95:48,126:48
+
+! Urxvt
+URxvt*font: xft:Ubuntu Mono derivative Powerline:size=11:antialias=false,xft:Monospace:size=11
+URxvt*letterSpace: -2
+URxvt*lineSpace: -2
+URxvt*scrollKey: true
+URxvt*jumpScroll: true
+URxvt*multiScroll: true
+URxvt*scrollTtyOutput: false
+URxvt*depth: 24
+URxvt*loginShell: true
+URxvt*geometry: 120x38
+URxvt*cutNewLine: false
+URxvt*saveLines: 100
+!URxvt*cutchars: "`\"'&()*,:;<=>?[\\]^{|}$"
+URxvt*scrollBar: false
+URxvt*visualBell: false
+URxvt*fading: 15
+URxvt*meta8: 0
+URxvt*buffered: false
+URxvt*dynamicColors: true
+URxvt*inheritPixmap: false
+URxvt*trasparent: true
+URxvt*shading: 15
+
+
+! Urxvt plugins
+*VT100.Translations: #override \
+                    Shift <Key>Up: scroll-back(1) \n\
+                    Shift <Key>Down: scroll-forw(1) \n\
+                    ~Meta Shift Ctrl <Key>V: insert-selection(CLIPBOARD) \n\
+                     Meta Shift Ctrl <Key>V: insert-selection(PRIMARY) \n\
+                    ~Shift <Btn1Up>: select-end(PRIMARY, CUT_BUFFER0) \n\
+                     Shift <Btn1Up>: select-end(CLIPBOARD, CUT_BUFFER1) \n\
+                    ~Shift ~Ctrl ~Meta <Btn2Up>:insert-selection(PRIMARY, CUT_BUFFER0) \n\
+                     Shift ~Ctrl ~Meta <Btn2Up>:insert-selection(CLIPBOARD, CUT_BUFFER1)
+
+URxvt.clipboard.copycmd: xclip -i -selection clipboard
+URxvt.clipboard.pastecmd: xclip -o -selection clipboard
+
+! Keysym
+URxvt.searchable-scrollback: C-s
+URxvt.keysym.M-c: perl:clipboard:copy
+URxvt.keysym.M-v: perl:clipboard:paste
+URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
+URxvt.keysym.M-Escape: perl:keyboard-select:activate
+URxvt.keysym.M-f: perl:keyboard-select:search
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.matcher.button: 1
+
+URxvt.iso14755: false
+URxvt.perl-ext-common: default,clipboard,keyboard-select,matcher
+
+#include ".config/Xcolors.infinitered"
