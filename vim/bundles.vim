@@ -22,7 +22,7 @@ let g:unite_source_grep_max_candidates = 200
 nnoremap <leader>p :Unite -start-insert file_rec/async <CR>
 nnoremap <leader>[ :Unite grep:. <CR>
 nnoremap <leader>/ :Unite grep:$buffers <CR>
-nnoremap <leader>l :Unite buffer <CR>
+nnoremap <leader>l :Unite buffer_tab buffer -hide-source-names <CR>
 nnoremap <leader>i :Unite source <CR>
 nnoremap <leader>r :Unite register <CR>
 nnoremap <leader>b :Unite bookmark <CR>
@@ -55,10 +55,19 @@ NeoBundle 'Shougo/vimfiler.vim'
 let g:vimfiler_as_default_explorer = 1
 nnoremap <leader>f :VimFilerExplorer -split <CR>
 
+NeoBundle 'Shougo/tabpagebuffer.vim'
+
+NeoBundle 'Shougo/unite-outline'
+NeoBundle 'osyo-manga/unite-quickfix'
+
 NeoBundle 't9md/vim-choosewin'
 let g:choosewin_overlay_enable = 1
 let g:choosewin_overlay_clear_multibyte = 1
 nnoremap - <Plug>(choosewin)
+
+NeoBundle 'MattesGroeger/vim-bookmarks'
+
+NeoBundle 'gcmt/taboo.vim'
 
 NeoBundle 'moll/vim-bbye'
 nnoremap <leader>q :Bdelete <CR>
@@ -187,6 +196,9 @@ NeoBundle 'Pychimp/vim-sol'
 " Gotham colorscheme
 NeoBundle 'whatyouhide/vim-gotham'
 
+" Atom dark colorscheme for vim
+NeoBundle 'gosukiwi/vim-atom-dark'
+
 let g:EclimCompletionMethod = 'omnifunc'
 
 call neobundle#end()
@@ -195,5 +207,12 @@ call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
 call unite#custom#profile('files', 'context.smartcase', 1)
 call unite#custom#source('file_rec/async', 'ignore_pattern', 'build')
+call unite#custom#profile('source/quickfix,source/location_list', 'context', {
+    \   'winheight': 13,
+    \   'direction': 'botright',
+    \   'start_insert': 0,
+    \   'keep_focus': 1,
+    \   'no_quit': 0,
+    \ })
 
 filetype plugin indent on
