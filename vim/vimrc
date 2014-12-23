@@ -1,4 +1,4 @@
-" randomcpp's vimrc
+" gcollura's vimrc
 
 if &compatible
     set nocompatible " Be iMproved
@@ -139,6 +139,6 @@ if has("gui_running")
     colorscheme atom-dark
     let g:airline_theme = 'bubblegum'
 else
-    colorscheme gotham256
-    let g:airline_theme = 'gotham256'
+    colorscheme atom-dark-256
+    let g:airline_theme = 'bubblegum'
 endif
