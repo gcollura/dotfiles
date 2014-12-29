@@ -7,4 +7,4 @@ ln -s $PWD/tmux ~/.tmux
 ln -s $PWD/irssi ~/.irssi
 ln -s $PWD/vim ~/.vim
 ln -s $PWD/xdefaults/Xresources ~/.Xresources
-ln -s $PWD/xdefaults/Xcolors.infinitered ~/.config
+# ln -s $PWD/xdefaults/Xcolors.atelier ~/.config

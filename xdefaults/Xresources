@@ -72,4 +72,5 @@ URxvt.matcher.button: 1
 URxvt.iso14755: false
 URxvt.perl-ext-common: default,clipboard,keyboard-select,matcher
 
-#include ".config/Xcolors.infinitered"
+! terminal colors are now set via base16-shell
+! #include ".config/Xcolors.infinitered"
