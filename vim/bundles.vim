@@ -190,11 +190,10 @@ NeoBundle 'tfnico/vim-gradle'
 NeoBundle 'Pychimp/vim-luna'
 NeoBundle 'Pychimp/vim-sol'
 
-" Gotham colorscheme
-NeoBundle 'whatyouhide/vim-gotham'
-
 " Atom dark colorscheme for vim
 NeoBundle 'gosukiwi/vim-atom-dark'
+
+NeoBundle 'chriskempson/base16-vim'
 
 let g:EclimCompletionMethod = 'omnifunc'
 

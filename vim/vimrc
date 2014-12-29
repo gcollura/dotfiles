@@ -72,6 +72,9 @@ set backspace=indent,eol,start
 " Set default clipboard
 set clipboard+=unnamedplus
 
+" Mouse
+set mouse=a
+
 """ Spell Checking
 
 set nospell
@@ -139,6 +142,8 @@ if has("gui_running")
     colorscheme atom-dark
     let g:airline_theme = 'bubblegum'
 else
-    colorscheme atom-dark-256
-    let g:airline_theme = 'bubblegum'
+    set background=dark
+    let base16colorspace=256
+    colorscheme base16-chalk
+    let g:airline_theme = 'base16'
 endif
