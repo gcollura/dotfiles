@@ -73,4 +73,4 @@ URxvt.iso14755: false
 URxvt.perl-ext-common: default,clipboard,keyboard-select,matcher
 
 ! terminal colors are now set via base16-shell
-! #include ".config/Xcolors.infinitered"
+#include ".config/Xcolors.monokai"

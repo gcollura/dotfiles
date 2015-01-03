@@ -111,17 +111,19 @@ autocmd FileType cfg set commentstring=#\ %s
 " Vim fugitive
 NeoBundle 'tpope/vim-fugitive'
 
-" Vim sorround
-NeoBundle 'tpope/vim-surround'
-
 " Vim repeat
 NeoBundle 'tpope/vim-repeat'
 
 " Vim eunuch
 NeoBundle 'tpope/vim-eunuch'
 
-" Vim multiple cursors (a.k.a. SublimeText2 multiselection)
-NeoBundle 'terryma/vim-multiple-cursors'
+NeoBundle 'kana/vim-operator-user'
+
+" Vim operator sorround
+NeoBundle 'rhysd/vim-operator-surround'
+map <silent>sa <Plug>(operator-surround-append)
+map <silent>sd <Plug>(operator-surround-delete)
+map <silent>sr <Plug>(operator-surround-replace)
 
 " Vim wildfire, select the closest text object
 NeoBundle 'gcmt/wildfire.vim'
@@ -156,10 +158,6 @@ let g:lua_complete_dynamic = 1
 NeoBundle 'junegunn/vim-easy-align'
 
 NeoBundle 'LaTeX-Box-Team/LaTeX-Box'
-
-" Vim sneak
-NeoBundle 'justinmk/vim-sneak'
-let g:sneak#streak = 1
 
 " Vim statusline
 NeoBundle 'bling/vim-airline'
