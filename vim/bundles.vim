@@ -27,6 +27,7 @@ nnoremap <leader>i :Unite source <CR>
 nnoremap <leader>r :Unite register <CR>
 nnoremap <leader>b :Unite bookmark <CR>
 nnoremap <leader>L :Unite -start-insert line <CR>
+nnoremap <leader>R :UniteResume <CR>
 
 if executable('ag')
     " Use ag in unite grep source.
@@ -159,14 +160,20 @@ NeoBundle 'junegunn/vim-easy-align'
 
 NeoBundle 'LaTeX-Box-Team/LaTeX-Box'
 
+NeoBundle 'jamessan/vim-gnupg'
+" Tell the GnuPG plugin to armor new files.
+let g:GPGPreferArmor=1
+" Tell the GnuPG plugin to sign new files.
+let g:GPGPreferSign=1
+
 " Vim statusline
 NeoBundle 'bling/vim-airline'
-let g:airline_enable_syntastic = 0
+let g:airline#extensions#syntastic#enabled = 0
 let g:airline_powerline_fonts = 1
 let g:airline_exclude_preview = 1
 
 " C++11 support
-NeoBundleLazy 'vim-jp/cpp-vim', { 'autoload' : {
+NeoBundleLazy 'octol/vim-cpp-enhanced-highlight', { 'autoload' : {
             \ 'filetypes' : 'cpp',
             \ }}
 
@@ -183,10 +190,6 @@ NeoBundle 'peterhoeg/vim-qml'
 
 " Gradle
 NeoBundle 'tfnico/vim-gradle'
-
-" Luna colorscheme
-NeoBundle 'Pychimp/vim-luna'
-NeoBundle 'Pychimp/vim-sol'
 
 " Atom dark colorscheme for vim
 NeoBundle 'gosukiwi/vim-atom-dark'
