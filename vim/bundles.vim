@@ -191,9 +191,6 @@ NeoBundle 'peterhoeg/vim-qml'
 " Gradle
 NeoBundle 'tfnico/vim-gradle'
 
-" Atom dark colorscheme for vim
-NeoBundle 'gosukiwi/vim-atom-dark'
-
 NeoBundle 'chriskempson/base16-vim'
 
 let g:EclimCompletionMethod = 'omnifunc'
