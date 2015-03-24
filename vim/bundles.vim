@@ -118,6 +118,9 @@ NeoBundle 'tpope/vim-repeat'
 " Vim eunuch
 NeoBundle 'tpope/vim-eunuch'
 
+" Let's play better with tmux
+NeoBundle 'tmux-plugins/vim-tmux-focus-events'
+
 NeoBundle 'kana/vim-operator-user'
 
 " Vim operator sorround
