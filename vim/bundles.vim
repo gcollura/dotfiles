@@ -169,6 +169,9 @@ let g:GPGPreferArmor=1
 " Tell the GnuPG plugin to sign new files.
 let g:GPGPreferSign=1
 
+NeoBundle 'fmoralesc/vim-pad'
+let g:pad#dir = "~/Sync/Notes/"
+
 " Vim statusline
 NeoBundle 'bling/vim-airline'
 let g:airline#extensions#syntastic#enabled = 0
@@ -182,6 +185,11 @@ NeoBundleLazy 'octol/vim-cpp-enhanced-highlight', { 'autoload' : {
 
 " Scss support
 NeoBundle 'cakebaker/scss-syntax.vim'
+
+" Javascript
+NeoBundle 'marijnh/tern_for_vim'
+
+NeoBundle 'gregsexton/MatchTag'
 
 " Vala support
 NeoBundleLazy 'tkztmk/vim-vala', { 'autoload' : {

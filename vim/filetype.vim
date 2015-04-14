@@ -20,9 +20,9 @@ augroup filetypedetect
 augroup END
 
 " HTML
-autocmd FileType html   set tabstop=2 shiftwidth=2
-autocmd FileType xhtml  set tabstop=2 shiftwidth=2
-autocmd FileType xml    set tabstop=2 shiftwidth=2
+autocmd FileType html   setlocal tabstop=2 shiftwidth=2
+autocmd FileType xhtml  setlocal tabstop=2 shiftwidth=2
+autocmd FileType xml    setlocal tabstop=2 shiftwidth=2
 
 " Vala
 autocmd BufRead *.vala,*.vapi set errorformat=%f:%l.%c-%[%^:]%#:\ %t%[%^:]%#:\ %m
