@@ -148,8 +148,9 @@ NeoBundle 'xolox/vim-misc'
 NeoBundle 'xolox/vim-session'
 let g:session_autosave_periodic = 5
 let g:session_command_aliases = 1
-let g:session_autosave = "yes"
+let g:session_autosave = 'yes'
 let g:session_persist_colors = 0
+let g:session_autoload = 'no'
 
 " Lua support
 NeoBundleLazy 'xolox/vim-lua-ftplugin', { 'autoload' : {
@@ -205,6 +206,7 @@ NeoBundle 'tfnico/vim-gradle'
 NeoBundle 'chriskempson/base16-vim'
 
 let g:EclimCompletionMethod = 'omnifunc'
+let g:EclimJavascriptValidate = 0
 
 call neobundle#end()
 
