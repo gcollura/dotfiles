@@ -105,6 +105,8 @@ set noshowmode
 " Enable modelines
 set modeline
 
+set regexpengine=1
+
 " Numbers
 set number
 set relativenumber
@@ -118,9 +120,6 @@ set cursorline
 " Column
 set textwidth=90
 set colorcolumn=+1
-
-" Matchpairs -- to be moved in ftplugin/html.vim
-autocmd FileType html setlocal matchpairs+=<:>
 
 " Session options
 set sessionoptions=buffers,curdir,tabpages,unix

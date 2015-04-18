@@ -49,6 +49,8 @@ endif
 
 NeoBundleLazy 'Shougo/neomru.vim', {
             \ 'depends': 'Shougo/unite.vim',
+            \ 'filetypes': 'all',
+            \ 'unite_sources': [ 'neomru/file', 'neomru/directory' ]
             \ }
 nnoremap <leader>o :Unite -start-insert neomru/file <CR>
 nnoremap <leader>O :Unite -start-insert -default-action=lcd neomru/directory <CR>
@@ -72,28 +74,45 @@ NeoBundleLazy 'Shougo/vimfiler.vim', {
 let g:vimfiler_as_default_explorer = 1
 nnoremap <leader>f :VimFilerExplorer -split <CR>
 
-NeoBundle 'Shougo/tabpagebuffer.vim'
+NeoBundleLazy 'Shougo/tabpagebuffer.vim', {
+            \ 'filetypes': 'all'
+            \ }
 
 NeoBundleLazy 'Shougo/unite-outline', {
             \ 'depends': 'Shougo/unite.vim',
             \ }
-NeoBundle 'osyo-manga/unite-quickfix', {
+
+NeoBundleLazy 'osyo-manga/unite-quickfix', {
             \ 'depends': 'Shougo/unite.vim',
             \ }
 
-NeoBundle 't9md/vim-choosewin'
+NeoBundleLazy 't9md/vim-choosewin', {
+            \ 'mappings': '<Plug>'
+            \ }
 let g:choosewin_overlay_enable = 1
 let g:choosewin_overlay_clear_multibyte = 1
 nnoremap - <Plug>(choosewin)
 
-NeoBundle 'MattesGroeger/vim-bookmarks'
+NeoBundleLazy 'MattesGroeger/vim-bookmarks', {
+            \ 'filetypes': 'all'
+            \ }
 
-NeoBundle 'moll/vim-bbye'
+NeoBundleLazy 'moll/vim-bbye', {
+            \ 'commands': 'Bdelete'
+            \ }
 nnoremap <leader>q :Bdelete <CR>
 
 " Ultisnips and Snippets
-NeoBundle 'SirVer/ultisnips'
-NeoBundle 'honza/vim-snippets'
+NeoBundleLazy 'SirVer/ultisnips', {
+            \ 'depends': 'honza/vim-snippets',
+            \ 'autoload': {
+            \   'insert': 1
+            \ }}
+NeoBundleLazy 'honza/vim-snippets', {
+            \ 'autoload': {
+            \   'on_source': 'ultisnips',
+            \   'insert': 1
+            \ }}
 let g:UltiSnipsUsePythonVersion = 2
 let g:UltiSnipsListSnippets = '<c-l>'
 let g:UltiSnipsExpandTrigger = '<c-h>'
@@ -101,7 +120,11 @@ let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 " Completion support
-NeoBundle 'Valloric/YouCompleteMe'
+NeoBundleLazy 'Valloric/YouCompleteMe', {
+            \ 'augroup': 'youcompletemeStart',
+            \ 'autoload': {
+            \   'insert': 1,
+            \ }}
 let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_extra_conf.py'
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_complete_in_comments = 1
@@ -112,7 +135,9 @@ let g:ycm_error_symbol = '»'
 let g:ycm_always_populate_location_list = 1
 
 " Syntastic
-NeoBundle 'scrooloose/syntastic'
+NeoBundleLazy 'scrooloose/syntastic', {
+            \ 'filetypes': 'all'
+            \ }
 let g:syntastic_mode_map = { 'mode': 'active',
             \ 'active_filetypes': [ 'ruby', 'php', 'python' ],
             \ 'passive_filetypes': [ 'sass', 'scss', 'scss.css' ]
@@ -128,27 +153,54 @@ let g:tagbar_autoclose = 1
 nmap <F2> :TagbarToggle <CR>
 
 " Commentary
-NeoBundle 'tpope/vim-commentary'
+NeoBundleLazy 'tpope/vim-commentary', {
+            \ 'insert': 1
+            \ }
 
 " Vim fugitive
-NeoBundle 'tpope/vim-fugitive'
+NeoBundleLazy 'tpope/vim-fugitive', {
+            \ 'filetypes': 'all'
+            \ }
 
 " Vim repeat
-NeoBundle 'tpope/vim-repeat'
+NeoBundleLazy 'tpope/vim-repeat', {
+            \ 'insert': 1
+            \ }
 
 " Vim eunuch
-NeoBundle 'tpope/vim-eunuch'
+NeoBundleLazy 'tpope/vim-eunuch', {
+            \ 'autoload': {
+            \   'commands': [
+            \     'Unlink',
+            \     'Remove',
+            \     'Move',
+            \     'Rename',
+            \     'Chmod',
+            \     'Mkdir',
+            \     'Find',
+            \     'Locate',
+            \     'SudoEdit',
+            \     'SudoWrite',
+            \     'W'
+            \   ]
+            \ }}
 
 " Let's play better with tmux
 NeoBundle 'tmux-plugins/vim-tmux-focus-events'
 
-NeoBundle 'kana/vim-operator-user'
+NeoBundleLazy 'kana/vim-operator-user', {
+            \ 'functions' : 'operator#user#define',
+            \ }
 
 " Vim operator sorround
-NeoBundle 'rhysd/vim-operator-surround'
+NeoBundleLazy 'rhysd/vim-operator-surround', {
+            \ 'depends' : 'kana/vim-operator-user',
+            \ 'mappings' : '<Plug>',
+            \ }
 map <silent>sa <Plug>(operator-surround-append)
 map <silent>sd <Plug>(operator-surround-delete)
 map <silent>sr <Plug>(operator-surround-replace)
+
 
 " Gundo
 NeoBundleLazy 'sjl/gundo.vim', { 'autoload' : {
@@ -157,13 +209,27 @@ NeoBundleLazy 'sjl/gundo.vim', { 'autoload' : {
 nnoremap <F3> :GundoToggle <CR>
 
 " Automatically close brackets
-NeoBundle 'Raimondi/delimitMate'
+NeoBundleLazy 'Raimondi/delimitMate', {
+            \ 'insert': 1
+            \ }
 
 " Utility library for vim-session and vim-lua
-NeoBundle 'xolox/vim-misc'
+NeoBundleLazy 'xolox/vim-misc'
 
 " Better session support
-NeoBundle 'xolox/vim-session'
+NeoBundleLazy 'xolox/vim-session', {
+            \ 'depends': 'xolox/vim-misc',
+            \ 'autoload': {
+            \   'commands': [
+            \     { 'name': [ 'OpenSession', 'CloseSession' ],
+            \       'complete': 'customlist,xolox#session#complete_names' },
+            \     { 'name': [ 'SaveSession' ],
+            \       'complete': 'customlist,xolox#session#complete_names_with_suggestions' }
+            \   ],
+            \   'functions': [ 'xolox#session#complete_names',
+            \                  'xolox#session#complete_names_with_suggestions' ],
+            \   'unite_sources': [ 'session', 'session/new' ]
+            \ }}
 let g:session_autosave_periodic = 5
 let g:session_command_aliases = 1
 let g:session_autosave = 'yes'
@@ -178,9 +244,13 @@ let g:lua_check_syntax = 1
 let g:lua_complete_omni = 1
 let g:lua_complete_dynamic = 1
 
-NeoBundle 'junegunn/vim-easy-align'
+NeoBundleLazy 'junegunn/vim-easy-align', {
+            \ 'insert': 1
+            \ }
 
-NeoBundle 'LaTeX-Box-Team/LaTeX-Box'
+NeoBundleLazy 'LaTeX-Box-Team/LaTeX-Box', { 'autoload': {
+            \ 'filetypes': [ 'tex', 'latex' ]
+            \ }}
 
 NeoBundle 'jamessan/vim-gnupg'
 " Tell the GnuPG plugin to armor new files.

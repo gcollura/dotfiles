@@ -23,9 +23,7 @@ augroup filetypedetect
 augroup END
 
 " HTML
-autocmd FileType html   setlocal tabstop=2 shiftwidth=2
-autocmd FileType xhtml  setlocal tabstop=2 shiftwidth=2
-autocmd FileType xml    setlocal tabstop=2 shiftwidth=2
+autocmd FileType html,xhtml,xml   setlocal tabstop=2 shiftwidth=2 matchpairs+=<:>
 
 " Vala
 autocmd BufRead *.vala,*.vapi setl errorformat=%f:%l.%c-%[%^:]%#:\ %t%[%^:]%#:\ %m
