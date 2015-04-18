@@ -106,12 +106,11 @@ nnoremap <leader>q :Bdelete <CR>
 NeoBundleLazy 'SirVer/ultisnips', {
             \ 'depends': 'honza/vim-snippets',
             \ 'autoload': {
-            \   'insert': 1
+            \   'filetypes': 'all'
             \ }}
 NeoBundleLazy 'honza/vim-snippets', {
             \ 'autoload': {
             \   'on_source': 'ultisnips',
-            \   'insert': 1
             \ }}
 let g:UltiSnipsUsePythonVersion = 2
 let g:UltiSnipsListSnippets = '<c-l>'
@@ -153,9 +152,10 @@ let g:tagbar_autoclose = 1
 nmap <F2> :TagbarToggle <CR>
 
 " Commentary
-NeoBundleLazy 'tpope/vim-commentary', {
-            \ 'insert': 1
-            \ }
+NeoBundleLazy 'tomtom/tcomment_vim', {
+            \ 'autoload': {
+            \   'mappings': [ 'g' ]
+            \ }}
 
 " Vim fugitive
 NeoBundleLazy 'tpope/vim-fugitive', {
@@ -221,9 +221,9 @@ NeoBundleLazy 'xolox/vim-session', {
             \ 'depends': 'xolox/vim-misc',
             \ 'autoload': {
             \   'commands': [
-            \     { 'name': [ 'OpenSession', 'CloseSession' ],
+            \     { 'name': [ 'SessionOpen', 'SessionClose' ],
             \       'complete': 'customlist,xolox#session#complete_names' },
-            \     { 'name': [ 'SaveSession' ],
+            \     { 'name': [ 'SessionSave' ],
             \       'complete': 'customlist,xolox#session#complete_names_with_suggestions' }
             \   ],
             \   'functions': [ 'xolox#session#complete_names',
