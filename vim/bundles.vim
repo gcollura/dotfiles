@@ -29,6 +29,7 @@ nnoremap <leader>i :Unite source <CR>
 nnoremap <leader>r :Unite register <CR>
 nnoremap <leader>b :Unite bookmark <CR>
 nnoremap <leader>L :Unite -start-insert line <CR>
+nnoremap <leader>c :Unite location_list <CR>
 nnoremap <leader>R :UniteResume <CR>
 
 if executable('ag')
@@ -108,6 +109,7 @@ let g:ycm_confirm_extra_conf = 0 " NOTE: Extremely insecure!
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_warning_symbol = '»'
 let g:ycm_error_symbol = '»'
+let g:ycm_always_populate_location_list = 1
 
 " Syntastic
 NeoBundle 'scrooloose/syntastic'
@@ -115,6 +117,9 @@ let g:syntastic_mode_map = { 'mode': 'active',
             \ 'active_filetypes': [ 'ruby', 'php', 'python' ],
             \ 'passive_filetypes': [ 'sass', 'scss', 'scss.css' ]
             \ }
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '»'
 
 " TagBar
 NeoBundle 'majutsushi/tagbar'
