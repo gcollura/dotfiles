@@ -16,7 +16,9 @@ NeoBundle 'Shougo/vimproc', {
             \ }
 
 " Unite.vim
-NeoBundle 'Shougo/unite.vim'
+NeoBundleLazy 'Shougo/unite.vim', { 'autoload': {
+            \ 'commands': [ 'Unite', 'UniteResume' ]
+            \ }}
 let g:unite_prompt = '» '
 let g:unite_source_grep_max_candidates = 200
 nnoremap <leader>p :Unite -start-insert file_rec/async <CR>
@@ -44,22 +46,39 @@ elseif executable('ack-grep')
     let g:unite_source_grep_recursive_opt = ''
 endif
 
-NeoBundle 'Shougo/neomru.vim'
+NeoBundleLazy 'Shougo/neomru.vim', {
+            \ 'depends': 'Shougo/unite.vim',
+            \ }
 nnoremap <leader>o :Unite -start-insert neomru/file <CR>
 nnoremap <leader>O :Unite -start-insert -default-action=lcd neomru/directory <CR>
 
-NeoBundle 'Shougo/unite-session'
+NeoBundleLazy 'Shougo/unite-session', {
+            \ 'depends': 'Shougo/unite.vim',
+            \ }
 let g:unite_source_session_path = '~/.vim/sessions'
 nnoremap <leader>S :Unite -start-insert session <CR>
 
-NeoBundle 'Shougo/vimfiler.vim'
+NeoBundleLazy 'Shougo/vimfiler.vim', {
+            \ 'depends': 'Shougo/unite.vim',
+            \ 'commands': [ {
+            \       'name': [ 'VimFiler', 'VimFilerExplorer', 'Edit', 'Write' ],
+            \       'complete': 'customlist,vimfiler#complete'
+            \    },
+            \    'Read', 'Source'
+            \ ],
+            \ 'explorer' : 1,
+            \ }
 let g:vimfiler_as_default_explorer = 1
 nnoremap <leader>f :VimFilerExplorer -split <CR>
 
 NeoBundle 'Shougo/tabpagebuffer.vim'
 
-NeoBundle 'Shougo/unite-outline'
-NeoBundle 'osyo-manga/unite-quickfix'
+NeoBundleLazy 'Shougo/unite-outline', {
+            \ 'depends': 'Shougo/unite.vim',
+            \ }
+NeoBundle 'osyo-manga/unite-quickfix', {
+            \ 'depends': 'Shougo/unite.vim',
+            \ }
 
 NeoBundle 't9md/vim-choosewin'
 let g:choosewin_overlay_enable = 1
@@ -67,8 +86,6 @@ let g:choosewin_overlay_clear_multibyte = 1
 nnoremap - <Plug>(choosewin)
 
 NeoBundle 'MattesGroeger/vim-bookmarks'
-
-NeoBundle 'gcmt/taboo.vim'
 
 NeoBundle 'moll/vim-bbye'
 nnoremap <leader>q :Bdelete <CR>
@@ -96,7 +113,8 @@ let g:ycm_error_symbol = '»'
 NeoBundle 'scrooloose/syntastic'
 let g:syntastic_mode_map = { 'mode': 'active',
             \ 'active_filetypes': [ 'ruby', 'php', 'python' ],
-            \ 'passive_filetypes': [ 'sass', 'scss', 'scss.css' ] }
+            \ 'passive_filetypes': [ 'sass', 'scss', 'scss.css' ]
+            \ }
 
 " TagBar
 NeoBundle 'majutsushi/tagbar'
@@ -106,8 +124,6 @@ nmap <F2> :TagbarToggle <CR>
 
 " Commentary
 NeoBundle 'tpope/vim-commentary'
-autocmd FileType cpp set commentstring=//\ %s
-autocmd FileType cfg set commentstring=#\ %s
 
 " Vim fugitive
 NeoBundle 'tpope/vim-fugitive'
@@ -128,9 +144,6 @@ NeoBundle 'rhysd/vim-operator-surround'
 map <silent>sa <Plug>(operator-surround-append)
 map <silent>sd <Plug>(operator-surround-delete)
 map <silent>sr <Plug>(operator-surround-replace)
-
-" Vim wildfire, select the closest text object
-NeoBundle 'gcmt/wildfire.vim'
 
 " Gundo
 NeoBundleLazy 'sjl/gundo.vim', { 'autoload' : {
@@ -181,14 +194,21 @@ let g:airline_exclude_preview = 1
 
 " C++11 support
 NeoBundleLazy 'octol/vim-cpp-enhanced-highlight', { 'autoload' : {
-            \ 'filetypes' : 'cpp',
+            \ 'filetypes': 'cpp',
             \ }}
 
 " Scss support
-NeoBundle 'cakebaker/scss-syntax.vim'
+NeoBundleLazy 'cakebaker/scss-syntax.vim', { 'autoload' : {
+            \ 'filetypes': [ 'scss', 'sass', 'css' ]
+            \ }}
 
 " Javascript
-NeoBundle 'marijnh/tern_for_vim'
+NeoBundleLazy 'marijnh/tern_for_vim', { 'autoload' : {
+            \ 'filetypes': [ 'javascript', 'html' ]
+            \ }}
+NeoBundleLazy 'pangloss/vim-javascript', { 'autoload': {
+            \ 'filetypes': [ 'javascript', 'html' ]
+            \ }}
 
 NeoBundle 'gregsexton/MatchTag'
 
@@ -198,7 +218,9 @@ NeoBundleLazy 'tkztmk/vim-vala', { 'autoload' : {
             \ }}
 
 " Qml support
-NeoBundle 'peterhoeg/vim-qml'
+NeoBundleLazy 'peterhoeg/vim-qml', { 'autoload': {
+            \ 'filetypes': 'qml',
+            \ }}
 
 " Gradle
 NeoBundle 'tfnico/vim-gradle'
