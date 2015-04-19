@@ -5,10 +5,6 @@ if exists("did_load_filetypes")
 endif
 
 augroup filetypedetect
-    " Vala
-    autocmd BufRead,BufNewFile *.vala       set filetype=vala
-    autocmd BufRead,BufNewFile *.vapi       set filetype=vala
-
     " EJS
     autocmd BufRead,BufNewFile *.ejs        set filetype=jst
 
@@ -18,21 +14,20 @@ augroup filetypedetect
     " Markdown
     autocmd BufRead,BufNewFile *.md         set filetype=markdown
 
-    " Qml
-    autocmd BufRead,BufNewFile *.qml        set filetype=qml
+    " Gradle
+    autocmd BufRead,BufNewFile *.gradle     set filetype=groovy
+
 augroup END
 
 " HTML
-autocmd FileType html,xhtml,xml   setlocal tabstop=2 shiftwidth=2 matchpairs+=<:>
+autocmd FileType html,xhtml,xml             setl tabstop=2 shiftwidth=2 matchpairs+=<:>
 
 " Vala
-autocmd BufRead *.vala,*.vapi setl errorformat=%f:%l.%c-%[%^:]%#:\ %t%[%^:]%#:\ %m
+autocmd BufRead,BufNewFile *.vala,*.vapi    setl errorformat=%f:%l.%c-%[%^:]%#:\ %t%[%^:]%#:\ %m
 
 " Python
-autocmd FileType python setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+autocmd FileType python                     setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 
 " LaTeX
-autocmd FileType tex setl wrap linebreak textwidth=0 spell spelllang=it
+autocmd FileType tex                        setl wrap linebreak textwidth=0 spell spelllang=it
 
-autocmd FileType cpp setlocal commentstring=//\ %s
-autocmd FileType cfg setlocal commentstring=#\ %s

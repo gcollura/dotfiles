@@ -7,6 +7,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Vimproc from Shougo
 NeoBundle 'Shougo/vimproc', {
+            \ 'name': 'vimproc',
             \ 'build' : {
             \     'windows' : 'make -f make_mingw32.mak',
             \     'cygwin' : 'make -f make_cygwin.mak',
@@ -16,9 +17,12 @@ NeoBundle 'Shougo/vimproc', {
             \ }
 
 " Unite.vim
-NeoBundleLazy 'Shougo/unite.vim', { 'autoload': {
-            \ 'commands': [ 'Unite', 'UniteResume' ]
-            \ }}
+NeoBundleLazy 'Shougo/unite.vim', {
+            \ 'name': 'unite.vim',
+            \ 'depends': 'vimproc',
+            \ 'commands': [
+            \   { 'name': 'Unite', 'complete': 'customlist,unite#complete_source' }
+            \ ] }
 let g:unite_prompt = '» '
 let g:unite_source_grep_max_candidates = 200
 nnoremap <leader>p :Unite -start-insert file_rec/async <CR>
@@ -48,7 +52,7 @@ elseif executable('ack-grep')
 endif
 
 NeoBundleLazy 'Shougo/neomru.vim', {
-            \ 'depends': 'Shougo/unite.vim',
+            \ 'depends': 'unite.vim',
             \ 'filetypes': 'all',
             \ 'unite_sources': [ 'neomru/file', 'neomru/directory' ]
             \ }
@@ -75,8 +79,10 @@ let g:vimfiler_as_default_explorer = 1
 nnoremap <leader>f :VimFilerExplorer -split <CR>
 
 NeoBundleLazy 'Shougo/tabpagebuffer.vim', {
-            \ 'filetypes': 'all'
-            \ }
+            \ 'filetypes': 'all',
+            \ 'autoload': {
+            \   'unite_sources': [ 'buffer_tab' ]
+            \ }}
 
 NeoBundleLazy 'Shougo/unite-outline', {
             \ 'depends': 'Shougo/unite.vim',
@@ -84,6 +90,7 @@ NeoBundleLazy 'Shougo/unite-outline', {
 
 NeoBundleLazy 'osyo-manga/unite-quickfix', {
             \ 'depends': 'Shougo/unite.vim',
+            \ 'unite_sources': [ 'quickfix', 'location_list' ]
             \ }
 
 NeoBundleLazy 't9md/vim-choosewin', {
@@ -145,12 +152,6 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '»'
 
-" TagBar
-NeoBundle 'majutsushi/tagbar'
-let g:tagbar_autofocus = 1
-let g:tagbar_autoclose = 1
-nmap <F2> :TagbarToggle <CR>
-
 " Commentary
 NeoBundleLazy 'tomtom/tcomment_vim', {
             \ 'autoload': {
@@ -186,7 +187,10 @@ NeoBundleLazy 'tpope/vim-eunuch', {
             \ }}
 
 " Let's play better with tmux
-NeoBundle 'tmux-plugins/vim-tmux-focus-events'
+NeoBundle 'tmux-plugins/vim-tmux-focus-events', {
+            \ 'disabled': !exists('$TMUX'),
+            \ 'terminal': 1
+            \ }
 
 NeoBundleLazy 'kana/vim-operator-user', {
             \ 'functions' : 'operator#user#define',
@@ -252,13 +256,25 @@ NeoBundleLazy 'LaTeX-Box-Team/LaTeX-Box', { 'autoload': {
             \ 'filetypes': [ 'tex', 'latex' ]
             \ }}
 
-NeoBundle 'jamessan/vim-gnupg'
+NeoBundleLazy 'jamessan/vim-gnupg', {
+            \ 'commands': [ 'GPGViewRecipients', 'GPGEditRecipients',
+            \               'GPGViewOptions', 'GPGEditOptions' ],
+            \ 'augroup': 'GnuPG',
+            \ 'autoload': {
+            \   'filename_patterns': [ '\.gpg$', '\.pgp$', '\.asc$' ]
+            \ }}
 " Tell the GnuPG plugin to armor new files.
-let g:GPGPreferArmor=1
+let g:GPGPreferArmor = 1
 " Tell the GnuPG plugin to sign new files.
-let g:GPGPreferSign=1
+let g:GPGPreferSign = 1
 
-NeoBundle 'fmoralesc/vim-pad'
+NeoBundleLazy 'fmoralesc/vim-pad', {
+            \ 'autoload': {
+            \   'commands': [
+            \     { 'name': [ 'Pad' ],
+            \       'complete': 'custom,pad#PadCmdComplete' }
+            \   ],
+            \ }}
 let g:pad#dir = "~/Sync/Notes/"
 
 " Vim statusline
@@ -277,15 +293,18 @@ NeoBundleLazy 'cakebaker/scss-syntax.vim', { 'autoload' : {
             \ 'filetypes': [ 'scss', 'sass', 'css' ]
             \ }}
 
-" Javascript
+" Javascript and HTML
 NeoBundleLazy 'marijnh/tern_for_vim', { 'autoload' : {
             \ 'filetypes': [ 'javascript', 'html' ]
             \ }}
+
 NeoBundleLazy 'pangloss/vim-javascript', { 'autoload': {
             \ 'filetypes': [ 'javascript', 'html' ]
             \ }}
 
-NeoBundle 'gregsexton/MatchTag'
+NeoBundleLazy 'gregsexton/MatchTag', { 'autoload': {
+            \ 'filetypes': [ 'html', 'xml' ]
+            \ }}
 
 " Vala support
 NeoBundleLazy 'tkztmk/vim-vala', { 'autoload' : {
@@ -297,9 +316,6 @@ NeoBundleLazy 'peterhoeg/vim-qml', { 'autoload': {
             \ 'filetypes': 'qml',
             \ }}
 
-" Gradle
-NeoBundle 'tfnico/vim-gradle'
-
 NeoBundle 'chriskempson/base16-vim'
 
 let g:EclimCompletionMethod = 'omnifunc'
@@ -307,16 +323,19 @@ let g:EclimJavascriptValidate = 0
 
 call neobundle#end()
 
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#filters#sorter_default#use(['sorter_rank'])
-call unite#custom#profile('files', 'context.smartcase', 1)
-call unite#custom#source('file_rec/async', 'ignore_pattern', 'build')
-call unite#custom#profile('source/quickfix,source/location_list', 'context', {
-    \   'winheight': 13,
-    \   'direction': 'botright',
-    \   'start_insert': 0,
-    \   'keep_focus': 1,
-    \   'no_quit': 0,
-    \ })
+if neobundle#tap('unite.vim')
+    call unite#filters#matcher_default#use(['matcher_fuzzy'])
+    call unite#filters#sorter_default#use(['sorter_rank'])
+    call unite#custom#profile('files', 'context.smartcase', 1)
+    call unite#custom#source('file_rec/async', 'ignore_pattern', 'build')
+    call unite#custom#profile('source/quickfix,source/location_list', 'context', {
+                \   'winheight': 13,
+                \   'direction': 'botright',
+                \   'start_insert': 0,
+                \   'keep_focus': 1,
+                \   'no_quit': 0,
+                \ })
+    call neobundle#untap()
+endif
 
 filetype plugin indent on
