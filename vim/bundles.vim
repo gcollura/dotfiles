@@ -159,9 +159,16 @@ NeoBundleLazy 'tomtom/tcomment_vim', {
             \ }}
 
 " Vim fugitive
-NeoBundleLazy 'tpope/vim-fugitive', {
-            \ 'filetypes': 'all'
-            \ }
+NeoBundle 'tpope/vim-fugitive', {
+            \ 'augroup' : 'fugitive',
+            \ 'commands': [
+            \   'Git', 'Gdiff', 'Gstatus', 'Gwrite', 'Gcd', 'Glcd',
+            \   'Ggrep', 'Glog', 'Gcommit', 'Gblame', 'Gbrowse'
+            \ ],
+            \ 'autoload': {
+            \   'functions' : [ 'fugitive#head', 'fugitive#extract_git_dir' ],
+            \   'filetypes': 'all'
+            \ }}
 
 " Vim repeat
 NeoBundleLazy 'tpope/vim-repeat', {
