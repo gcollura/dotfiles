@@ -5,8 +5,12 @@ if &compatible
 endif
 filetype off
 
+let g:vim_dir = expand('<sfile>:p:h')
+let s:bundle_dir = g:vim_dir . '/bundle/'
+let s:neobundle_dir = s:bundle_dir . 'neobundle.vim/'
+
 if has('vim_starting')
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
+    let &runtimepath .= ',' . s:neobundle_dir
 endif
 
 """ Files and backup
@@ -30,12 +34,12 @@ set fileformat=unix
 set fileformats=unix,dos,mac
 
 " Persistent undo
-set undodir=$HOME/.vim/undo " Where to save undo(s)
+let &undodir = g:vim_dir . '/undo/' " Where to save undo(s)
 set undofile " Save undo when switching buffer or closing files
 
 " Swap files
-set directory=$HOME/.vim/swap,/tmp
-set backupdir=$HOME/.vim/swap,/tmp
+let &directory = g:vim_dir . '/swap,/tmp'
+let &backupdir = g:vim_dir . '/swap,/tmp'
 
 " Folding
 set foldmethod=indent " Convenient with C++
@@ -131,15 +135,15 @@ if has("win32") || has("win64")
 endif
 
 " Load configurations
-source $HOME/.vim/bundles.vim
-source $HOME/.vim/mappings.vim
-source $HOME/.vim/filetype.vim
+execute 'source' fnameescape(g:vim_dir).'/bundles.vim'
+execute 'source' fnameescape(g:vim_dir).'/mappings.vim'
+execute 'source' fnameescape(g:vim_dir).'/filetype.vim'
 
 " Syntax highlighting and colorscheme
 syntax on
 if has("gui_running")
-    colorscheme atom-dark
-    let g:airline_theme = 'bubblegum'
+    colorscheme base16-monokai
+    let g:airline_theme = 'base16'
 else
     set background=dark
     set t_Co=256
