@@ -2,7 +2,7 @@
 filetype off
 
 " NeoBundle manages itself
-call neobundle#begin(expand('~/.vim/bundle'))
+call neobundle#begin(g:bundle_dir)
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Vimproc from Shougo
@@ -62,7 +62,7 @@ nnoremap <leader>O :Unite -start-insert -default-action=lcd neomru/directory <CR
 NeoBundleLazy 'Shougo/unite-session', {
             \ 'depends': 'Shougo/unite.vim',
             \ }
-let g:unite_source_session_path = '~/.vim/sessions'
+let g:unite_source_session_path = g:vim_dir . '/sessions'
 nnoremap <leader>S :Unite -start-insert session <CR>
 
 NeoBundleLazy 'Shougo/vimfiler.vim', {
@@ -131,7 +131,7 @@ NeoBundleLazy 'Valloric/YouCompleteMe', {
             \ 'autoload': {
             \   'insert': 1,
             \ }}
-let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = g:vim_dir . '/ycm_extra_conf.py'
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_complete_in_comments = 1
 let g:ycm_confirm_extra_conf = 0 " NOTE: Extremely insecure!
@@ -282,7 +282,8 @@ NeoBundleLazy 'fmoralesc/vim-pad', {
             \       'complete': 'custom,pad#PadCmdComplete' }
             \   ],
             \ }}
-let g:pad#dir = "~/Sync/Notes/"
+let g:pad#dir = "~/.notes/"
+call utils#putdir(g:pad#dir)
 
 " Vim statusline
 NeoBundle 'bling/vim-airline'
@@ -322,6 +323,14 @@ NeoBundleLazy 'tkztmk/vim-vala', { 'autoload' : {
 NeoBundleLazy 'peterhoeg/vim-qml', { 'autoload': {
             \ 'filetypes': 'qml',
             \ }}
+
+" vim-partial, move chunks of code to new files
+" NeoBundleLazy 'jbgutierrez/vim-partial', {
+"             \ 'commands': 'PartialExtract'
+"             \ }
+"
+" vim-gitbranch, lightweight alternative to fugitive.vim
+" NeoBundleLazy 'itchyny/vim-gitbranch'
 
 NeoBundle 'chriskempson/base16-vim'
 

@@ -6,10 +6,27 @@ endif
 filetype off
 
 let g:vim_dir = expand('<sfile>:p:h')
-let s:bundle_dir = g:vim_dir . '/bundle/'
-let s:neobundle_dir = s:bundle_dir . 'neobundle.vim/'
+let g:bundle_dir = g:vim_dir . '/bundle/'
+let s:neobundle_dir = g:bundle_dir . 'neobundle.vim/'
+
+function! s:source(file)
+    if !exists(a:file)
+        execute 'source' fnameescape(a:file)
+    endif
+endfunction
+
+runtime plugin/utils.vim
 
 if has('vim_starting')
+    if !isdirectory(s:neobundle_dir)
+        " install neobundle submodule
+        echom 'Updating submodules to install neobundle.vim'
+        let cwd = getcwd()
+        execute 'lcd' fnameescape(g:vim_dir)
+        echom system('git submodule update --init')
+        echom system('git pull --recurse-submodules')
+        execute 'lcd' fnameescape(cwd)
+    endif
     let &runtimepath .= ',' . s:neobundle_dir
 endif
 
@@ -35,11 +52,13 @@ set fileformats=unix,dos,mac
 
 " Persistent undo
 let &undodir = g:vim_dir . '/undo/' " Where to save undo(s)
+call utils#putdir(&undodir)
 set undofile " Save undo when switching buffer or closing files
 
 " Swap files
-let &directory = g:vim_dir . '/swap,/tmp'
-let &backupdir = g:vim_dir . '/swap,/tmp'
+let &directory = g:vim_dir . '/swap/'
+let &backupdir = g:vim_dir . '/swap/'
+call utils#putdir(&directory)
 
 " Folding
 set foldmethod=indent " Convenient with C++
@@ -53,7 +72,7 @@ au BufRead * normal zR
 set autoindent
 set smartindent
 
-if v:version > 704 || v:version == 704 && has("patch338")
+if has('patch-7.4.338')
     set breakindent
 endif
 set showbreak=\ \
@@ -111,6 +130,12 @@ set modeline
 
 set regexpengine=1
 
+" Do not display completion messages
+" Patch: https://groups.google.com/forum/#!topic/vim_dev/WeBBjkXE8H8
+if has('patch-7.4.314')
+	set shortmess+=c
+endif
+
 " Numbers
 set number
 set relativenumber
@@ -135,19 +160,16 @@ if has("win32") || has("win64")
 endif
 
 " Load configurations
-execute 'source' fnameescape(g:vim_dir).'/bundles.vim'
-execute 'source' fnameescape(g:vim_dir).'/mappings.vim'
-execute 'source' fnameescape(g:vim_dir).'/filetype.vim'
+call s:source(g:vim_dir . '/bundles.vim')
+call s:source(g:vim_dir . '/mappings.vim')
+call s:source(g:vim_dir . '/filetype.vim')
 
 " Syntax highlighting and colorscheme
 syntax on
-if has("gui_running")
-    colorscheme base16-monokai
-    let g:airline_theme = 'base16'
-else
-    set background=dark
+if !has("gui_running")
     set t_Co=256
     let base16colorspace = 256
-    colorscheme base16-monokai
-    let g:airline_theme = 'base16'
 endif
+set background=dark
+colorscheme base16-monokai
+let g:airline_theme = 'base16'

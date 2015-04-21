@@ -1,11 +1,11 @@
 " If already loaded, we're done...
-if exists("g:loaded_custom")
+if exists("g:loaded_utils")
     finish
 endif
-let g:loaded_custom = 1
+let g:loaded_utils = 1
 
 " Highlight for few seconds the current selected search result
-function! HLNext (blinktime)
+function! HLNext(blinktime)
     let [bufnum, lnum, col, off] = getpos('.')
     let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
     let target_pat = '\c\%#'.@/
@@ -17,7 +17,7 @@ function! HLNext (blinktime)
 endfunction
 
 " Remove all the damned whitespaces
-function! <SID>StripTrailingWhitespaces()
+function! utils#strip_trailing_whitespaces()
     " Save cursor position
     let pos = getpos(".")
     " Save last search
@@ -31,4 +31,12 @@ function! <SID>StripTrailingWhitespaces()
     call setreg('/', search)
 endfunction
 
-command! StripTrailingWhitespaces call <SID>StripTrailingWhitespaces()
+function! utils#putdir(dir)
+    let dir = expand(a:dir)
+    if !isdirectory(dir)
+        call mkdir(dir, 'p')
+    endif
+endfunction
+
+command! StripTrailingWhitespaces call utils#strip_trailing_whitespaces()
+
