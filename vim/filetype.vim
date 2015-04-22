@@ -31,3 +31,5 @@ autocmd FileType python                     setl smartindent cinwords=if,elif,el
 " LaTeX
 autocmd FileType tex                        setl wrap linebreak textwidth=0 spell spelllang=it
 
+" VimScript
+autocmd FileType vim                        setl iskeyword+=:,#

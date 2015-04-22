@@ -4,6 +4,9 @@ if exists("g:loaded_utils")
 endif
 let g:loaded_utils = 1
 
+let s:save_cpo = &cpo
+set cpo&vim
+
 " Highlight for few seconds the current selected search result
 function! HLNext(blinktime)
     let [bufnum, lnum, col, off] = getpos('.')
@@ -39,4 +42,7 @@ function! utils#putdir(dir)
 endfunction
 
 command! StripTrailingWhitespaces call utils#strip_trailing_whitespaces()
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
 

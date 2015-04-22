@@ -205,8 +205,8 @@ NeoBundleLazy 'kana/vim-operator-user', {
 
 " Vim operator sorround
 NeoBundleLazy 'rhysd/vim-operator-surround', {
-            \ 'depends' : 'kana/vim-operator-user',
-            \ 'mappings' : '<Plug>',
+            \ 'depends': 'kana/vim-operator-user',
+            \ 'mappings': '<Plug>',
             \ }
 map <silent>sa <Plug>(operator-surround-append)
 map <silent>sd <Plug>(operator-surround-delete)
@@ -322,6 +322,11 @@ NeoBundleLazy 'tkztmk/vim-vala', { 'autoload' : {
 " Qml support
 NeoBundleLazy 'peterhoeg/vim-qml', { 'autoload': {
             \ 'filetypes': 'qml',
+            \ }}
+
+" Vim omni complete support
+NeoBundleLazy 'c9s/vimomni.vim', { 'autoload': {
+            \ 'filetypes': 'vim'
             \ }}
 
 " vim-partial, move chunks of code to new files
