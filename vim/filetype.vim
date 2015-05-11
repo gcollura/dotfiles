@@ -5,6 +5,7 @@ if exists("did_load_filetypes")
 endif
 
 augroup filetypedetect
+    autocmd!
     " EJS
     autocmd BufRead,BufNewFile *.ejs        set filetype=jst
 
@@ -16,20 +17,22 @@ augroup filetypedetect
 
     " Gradle
     autocmd BufRead,BufNewFile *.gradle     set filetype=groovy
-
 augroup END
 
-" HTML
-autocmd FileType html,xhtml,xml             setl tabstop=2 shiftwidth=2 matchpairs+=<:>
+augroup localoptions
+    autocmd!
+    " HTML
+    autocmd FileType html,xhtml,xml setl tabstop=4 shiftwidth=4 matchpairs+=<:>
 
-" Vala
-autocmd BufRead,BufNewFile *.vala,*.vapi    setl errorformat=%f:%l.%c-%[%^:]%#:\ %t%[%^:]%#:\ %m
+    " Vala
+    autocmd FileType vala           setl errorformat=%f:%l.%c-%[%^:]%#:\ %t%[%^:]%#:\ %m
 
-" Python
-autocmd FileType python                     setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+    " Python
+    autocmd FileType python         setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 
-" LaTeX
-autocmd FileType tex                        setl wrap linebreak textwidth=0 spell spelllang=it
+    " LaTeX
+    autocmd FileType tex            setl wrap linebreak textwidth=0 spell spelllang=it
 
-" VimScript
-autocmd FileType vim                        setl iskeyword+=:,#
+    " VimScript
+    autocmd FileType vim            setl iskeyword+=:,#
+augroup END

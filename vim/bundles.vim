@@ -41,13 +41,8 @@ if executable('ag')
     let g:unite_source_grep_command = 'ag'
     let g:unite_source_grep_default_opts =
                 \ '--line-numbers --nocolor --nogroup --hidden --ignore ' .
-                \  '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
-    let g:unite_source_grep_recursive_opt = ''
-elseif executable('ack-grep')
-    " Use ack in unite grep source.
-    let g:unite_source_grep_command = 'ack-grep'
-    let g:unite_source_grep_default_opts =
-                \ '--no-heading --no-color -a -H'
+                \  '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr''' .
+                \ '--ignore ''node_modules/'' --ignore ''build/'''
     let g:unite_source_grep_recursive_opt = ''
 endif
 
@@ -76,7 +71,9 @@ NeoBundleLazy 'Shougo/vimfiler.vim', {
             \ 'explorer' : 1,
             \ }
 let g:vimfiler_as_default_explorer = 1
+let g:vimfiler_ignore_pattern = '\(^\.\|^\.git\|\.DS_Store\|node_modules\|build\)'
 nnoremap <leader>f :VimFilerExplorer -split <CR>
+autocmd FileType vimfiler setl nonumber norelativenumber
 
 NeoBundleLazy 'Shougo/tabpagebuffer.vim', {
             \ 'filetypes': 'all',
@@ -203,6 +200,10 @@ NeoBundleLazy 'kana/vim-operator-user', {
             \ 'functions' : 'operator#user#define',
             \ }
 
+NeoBundleLazy 'kana/vim-textobj-user', {
+            \ 'functions': 'textobj#user#plugin',
+            \ }
+
 " Vim operator sorround
 NeoBundleLazy 'rhysd/vim-operator-surround', {
             \ 'depends': 'kana/vim-operator-user',
@@ -212,6 +213,19 @@ map <silent>sa <Plug>(operator-surround-append)
 map <silent>sd <Plug>(operator-surround-delete)
 map <silent>sr <Plug>(operator-surround-replace)
 
+NeoBundle 'sgur/vim-textobj-parameter', {
+            \ 'depends': 'kana/vim-textobj-user'
+            \ }
+
+NeoBundle 'glts/vim-textobj-comment', {
+            \ 'depends': 'kana/vim-textobj-user'
+            \}
+
+" For more kana's textobj based plugins, look
+" https://github.com/kana/vim-textobj-user/wiki
+
+" more textobj
+" NeoBundle 'wellle/targets.vim'
 
 " Gundo
 NeoBundleLazy 'sjl/gundo.vim', { 'autoload' : {
@@ -310,6 +324,10 @@ NeoBundleLazy 'pangloss/vim-javascript', { 'autoload': {
             \ 'filetypes': [ 'javascript', 'html' ]
             \ }}
 
+NeoBundleLazy 'digitaltoad/vim-jade', { 'autoload': {
+            \ 'filetypes': 'jade'
+            \ }}
+
 NeoBundleLazy 'gregsexton/MatchTag', { 'autoload': {
             \ 'filetypes': [ 'html', 'xml' ]
             \ }}
@@ -348,7 +366,7 @@ if neobundle#tap('unite.vim')
     call unite#filters#matcher_default#use(['matcher_fuzzy'])
     call unite#filters#sorter_default#use(['sorter_rank'])
     call unite#custom#profile('files', 'context.smartcase', 1)
-    call unite#custom#source('file_rec/async', 'ignore_pattern', 'build')
+    call unite#custom#source('file_rec/async', 'ignore_pattern', g:vimfiler_ignore_pattern)
     call unite#custom#profile('source/quickfix,source/location_list', 'context', {
                 \   'winheight': 13,
                 \   'direction': 'botright',
