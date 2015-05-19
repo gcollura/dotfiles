@@ -306,17 +306,22 @@ let g:airline_powerline_fonts = 1
 let g:airline_exclude_preview = 1
 
 " C++11 support
-NeoBundleLazy 'octol/vim-cpp-enhanced-highlight', { 'autoload' : {
+NeoBundleLazy 'octol/vim-cpp-enhanced-highlight', { 'autoload': {
             \ 'filetypes': 'cpp',
             \ }}
 
+" Java 8 support
+NeoBundleLazy 'vim-jp/vim-java', { 'autoload': {
+            \ 'filetypes': 'java',
+            \ }}
+
 " Scss support
-NeoBundleLazy 'cakebaker/scss-syntax.vim', { 'autoload' : {
+NeoBundleLazy 'cakebaker/scss-syntax.vim', { 'autoload': {
             \ 'filetypes': [ 'scss', 'sass', 'css' ]
             \ }}
 
 " Javascript and HTML
-NeoBundleLazy 'marijnh/tern_for_vim', { 'autoload' : {
+NeoBundleLazy 'marijnh/tern_for_vim', { 'autoload': {
             \ 'filetypes': [ 'javascript', 'html' ]
             \ }}
 
@@ -333,7 +338,7 @@ NeoBundleLazy 'gregsexton/MatchTag', { 'autoload': {
             \ }}
 
 " Vala support
-NeoBundleLazy 'tkztmk/vim-vala', { 'autoload' : {
+NeoBundleLazy 'tkztmk/vim-vala', { 'autoload': {
             \ 'filetypes': 'vala',
             \ }}
 

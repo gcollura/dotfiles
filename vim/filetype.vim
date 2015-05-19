@@ -35,4 +35,7 @@ augroup localoptions
 
     " VimScript
     autocmd FileType vim            setl iskeyword+=:,#
+
+    " Javascript
+    autocmd FileType javascript,json setl tabstop=2 shiftwidth=2
 augroup END

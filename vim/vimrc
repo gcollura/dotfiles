@@ -63,8 +63,6 @@ call utils#putdir(&directory)
 " Folding
 set foldmethod=indent " Convenient with C++
 set nofoldenable " Folding disable by default
-" No folding when loading files
-au BufRead * normal zR
 
 """ Editing
 
