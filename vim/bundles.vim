@@ -33,7 +33,7 @@ nnoremap <leader>i :Unite source <CR>
 nnoremap <leader>r :Unite register <CR>
 nnoremap <leader>b :Unite bookmark <CR>
 nnoremap <leader>L :Unite -start-insert line <CR>
-nnoremap <leader>c :Unite location_list <CR>
+nnoremap <leader>c :Unite quickfix location_list -profile-name=qfll<CR>
 nnoremap <leader>R :UniteResume <CR>
 
 if executable('ag')
@@ -273,9 +273,25 @@ NeoBundleLazy 'junegunn/vim-easy-align', {
             \ 'insert': 1
             \ }
 
-NeoBundleLazy 'LaTeX-Box-Team/LaTeX-Box', { 'autoload': {
+NeoBundleLazy 'lervag/vimtex', { 'autoload': {
             \ 'filetypes': [ 'tex', 'latex' ]
             \ }}
+let g:vimtex_mappings_enabled = 1
+let g:vimtex_latexmk_build_dir = 'out'
+let g:vimtex_quickfix_mode = 0
+let g:vimtex_latexmk_background = 1
+let g:vimtex_view_general_viewer = 'mupdf'
+let g:vimtex_quickfix_ignored_warnings = [
+            \ 'Underfull',
+            \ 'Overfull',
+            \ 'specifier changed to',
+            \ ]
+if !exists('g:ycm_semantic_triggers')
+    let g:ycm_semantic_triggers = {}
+endif
+let g:ycm_semantic_triggers.tex = [
+            \ 're!\\[A-Za-z]*(ref|cite)[A-Za-z]*([^]]*])?{([^}]*, ?)*'
+            \ ]
 
 NeoBundleLazy 'jamessan/vim-gnupg', {
             \ 'commands': [ 'GPGViewRecipients', 'GPGEditRecipients',
@@ -352,6 +368,10 @@ NeoBundleLazy 'c9s/vimomni.vim', { 'autoload': {
             \ 'filetypes': 'vim'
             \ }}
 
+NeoBundleLazy 'tmux-plugins/vim-tmux', { 'autoload': {
+            \ 'filetypes': 'conf',
+            \ }}
+
 " vim-partial, move chunks of code to new files
 " NeoBundleLazy 'jbgutierrez/vim-partial', {
 "             \ 'commands': 'PartialExtract'
@@ -378,6 +398,14 @@ if neobundle#tap('unite.vim')
                 \   'start_insert': 0,
                 \   'keep_focus': 1,
                 \   'no_quit': 0,
+                \ })
+    call unite#custom#profile('qfll', 'context', {
+                \   'winheight': 13,
+                \   'direction': 'botright',
+                \   'start_insert': 0,
+                \   'keep_focus': 1,
+                \   'no_quit': 0,
+                \   'hide_source_names': 1,
                 \ })
     call neobundle#untap()
 endif

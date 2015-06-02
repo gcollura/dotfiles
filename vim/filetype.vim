@@ -17,6 +17,12 @@ augroup filetypedetect
 
     " Gradle
     autocmd BufRead,BufNewFile *.gradle     set filetype=groovy
+
+    " LaTeX
+    autocmd BufNewFile *.tex                set filetype=tex
+
+    " jshint
+    autocmd BufRead,BufNewFile .jshintrc    set filetype=json
 augroup END
 
 augroup localoptions
@@ -32,6 +38,7 @@ augroup localoptions
 
     " LaTeX
     autocmd FileType tex            setl wrap linebreak textwidth=0 spell spelllang=it
+    autocmd FileType tex            let maplocalleader = "_"
 
     " VimScript
     autocmd FileType vim            setl iskeyword+=:,#

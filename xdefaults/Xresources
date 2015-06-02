@@ -43,6 +43,7 @@ URxvt*dynamicColors: true
 URxvt*inheritPixmap: false
 URxvt*trasparent: true
 URxvt*shading: 15
+URxvt*internalBorder: 0
 
 
 ! Urxvt plugins
