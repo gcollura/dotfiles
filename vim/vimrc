@@ -157,6 +157,10 @@ if has("win32") || has("win64")
     set shellslash
 endif
 
+" Splits
+set splitright
+set splitbelow
+
 " Load configurations
 call s:source(g:vim_dir . '/bundles.vim')
 call s:source(g:vim_dir . '/mappings.vim')
