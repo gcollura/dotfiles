@@ -35,26 +35,17 @@ inoremap {<CR> {<CR>}<C-o>O
 nnoremap <silent> n n:call HLNext(0.3)<cr>
 nnoremap <silent> N N:call HLNext(0.3)<cr>
 
+" replace vim's built-in visual * and # behavior
+xnoremap * :<C-u>call VisualStarSearchSet('/')<CR>/<C-R>=@/<CR><CR>
+xnoremap # :<C-u>call VisualStarSearchSet('?')<CR>?<C-R>=@/<CR><CR>
+
 vmap <expr> <left>  DVB_Drag('left')
 vmap <expr> <right> DVB_Drag('right')
 vmap <expr> <down>  DVB_Drag('down')
 vmap <expr> <up>    DVB_Drag('up')
 vmap <expr> D       DVB_Duplicate()
 
-" Zoom / Restore window.
-function! s:ZoomToggle() abort
-    if exists('t:zoomed') && t:zoomed
-        execute t:zoom_winrestcmd
-        let t:zoomed = 0
-    else
-        let t:zoom_winrestcmd = winrestcmd()
-        resize
-        vertical resize
-        let t:zoomed = 1
-    endif
-endfunction
-command! ZoomToggle call s:ZoomToggle()
-nnoremap <silent> <C-A> :ZoomToggle<CR>
+nnoremap <silent> <leader>z :ZoomToggle<CR>
 
 " Remove any introduced trailing whitespace after moving...
 let g:DVB_TrimWS = 1

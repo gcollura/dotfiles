@@ -28,21 +28,22 @@ augroup END
 augroup localoptions
     autocmd!
     " HTML
-    autocmd FileType html,xhtml,xml setl tabstop=4 shiftwidth=4 matchpairs+=<:>
+    autocmd FileType html,xhtml,xml  setl tabstop=4 shiftwidth=4 matchpairs+=<:>
 
     " Vala
-    autocmd FileType vala           setl errorformat=%f:%l.%c-%[%^:]%#:\ %t%[%^:]%#:\ %m
+    autocmd FileType vala            setl errorformat=%f:%l.%c-%[%^:]%#:\ %t%[%^:]%#:\ %m
 
     " Python
-    autocmd FileType python         setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+    autocmd FileType python          setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 
     " LaTeX
-    autocmd FileType tex            setl wrap linebreak textwidth=0 spell spelllang=it
-    autocmd FileType tex            let maplocalleader = "_"
+    autocmd FileType tex             setl wrap linebreak textwidth=0 spell spelllang=it
+    autocmd FileType tex             let maplocalleader = "_"
 
     " VimScript
-    autocmd FileType vim            setl iskeyword+=:,#
+    autocmd FileType vim             setl iskeyword+=:,#
 
     " Javascript
     autocmd FileType javascript,json setl tabstop=2 shiftwidth=2
+    autocmd FileType javascript      call UpdateJsHintConf()
 augroup END

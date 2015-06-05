@@ -149,6 +149,8 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '»'
 
+
+
 " Commentary
 NeoBundleLazy 'tomtom/tcomment_vim', {
             \ 'autoload': {
@@ -384,6 +386,7 @@ NeoBundle 'chriskempson/base16-vim'
 
 let g:EclimCompletionMethod = 'omnifunc'
 let g:EclimJavascriptValidate = 0
+let g:EclimFileTypeValidate = 0
 
 call neobundle#end()
 
