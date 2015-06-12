@@ -380,6 +380,10 @@ NeoBundleLazy 'tmux-plugins/vim-tmux', { 'autoload': {
             \ 'filetypes': 'conf',
             \ }}
 
+NeoBundleLazy 'cespare/vim-toml', { 'autoload': {
+            \ 'filetypes': 'toml',
+            \ }}
+
 " vim-partial, move chunks of code to new files
 " NeoBundleLazy 'jbgutierrez/vim-partial', {
 "             \ 'commands': 'PartialExtract'
