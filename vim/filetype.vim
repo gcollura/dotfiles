@@ -26,6 +26,12 @@ augroup filetypedetect
 
     " Rust lang
     autocmd BufRead,BufNewFile *.rs         set filetype=rust
+
+    " jscs
+    autocmd BufRead,BufNewFile .jscsrc      set filetype=json
+
+    " Jade
+    autocmd BufRead,BufNewFile *.jade       set filetype=jade
 augroup END
 
 augroup localoptions
@@ -47,6 +53,6 @@ augroup localoptions
     autocmd FileType vim             setl iskeyword+=:,#
 
     " Javascript
-    autocmd FileType javascript,json setl tabstop=2 shiftwidth=2
-    autocmd FileType javascript      call UpdateJsHintConf()
+    autocmd FileType javascript,json setl tabstop=2 shiftwidth=2 textwidth=80
+    autocmd FileType javascript      call UpdateJsCheckersConf()
 augroup END

@@ -91,10 +91,27 @@ function! s:find_jshintrc(dir)
 endfunction
 
 
-function! UpdateJsHintConf()
+function! s:find_jscsrc(dir)
+    let l:found = globpath(a:dir, '.jscsrc')
+    if filereadable(l:found)
+        return l:found
+    endif
+
+    let l:parent = fnamemodify(a:dir, ':h')
+    if l:parent != a:dir
+        return s:find_jscsrc(l:parent)
+    endif
+
+    return "~/.jscsrc"
+endfunction
+
+
+function! UpdateJsCheckersConf()
     let l:dir = expand('%:p:h')
     let l:jshintrc = s:find_jshintrc(l:dir)
+    let l:jscsrc = s:find_jscsrc(l:dir)
     let g:syntastic_javascript_jshint_args = '--config ' . l:jshintrc
+    let g:syntastic_javascript_jscs_args = '--config ' . l:jscsrc
 endfunction
 
 
