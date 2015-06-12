@@ -23,6 +23,9 @@ augroup filetypedetect
 
     " jshint
     autocmd BufRead,BufNewFile .jshintrc    set filetype=json
+
+    " Rust lang
+    autocmd BufRead,BufNewFile *.rs         set filetype=rust
 augroup END
 
 augroup localoptions

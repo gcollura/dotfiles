@@ -333,6 +333,10 @@ NeoBundleLazy 'vim-jp/vim-java', { 'autoload': {
             \ 'filetypes': 'java',
             \ }}
 
+NeoBundleLazy 'rust-lang/rust.vim', { 'autoload': {
+            \ 'filetypes': 'rust',
+            \ }}
+
 " Scss support
 NeoBundleLazy 'cakebaker/scss-syntax.vim', { 'autoload': {
             \ 'filetypes': [ 'scss', 'sass', 'css' ]
