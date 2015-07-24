@@ -411,6 +411,8 @@ NeoBundle 'chriskempson/base16-vim'
 
 let g:EclimCompletionMethod = 'omnifunc'
 let g:EclimJavascriptValidate = 0
+let g:EclimFileTypeValidate = 0
+let g:EclimJavaValidate = 1
 
 call neobundle#end()
 
