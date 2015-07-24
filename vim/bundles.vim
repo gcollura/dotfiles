@@ -143,7 +143,7 @@ NeoBundleLazy 'scrooloose/syntastic', {
             \ }
 let g:syntastic_mode_map = { 'mode': 'active',
             \ 'active_filetypes': [ 'ruby', 'php', 'python' ],
-            \ 'passive_filetypes': [ 'sass', 'scss', 'scss.css' ]
+            \ 'passive_filetypes': [ 'java', 'sass', 'scss', 'scss.css' ]
             \ }
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_error_symbol = '✗'
@@ -223,7 +223,7 @@ NeoBundle 'sgur/vim-textobj-parameter', {
 
 NeoBundle 'glts/vim-textobj-comment', {
             \ 'depends': 'kana/vim-textobj-user'
-            \}
+            \ }
 
 " For more kana's textobj based plugins, look
 " https://github.com/kana/vim-textobj-user/wiki
@@ -231,9 +231,24 @@ NeoBundle 'glts/vim-textobj-comment', {
 " more textobj
 " NeoBundle 'wellle/targets.vim'
 
+" incsearch.vim
+NeoBundle 'haya14busa/incsearch.vim', {
+            \ 'name': 'incsearch.vim'
+            \ }
+NeoBundle 'haya14busa/incsearch-fuzzy.vim', {
+            \ 'depends': 'incsearch.vim'
+            \ }
+let g:incsearch#auto_nohlsearch = 1
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+map z/ <Plug>(incsearch-fuzzy-/)
+map z? <Plug>(incsearch-fuzzy-?)
+map zg/ <Plug>(incsearch-fuzzy-stay)
+
 " Gundo
 NeoBundleLazy 'sjl/gundo.vim', { 'autoload' : {
-            \ 'commands' : 'GundoToggle'
+            \ 'commands': 'GundoToggle'
             \ }}
 nnoremap <F3> :GundoToggle <CR>
 
@@ -396,7 +411,6 @@ NeoBundle 'chriskempson/base16-vim'
 
 let g:EclimCompletionMethod = 'omnifunc'
 let g:EclimJavascriptValidate = 0
-let g:EclimFileTypeValidate = 0
 
 call neobundle#end()
 
