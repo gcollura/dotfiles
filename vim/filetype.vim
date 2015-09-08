@@ -8,7 +8,6 @@ augroup filetypedetect
     autocmd!
     " EJS
     autocmd BufRead,BufNewFile *.ejs        set filetype=jst
-
     " jQuery
     autocmd BufRead,BufNewFile jquery.*.js  set filetype=javascript syntax=jquery
 
@@ -60,4 +59,11 @@ augroup localoptions
     " Javascript
     autocmd FileType javascript,json setl tabstop=2 shiftwidth=2 textwidth=80
     autocmd FileType javascript      call UpdateJsCheckersConf()
+
+    " PHP
+    autocmd FileType php             setl omnifunc=phpcomplete#CompletePHP noexpandtab
+	autocmd FileType xml			 setl noexpandtab
+    autocmd FileType xml             setl omnifunc=xmlcomplete#CompleteTags noci
+    autocmd FileType html            setl omnifunc=htmlcomplete#CompleteTags noci
+
 augroup END

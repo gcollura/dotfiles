@@ -28,7 +28,7 @@ let g:unite_source_grep_max_candidates = 200
 nnoremap <leader>p :Unite -start-insert file_rec/async <CR>
 nnoremap <leader>[ :Unite grep:. <CR>
 nnoremap <leader>/ :Unite grep:$buffers <CR>
-nnoremap <leader>l :Unite buffer_tab buffer -hide-source-names <CR>
+nnoremap <leader>l :Unite -hide-source-names buffer <CR>
 nnoremap <leader>i :Unite source <CR>
 nnoremap <leader>r :Unite register <CR>
 nnoremap <leader>b :Unite bookmark <CR>
@@ -40,9 +40,9 @@ if executable('ag')
     " Use ag in unite grep source.
     let g:unite_source_grep_command = 'ag'
     let g:unite_source_grep_default_opts =
-                \ '--line-numbers --nocolor --nogroup --hidden --ignore ' .
-                \  '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr''' .
-                \ '--ignore ''node_modules/'' --ignore ''build/'''
+                \ ' --line-numbers --nocolor --nogroup --hidden ' .
+                \ ' --ignore ".hg" --ignore ".svn" --ignore ".git" --ignore ".bzr" ' .
+                \ ' --ignore "node_modules" --ignore "build" --ignore "bin" --ignore "target" '
     let g:unite_source_grep_recursive_opt = ''
 endif
 
@@ -374,6 +374,14 @@ NeoBundleLazy 'digitaltoad/vim-jade', { 'autoload': {
 
 NeoBundleLazy 'gregsexton/MatchTag', { 'autoload': {
             \ 'filetypes': [ 'html', 'xml' ]
+            \ }}
+
+NeoBundleLazy 'sukima/xmledit', { 'autoload': {
+            \ 'filetypes': [ 'html', 'xml', 'php' ]
+            \ }}
+
+NeoBundleLazy 'shawncplus/phpcomplete.vim', { 'autoload': {
+            \ 'filetypes': 'php'
             \ }}
 
 " Vala support
