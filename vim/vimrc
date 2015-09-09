@@ -105,6 +105,7 @@ set spellsuggest=5
 """ Completion
 
 set wildmenu
+set wildmode=longest,full
 "stuff to ignore when tab completing
 set wildignore=*.o,*.png,*.gif,*.jpg,*.jpeg,*.zip,*.jar,*.gem,coverage/**,log/**,*.pyc,*~,build/**
 

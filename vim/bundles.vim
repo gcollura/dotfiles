@@ -17,7 +17,7 @@ NeoBundle 'Shougo/vimproc', {
             \ }
 
 " Unite.vim
-NeoBundleLazy 'Shougo/unite.vim', {
+NeoBundle 'Shougo/unite.vim', {
             \ 'name': 'unite.vim',
             \ 'depends': 'vimproc',
             \ 'commands': [
@@ -40,8 +40,8 @@ if executable('ag')
     " Use ag in unite grep source.
     let g:unite_source_grep_command = 'ag'
     let g:unite_source_grep_default_opts =
-                \ ' --line-numbers --nocolor --nogroup --hidden ' .
-                \ ' --ignore ".hg" --ignore ".svn" --ignore ".git" --ignore ".bzr" ' .
+                \ ' -i --vimgrep --line-numbers --nocolor --nogroup --hidden' .
+                \ ' --ignore ".hg" --ignore ".svn" --ignore ".git" --ignore ".bzr"' .
                 \ ' --ignore "node_modules" --ignore "build" --ignore "bin" --ignore "target" '
     let g:unite_source_grep_recursive_opt = ''
 endif
@@ -364,9 +364,22 @@ NeoBundleLazy 'marijnh/tern_for_vim', { 'autoload': {
             \ 'filetypes': [ 'javascript', 'html' ]
             \ }}
 
-NeoBundleLazy 'pangloss/vim-javascript', { 'autoload': {
+" NeoBundleLazy 'pangloss/vim-javascript', { 'autoload': {
+"             \ 'filetypes': [ 'javascript', 'html' ]
+"             \ }}
+
+NeoBundleLazy 'gavocanov/vim-js-indent', { 'autoload': {
             \ 'filetypes': [ 'javascript', 'html' ]
             \ }}
+
+NeoBundleLazy 'othree/yajs.vim', { 'autoload': {
+            \ 'filetypes': [ 'javascript', 'html' ]
+            \ }}
+
+NeoBundleLazy 'othree/javascript-libraries-syntax.vim', { 'autoload': {
+            \ 'filetypes': [ 'javascript' ]
+            \ }}
+let g:used_javascript_libs = 'jquery,angularjs,angularui,angularuirouter,chai'
 
 NeoBundleLazy 'digitaltoad/vim-jade', { 'autoload': {
             \ 'filetypes': 'jade'

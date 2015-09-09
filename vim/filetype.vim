@@ -66,4 +66,9 @@ augroup localoptions
     autocmd FileType xml             setl omnifunc=xmlcomplete#CompleteTags noci
     autocmd FileType html            setl omnifunc=htmlcomplete#CompleteTags noci
 
+    " Jade
+    autocmd FileType jade            setl nolinebreak textwidth=0
+
+    " sass
+    autocmd FileType scss            setl tabstop=2 shiftwidth=2
 augroup END
