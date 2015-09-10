@@ -71,7 +71,7 @@ NeoBundleLazy 'Shougo/vimfiler.vim', {
             \ 'explorer' : 1,
             \ }
 let g:vimfiler_as_default_explorer = 1
-let g:vimfiler_ignore_pattern = '\(^\.\|^\.git\|\.DS_Store\|node_modules\|build\)'
+let g:vimfiler_ignore_pattern = '\(^\.\|^\.git\|^\.[_]*DS_Store\|^node_modules\|^build$\)'
 nnoremap <leader>f :VimFilerExplorer -split <CR>
 autocmd FileType vimfiler setl nonumber norelativenumber
 

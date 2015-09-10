@@ -62,9 +62,13 @@ augroup localoptions
 
     " PHP
     autocmd FileType php             setl omnifunc=phpcomplete#CompletePHP noexpandtab
-	autocmd FileType xml			 setl noexpandtab
+
+    " XML
+    autocmd FileType xml             setl noexpandtab
     autocmd FileType xml             setl omnifunc=xmlcomplete#CompleteTags noci
     autocmd FileType html            setl omnifunc=htmlcomplete#CompleteTags noci
+    autocmd FileType xml,xslt        let maplocalleader = "_"
+    autocmd FileType xslt            setl textwidth=0
 
     " Jade
     autocmd FileType jade            setl nolinebreak textwidth=0
