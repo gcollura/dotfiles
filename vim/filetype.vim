@@ -64,7 +64,7 @@ augroup localoptions
     autocmd FileType php             setl omnifunc=phpcomplete#CompletePHP noexpandtab
 
     " XML
-    autocmd FileType xml             setl noexpandtab
+    autocmd FileType xml,xslt        setl noexpandtab
     autocmd FileType xml             setl omnifunc=xmlcomplete#CompleteTags noci
     autocmd FileType html            setl omnifunc=htmlcomplete#CompleteTags noci
     autocmd FileType xml,xslt        let maplocalleader = "_"

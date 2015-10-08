@@ -28,7 +28,7 @@ let g:unite_source_grep_max_candidates = 200
 nnoremap <leader>p :Unite -start-insert file_rec/async <CR>
 nnoremap <leader>[ :Unite grep:. <CR>
 nnoremap <leader>/ :Unite grep:$buffers <CR>
-nnoremap <leader>l :Unite -hide-source-names buffer <CR>
+nnoremap <leader>l :Unite -hide-source-names buffer:- <CR>
 nnoremap <leader>i :Unite source <CR>
 nnoremap <leader>r :Unite register <CR>
 nnoremap <leader>b :Unite bookmark <CR>
@@ -71,15 +71,9 @@ NeoBundleLazy 'Shougo/vimfiler.vim', {
             \ 'explorer' : 1,
             \ }
 let g:vimfiler_as_default_explorer = 1
-let g:vimfiler_ignore_pattern = '\(^\.\|^\.git\|^\.[_]*DS_Store\|^node_modules\|^build$\)'
+let g:vimfiler_ignore_pattern = '^\(\.\|\.git\|\.[_]*DS_Store\|node_modules\|build$\)'
 nnoremap <leader>f :VimFilerExplorer -split <CR>
 autocmd FileType vimfiler setl nonumber norelativenumber
-
-NeoBundleLazy 'Shougo/tabpagebuffer.vim', {
-            \ 'filetypes': 'all',
-            \ 'autoload': {
-            \   'unite_sources': [ 'buffer_tab' ]
-            \ }}
 
 NeoBundleLazy 'Shougo/unite-outline', {
             \ 'depends': 'Shougo/unite.vim',
