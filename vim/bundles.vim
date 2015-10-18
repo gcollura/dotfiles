@@ -344,9 +344,16 @@ NeoBundleLazy 'vim-jp/vim-java', { 'autoload': {
             \ 'filetypes': 'java',
             \ }}
 
+" Rust support
 NeoBundleLazy 'rust-lang/rust.vim', { 'autoload': {
             \ 'filetypes': 'rust',
             \ }}
+
+NeoBundleLazy 'racer-rust/vim-racer', { 'autoload': {
+            \ 'filetypes': 'rust',
+            \ }}
+let g:racer_cmd = $HOME . '/Projects/racer/target/release/racer'
+let $RUST_SRC_PATH = $HOME . '/.local/src/rustc-nightly/src/'
 
 " Scss support
 NeoBundleLazy 'cakebaker/scss-syntax.vim', { 'autoload': {
@@ -412,6 +419,10 @@ NeoBundleLazy 'tmux-plugins/vim-tmux', { 'autoload': {
 
 NeoBundleLazy 'cespare/vim-toml', { 'autoload': {
             \ 'filetypes': 'toml',
+            \ }}
+
+NeoBundleLazy 'nginx.vim', { 'autoload': {
+            \ 'filetypes': 'nginx',
             \ }}
 
 " vim-partial, move chunks of code to new files
