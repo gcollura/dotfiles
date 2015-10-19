@@ -241,7 +241,7 @@ map z? <Plug>(incsearch-fuzzy-?)
 map zg/ <Plug>(incsearch-fuzzy-stay)
 
 " Gundo
-NeoBundleLazy 'sjl/gundo.vim', { 'autoload' : {
+NeoBundleLazy 'simnalamburt/vim-mundo', { 'autoload' : {
             \ 'commands': 'GundoToggle'
             \ }}
 nnoremap <F3> :GundoToggle <CR>
@@ -392,10 +392,6 @@ NeoBundleLazy 'gregsexton/MatchTag', { 'autoload': {
 
 NeoBundleLazy 'sukima/xmledit', { 'autoload': {
             \ 'filetypes': [ 'html', 'xml', 'php' ]
-            \ }}
-
-NeoBundleLazy 'shawncplus/phpcomplete.vim', { 'autoload': {
-            \ 'filetypes': 'php'
             \ }}
 
 " Vala support
