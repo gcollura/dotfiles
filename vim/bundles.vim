@@ -198,7 +198,7 @@ NeoBundleLazy 'kana/vim-operator-user', {
             \ 'functions' : 'operator#user#define',
             \ }
 
-NeoBundleLazy 'kana/vim-textobj-user', {
+NeoBundle 'kana/vim-textobj-user', {
             \ 'functions': 'textobj#user#plugin',
             \ }
 
