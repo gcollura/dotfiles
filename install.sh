@@ -13,3 +13,4 @@ ln -s $PWD/vim ~/.vim
 ln -s $PWD/xdefaults/Xresources ~/.Xresources
 # ln -s $PWD/xdefaults/Xcolors.atelier ~/.config
 ln -s $PWD/eclimrc ~/.eclimrc
+ln -s $PWD/gitignore ~/.config/git/ignore
