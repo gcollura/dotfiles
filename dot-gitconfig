@@ -2,10 +2,13 @@
 	email = giulio@opal.dev
 	name = Giulio Collura
 [core]
-	excludesfile = /Users/gcoll/.gitignore
+	excludesfile = ~/.gitignore
 
 [includeif "gitdir:~/code/"]
 	path = ~/code/.gitconfig
+
+[includeif "gitdir:~/Code/"]
+	path = ~/Code/.gitconfig
 	
 [includeif "gitdir:~/src/"]
 	path = ~/src/.gitconfig
