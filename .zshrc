@@ -36,7 +36,7 @@ zinit light zsh-users/zsh-history-substring-search
 zinit ice wait lucid
 zinit light zsh-users/zsh-autosuggestions
 zinit ice wait lucid
-zinit light zdharma/fast-syntax-highlighting 
+zinit light zdharma/fast-syntax-highlighting
 
 zinit light geometry-zsh/geometry
 
@@ -457,4 +457,3 @@ _gt_yargs_completions()
 }
 compdef _gt_yargs_completions gt
 ###-end-gt-completions-###
-

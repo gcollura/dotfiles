@@ -1,7 +1,7 @@
 [user]
   name = "Giulio Collura"
   email = giulio@opal.dev
-    
+
 [url "git@github.com-opal"]
   insteadOf = git@github.com
 [url "ssh://git@github.com/opalsecurity/"]

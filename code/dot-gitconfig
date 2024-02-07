@@ -1,6 +1,6 @@
 [user]
   name = "Giulio Collura"
   email = giulio.collura@gmail.com
-    
+
 [url "git@github.com-gcollura"]
   insteadOf = git@github.com

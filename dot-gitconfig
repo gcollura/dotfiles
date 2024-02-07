@@ -9,6 +9,6 @@
 
 [includeif "gitdir:~/Code/"]
 	path = ~/Code/.gitconfig
-	
+
 [includeif "gitdir:~/src/"]
 	path = ~/src/.gitconfig

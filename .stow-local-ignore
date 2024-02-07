@@ -24,3 +24,4 @@ _darcs
 \.stowrc
 
 /scripts
+\.pre-commit-config.yaml
