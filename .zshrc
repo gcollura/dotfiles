@@ -4,28 +4,7 @@ if [[ -z "$ZSH_ROOT" ]]; then
     export ZSH_ROOT=$HOME/.zsh
 fi
 
-# autoload wrapper (zrcautoload) {{{
-function zrcautoload() {
-    emulate -L zsh
-    setopt extended_glob
-    local fdir ffile
-    local -i ffound
-
-    ffile=$1
-    (( ffound = 0 ))
-    for fdir in ${fpath} ; do
-        [[ -e ${fdir}/${ffile} ]] && (( ffound = 1 ))
-    done
-
-    (( ffound == 0 )) && return 1
-    if [[ $ZSH_VERSION == 3.1.<6-> || $ZSH_VERSION == <4->* ]] ; then
-        autoload -Uz ${ffile} || return 1
-    else
-        autoload ${ffile} || return 1
-    fi
-    return 0
-}
-# }}}
+export SDKROOT="$(xcrun --sdk macosx --show-sdk-path)"
 
 # Plugins {{{
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
