@@ -17,6 +17,7 @@ return {
 				lsp_zero.default_keymaps({ buffer = bufnr })
 
 				vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<cr>", { buffer = bufnr })
+				vim.keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<cr>", { buffer = bufnr })
 				vim.keymap.set(
 					"n",
 					"<leader>.",
@@ -72,20 +73,35 @@ return {
 	{
 		"hrsh7th/nvim-cmp",
 		dependencies = {
-			{
-				"L3MON4D3/LuaSnip",
-				version = "v2.*",
-				build = "make install_jsregexp",
-				dependencies = { "rafamadriz/friendly-snippets" },
-			},
-			"saadparwaiz1/cmp_luasnip",
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-nvim-lua",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
 			"hrsh7th/cmp-cmdline",
-			"zbirenbaum/copilot-cmp",
+			"saadparwaiz1/cmp_luasnip",
+			{
+				"L3MON4D3/LuaSnip",
+				version = "v2.*",
+				build = "make install_jsregexp",
+				dependencies = { "rafamadriz/friendly-snippets" },
+			},
+			{
+				"zbirenbaum/copilot-cmp",
+				dependencies = {
+					{
+						"zbirenbaum/copilot.lua",
+						opts = {
+							suggestion = {
+								enabled = false,
+								auto_trigger = false,
+								debounce = 75,
+							},
+						},
+					},
+				},
+				config = true,
+			},
 		},
 		config = function()
 			-- Here is where you configure the autocompletion settings.
@@ -132,10 +148,10 @@ return {
 				sources = cmp.config.sources({
 					{ name = "copilot", priority = 100 },
 					{ name = "nvim_lsp", priority = 90 },
-					{ name = "luasnip", keyword_length = 2 },
+					{ name = "nvim_lsp_signature_help", priority = 80 },
 				}, {
+					{ name = "luasnip", keyword_length = 2 },
 					{ name = "buffer", keyword_length = 3 },
-					{ name = "nvim_lsp_signature_help" },
 					{ name = "nvim_lua", group_index = 4 },
 				}, {
 					{ name = "path", group_index = 4 },
@@ -199,48 +215,8 @@ return {
 			})
 		end,
 	},
-	{
-		"zbirenbaum/copilot-cmp",
-		dependencies = {
-			{
-				"zbirenbaum/copilot.lua",
-				opts = {
-					suggestion = {
-						enabled = false,
-						auto_trigger = false,
-						debounce = 75,
-					},
-				},
-			},
-		},
-		config = true,
-	},
-	{
-		"L3MON4D3/LuaSnip",
-		version = "v2.*",
-		build = "make install_jsregexp",
-		dependencies = { "rafamadriz/friendly-snippets" },
-	},
 
 	-- Editing
-	{
-		"stevearc/conform.nvim",
-		event = { "BufWritePre" },
-		cmd = { "ConformInfo" },
-		opts = {
-			-- Define your formatters
-			formatters_by_ft = {
-				lua = { "stylua" },
-				python = { "black" },
-				javascript = { "prettier" },
-				typescript = { "prettier", "eslint" },
-				typescriptreact = { "prettier", "eslint" },
-				graphql = { "prettier", "eslint" },
-			},
-			-- Set up format-on-save
-			format_on_save = { timeout_ms = 500, lsp_fallback = true },
-		},
-	},
 	{
 		"nvim-treesitter/nvim-treesitter",
 		tag = "v0.9.2",
@@ -343,8 +319,8 @@ return {
 	},
 	{
 		"numToStr/Comment.nvim",
-		-- without opts the plugin won't load
-		opts = {},
+		event = { "BufReadPre", "BufNewFile" },
+		config = true,
 		dependencies = {
 			{
 				"JoosepAlviste/nvim-ts-context-commentstring",
@@ -387,6 +363,7 @@ return {
 	{
 		"jparise/vim-graphql",
 		ft = "graphql",
+		init = false,
 	},
 
 	{
@@ -398,5 +375,8 @@ return {
 				vim.cmd.Bdelete,
 			},
 		},
+	},
+	{
+		"wsdjeg/vim-fetch",
 	},
 }

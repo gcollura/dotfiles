@@ -62,7 +62,17 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "fugitive", "help", "qf" },
+	pattern = { "markdown" },
+	callback = function()
+		vim.opt_local.conceallevel = 2
+		vim.opt_local.spell = true
+		vim.opt_local.spelllang = "en_us"
+	end,
+	group = generalSettingsGroup,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "fugitive", "help", "qf", "guihua" },
 	callback = function()
 		vim.keymap.set("n", "q", ":q<CR>", { silent = true, buffer = true })
 	end,

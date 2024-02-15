@@ -1,7 +1,7 @@
 # zmodload zsh/zprof
 # Path to zsh configurations
 if [[ -z "$ZSH_ROOT" ]]; then
-    export ZSH_ROOT=$HOME/.zsh
+  export ZSH_ROOT=$HOME/.zsh
 fi
 
 export SDKROOT="$(xcrun --sdk macosx --show-sdk-path)"
@@ -16,9 +16,9 @@ autoload -Uz _zinit
 
 autoload -Uz compinit
 if [ $(date +'%j') != $(date -r ~/.zcompdump +'%j') ]; then
-    compinit
+  compinit
 else
-    compinit -C
+  compinit -C
 fi
 setopt promptsubst
 
@@ -46,8 +46,8 @@ zinit light lukechilds/zsh-nvm
 
 zinit ice as"completion"
 zinit light-mode depth=1 for \
-    OMZP::docker/completions/_docker \
-    OMZP::kubectl
+  OMZP::docker/completions/_docker \
+  OMZP::kubectl
 
 # }}}
 
@@ -105,11 +105,11 @@ unsetopt rm_star_silent         # ask for confirmation for `rm *' or `rm path/*'
 
 # Zsh hooks {{{
 function precmd {
-    print -Pn '\e]0;%M:%~\a'    # terminal title: hostname:~/path/to/dir
+  print -Pn '\e]0;%M:%~\a'    # terminal title: hostname:~/path/to/dir
 }
 
 function chpwd {
-    chpwd_recent_dirs
+  chpwd_recent_dirs
 }
 # }}}
 
@@ -125,72 +125,59 @@ function chpwd {
 
 # Functions {{{
 function take() {
-    if [[ -n $1 && -d $1 ]]; then
-        builtin cd $1
-    elif [[ -n $1 ]]; then
-        mkdir -p $1 && builtin cd $1
-    fi
+  if [[ -n $1 && -d $1 ]]; then
+    builtin cd $1
+  elif [[ -n $1 ]]; then
+    mkdir -p $1 && builtin cd $1
+  fi
 }
 
 function ssh-tmux() {
-    command ssh -At $@ tmux
+command ssh -At $@ tmux
 }
 
 # Tmux
 function trw() {
-    if [[ -z $TMUX ]]; then
-        return
-    fi
-    local window=`basename $PWD`
-    if [[ -n $1 ]]; then
-        window="$1"
-    fi
-    command tmux rename-window "$window"
+  if [[ -z $TMUX ]]; then
+    return
+  fi
+  local window=`basename $PWD`
+  if [[ -n $1 ]]; then
+    window="$1"
+  fi
+  command tmux rename-window "$window"
 }
 
-function sensors() {
-    # alias sensors='sensors && aticonfig --od-gettemperature'
-    if type sensors > /dev/null ; then
-        command sensors
-    fi
-    if type aticonfig > /dev/null ; then
-        command aticonfig --od-gettemperature
-    fi
-}
-
-function cd() {
-    # cd /etc/fstab
-    if [[ -f ${1} ]]; then
-        [[ ! -e ${1:h} ]] && return 1
-        print "Correcting ${1} to ${1:h}"
-        builtin cd ${1:h}
-    else
-        builtin cd ${1}
-    fi
+function tsw() {
+  if [[ -z $TMUX ]]; then
+    return
+  fi
+  echo command tmux split-window "'zsh -i -l -c \"$@\"; zsh -i -l'"
+  command tmux split-window "'zsh -i -l -c \"$@\"; zsh -i -l'"
 }
 
 function pathprepend() {
-    for ARG in "$@"; do
-        if [ -d "$ARG" ] && [[ ":$PATH:" != *":$ARG:"* ]]; then
-            PATH="$ARG${PATH:+":$PATH"}"
-        fi
-    done
+  for ARG in "$@"; do
+    if [ -d "$ARG" ] && [[ ":$PATH:" != *":$ARG:"* ]]; then
+      PATH="$ARG${PATH:+":$PATH"}"
+    fi
+  done
 }
 
 function pathappend() {
-    for ARG in "$@"; do
-        if [ -d "$ARG" ] && [[ ":$PATH:" != *":$ARG:"* ]]; then
-            PATH="${PATH:+"$PATH:"}$ARG"
-        fi
-    done
+  for ARG in "$@"; do
+    if [ -d "$ARG" ] && [[ ":$PATH:" != *":$ARG:"* ]]; then
+      PATH="${PATH:+"$PATH:"}$ARG"
+    fi
+  done
 }
 # }}}
 
 # Editor {{{
 if type nvim > /dev/null; then
-    export EDITOR='nvim'
+  export EDITOR='nvim'
 else
-    export EDITOR='vim'
+  export EDITOR='vim'
 fi
 # }}}
 
@@ -262,15 +249,15 @@ zstyle ':completion:*:*:cdr:*:*' menu selection
 bindkey -v
 
 if [[ "${terminfo[khome]}" != "" ]]; then
-    bindkey "${terminfo[khome]}" beginning-of-line # [Home] - Go to beginning of line
+  bindkey "${terminfo[khome]}" beginning-of-line # [Home] - Go to beginning of line
 fi
 
 if [[ "${terminfo[kend]}" != "" ]]; then
-    bindkey "${terminfo[kend]}" end-of-line # [End] - Go to end of line
+  bindkey "${terminfo[kend]}" end-of-line # [End] - Go to end of line
 fi
 
 if [[ "${terminfo[kcbt]}" != "" ]]; then
-    bindkey "${terminfo[kcbt]}" reverse-menu-complete # [Shift-Tab] - move through the completion menu backwards
+  bindkey "${terminfo[kcbt]}" reverse-menu-complete # [Shift-Tab] - move through the completion menu backwards
 fi
 
 bindkey ' ' magic-space # [Space] - do history expansion
@@ -309,8 +296,8 @@ alias zshrc="$EDITOR ~/.zshrc" # Quick access to the ~/.zshrc file
 alias zshreload="source ~/.zshrc"
 
 if type tmux2 > /dev/null ; then
-    alias tmux=tmux2
-    alias tm="agenttmux2 new-session -A -s work"
+  alias tmux=tmux2
+  alias tm="agenttmux2 new-session -A -s work"
 fi
 
 # Show progress while file is copying
@@ -341,6 +328,7 @@ alias pg='ps aux | grep'  # requires an argument
 alias :q="exit"
 alias e="$EDITOR"
 alias ccat='pygmentize -O bg=dark'
+alias nv="nvim"
 
 # Git
 alias glog='git log --graph --full-history --all --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s"'
@@ -353,30 +341,30 @@ hash -d projects="$HOME/Projects"
 hash -d desktop="$HOME/Desktop"
 hash -d downloads="$HOME/Downloads"
 if [ -d "$HOME/ownCloud" ]; then
-    hash -d owncloud="$HOME/ownCloud"
+  hash -d owncloud="$HOME/ownCloud"
 fi
 if [ -d "$HOME/Nextcloud" ]; then
-    hash -d nextcloud="$HOME/Nextcloud"
-    hash -d owncloud="$HOME/Nextcloud"
+  hash -d nextcloud="$HOME/Nextcloud"
+  hash -d owncloud="$HOME/Nextcloud"
 fi
 if [ -d "$HOME/Code" ]; then
-    if [ ! -d "$HOME/Projects" ]; then
-        hash -d projects="$HOME/Code"
-    fi
-    hash -d code="$HOME/Code"
+  if [ ! -d "$HOME/Projects" ]; then
+    hash -d projects="$HOME/Code"
+  fi
+  hash -d code="$HOME/Code"
 fi
 if [ -d $GOPATH ]; then
-    hash -d go="$GOPATH"
+  hash -d go="$GOPATH"
 fi
 
 # Docker {{{
 if type docker > /dev/null ; then
-    alias sen='docker run --rm --privileged -v /var/run/docker.sock:/run/docker.sock -it -e TERM tomastomecek/sen'
-    alias docker-update-images='docker images --format "{{.Repository}}" | xargs -L1 docker pull'
-    alias docker-dangling-images='docker images --filter "dangling=true"'
-    alias docker-remove-dangling-images='docker rmi $(docker images -f "dangling=true" -q)'
-    alias docker-clean-volumes='docker volume ls -qf dangling=true | xargs -r docker volume rm'
-    alias docker-clean-containers='docker ps --filter status=dead --filter status=exited -aq | xargs -r docker rm -v'
+  alias sen='docker run --rm --privileged -v /var/run/docker.sock:/run/docker.sock -it -e TERM tomastomecek/sen'
+  alias docker-update-images='docker images --format "{{.Repository}}" | xargs -L1 docker pull'
+  alias docker-dangling-images='docker images --filter "dangling=true"'
+  alias docker-remove-dangling-images='docker rmi $(docker images -f "dangling=true" -q)'
+  alias docker-clean-volumes='docker volume ls -qf dangling=true | xargs -r docker volume rm'
+  alias docker-clean-containers='docker ps --filter status=dead --filter status=exited -aq | xargs -r docker rm -v'
 fi
 # }}}
 
@@ -391,37 +379,37 @@ zle -N zle-line-init
 zle -N zle-line-finish
 
 function zle-keymap-select {
-    # change cursor shape in urxvt
-    case $KEYMAP in
-        vicmd)      print -n -- "\033[2 q";;  # block cursor
-        viins|main) print -n -- "\033[5 q";;  # line blinking cursor
-    esac
-    zle -R
+# change cursor shape in urxvt
+case $KEYMAP in
+  vicmd)      print -n -- "\033[2 q";;  # block cursor
+  viins|main) print -n -- "\033[5 q";;  # line blinking cursor
+esac
+zle -R
 }
 
 function zle-line-init {
-    print -n -- "\033[5 q"
+print -n -- "\033[5 q"
 }
 
 function zle-line-finish {
-    print -n -- "\033[2 q"  # block cursor
+print -n -- "\033[2 q"  # block cursor
 }
 # }}}
 
 # fzf {{{
 function fzf-install() {
-    command git clone --depth 1 https://github.com/junegunn/fzf.git $ZSH_ROOT/fzf
-    $ZSH_ROOT/fzf/install --completion --key-bindings --no-update-rc --no-fish
+command git clone --depth 1 https://github.com/junegunn/fzf.git $ZSH_ROOT/fzf
+$ZSH_ROOT/fzf/install --completion --key-bindings --no-update-rc --no-fish
 }
 
 function fzf-update() {
-    builtin cd $ZSH_ROOT/fzf
-    command git pull
-    $ZSH_ROOT/fzf/install --completion --key-bindings --no-update-rc --no-fish
+builtin cd $ZSH_ROOT/fzf
+command git pull
+$ZSH_ROOT/fzf/install --completion --key-bindings --no-update-rc --no-fish
 }
 
 if [ -n $TMUX ]; then
-    export FZF_TMUX=1
+  export FZF_TMUX=1
 fi
 
 [ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
@@ -434,9 +422,14 @@ pathappend /snap/bin
 
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+if type pyenv > /dev/null ; then
+  eval "$(pyenv init -)"
+fi
 
-# vim: fdm=marker et fen fdl=0 tw=0
+if type zoxide >/dev/null ; then
+  eval "$(zoxide init zsh)"
+fi
+
 # zprof
 #compdef gt
 ###-begin-gt-completions-###
@@ -451,9 +444,11 @@ _gt_yargs_completions()
   local reply
   local si=$IFS
   IFS=$'
-' reply=($(COMP_CWORD="$((CURRENT-1))" COMP_LINE="$BUFFER" COMP_POINT="$CURSOR" gt --get-yargs-completions "${words[@]}"))
+  ' reply=($(COMP_CWORD="$((CURRENT-1))" COMP_LINE="$BUFFER" COMP_POINT="$CURSOR" gt --get-yargs-completions "${words[@]}"))
   IFS=$si
   _describe 'values' reply
 }
 compdef _gt_yargs_completions gt
 ###-end-gt-completions-###
+
+# vim: fdm=marker et fen fdl=0 tw=0 shiftwidth=2

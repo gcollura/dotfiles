@@ -4,7 +4,21 @@ return {
 		lazy = false,
 		priority = 1000,
 		init = function()
-			vim.cmd.colorscheme("onedark")
+			-- vim.cmd.colorscheme("onedark")
+		end,
+	},
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		priority = 1000,
+		opts = {
+			flavour = "macchiato",
+			dim_inactive = {
+				enabled = true, -- dims the background color of inactive window
+			},
+		},
+		init = function()
+			vim.cmd.colorscheme("catppuccin")
 		end,
 	},
 	{
@@ -12,17 +26,26 @@ return {
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = {
 			options = {
-				theme = "onedark",
-				disabled_filetypes = {
-					statusline = { "neo-tree" },
-					winbar = {},
+				-- theme = "onedark",
+				theme = "catppuccin",
+				globalstatus = true,
+				ignore_focus = {
+					"lspinfo",
 				},
+			},
+			extensions = {
+				"fugitive",
+				"quickfix",
+				"neo-tree",
+				"mason",
+				"lazy",
+				"trouble",
 			},
 			sections = {
 				lualine_c = {
 					{
 						"filename",
-						path = 1,
+						path = 1, -- show relative path
 						symbols = {
 							modified = " ●", -- Text to show when the buffer is modified
 						},
@@ -33,7 +56,6 @@ return {
 	},
 	{
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.5",
 		cmd = "Telescope",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = {
@@ -52,6 +74,11 @@ return {
 				},
 			},
 			pickers = {
+				lsp_references = {
+					fname_width = 100,
+					trim_text = true,
+					layout_strategy = "vertical",
+				},
 				buffers = {
 					sort_lastused = true,
 					mappings = {
@@ -88,7 +115,7 @@ return {
 		keys = {
 			{
 				"<leader>s",
-				"<cmd>Neotree<cr>",
+				"<cmd>Neotree left toggle<cr>",
 			},
 		},
 		opts = {
@@ -129,5 +156,11 @@ return {
 				},
 			})
 		end,
+	},
+	{
+		"j-hui/fidget.nvim",
+		opts = {
+			-- options
+		},
 	},
 }
