@@ -1,29 +1,65 @@
+local function find_node_modules_bin_from_cur_buf(binary_name)
+	return function()
+		local nm_paths = vim.fs.find("node_modules", {
+			upward = true,
+			stop = vim.loop.os_homedir(),
+			path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
+		})
+		for _, path in ipairs(nm_paths) do
+			local local_binary = vim.fs.dirname(path) .. "/node_modules/.bin/" .. binary_name
+			if vim.loop.fs_stat(local_binary) then
+				return local_binary
+			end
+		end
+		return binary_name
+	end
+end
+
 return {
 	{
 		"mfussenegger/nvim-lint",
 		config = function()
 			local lint = require("lint")
+			local parser = require("lint.parser")
+
 			lint.linters_by_ft = {
-				typescript = { "prettier" },
-				typescriptreact = { "prettier" },
-				javascript = { "prettier" },
-				javascriptreact = { "prettier" },
+				typescript = { "eslint" },
+				typescriptreact = { "eslint" },
+				javascript = { "eslint" },
+				javascriptreact = { "eslint" },
 				go = { "revive" },
 				python = { "black" },
-				graphql = { "prettier" },
+				graphql = { "graphql_schema_linter" },
+			}
+			lint.linters.eslint.cmd = find_node_modules_bin_from_cur_buf("eslint")
+			lint.linters.graphql_schema_linter = {
+				cmd = find_node_modules_bin_from_cur_buf("graphql-schema-linter"),
+				stdin = false,
+				ignore_exitcode = true,
+				args = {
+					"--config-directory",
+					"web/frontend/src/api/lint",
+					"--format",
+					"compact",
+					function()
+						return vim.fn.expand("%:p:h") .. "/*.graphqls"
+					end,
+				},
+				parser = parser.from_pattern("^(.+):(%d+):(%d+) (.+)$", {
+					"file",
+					"lnum",
+					"col",
+					"message",
+				}),
 			}
 			lint.linters.revive = {
 				cmd = "revive",
+				ignore_exitcode = true,
 				stdin = false,
 				args = { "-config", "revive.toml" },
-				parser = require("lint.parser").from_pattern(
-					"[^:]+:(%d+):(%d+): (.*)",
-					{ "lnum", "col", "message" },
-					nil,
-					{
-						["source"] = "revive",
-					}
-				),
+				parser = parser.from_pattern("[^:]+:(%d+):(%d+): (.*)", { "lnum", "col", "message" }, nil, {
+					["source"] = "revive",
+				}),
 			}
 			vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 				callback = function()
@@ -42,9 +78,9 @@ return {
 				lua = { "stylua" },
 				python = { "black" },
 				javascript = { "prettier" },
-				typescript = { "prettier", "eslint" },
-				typescriptreact = { "prettier", "eslint" },
-				graphql = { "prettier", "eslint" },
+				typescript = { "prettier" },
+				typescriptreact = { "prettier" },
+				graphql = { "prettier" },
 				go = { "golines" },
 			},
 			-- Set up format-on-save

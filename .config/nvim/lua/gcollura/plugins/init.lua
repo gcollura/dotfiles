@@ -16,8 +16,10 @@ return {
 				-- to learn the available actions
 				lsp_zero.default_keymaps({ buffer = bufnr })
 
-				vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<cr>", { buffer = bufnr })
-				vim.keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<cr>", { buffer = bufnr })
+				vim.keymap.set("n", "gr", "<cmd>Glance references<cr>", { buffer = bufnr })
+				vim.keymap.set("n", "gi", "<cmd>Glance implementations<cr>", { buffer = bufnr })
+				vim.keymap.set("n", "gd", "<cmd>Glance definitions<cr>", { buffer = bufnr })
+				vim.keymap.set("n", "go", "<cmd>Glance type_definitions<cr>", { buffer = bufnr })
 				vim.keymap.set(
 					"n",
 					"<leader>.",
@@ -113,7 +115,6 @@ return {
 			local cmp = require("cmp")
 			local cmp_action = lsp_zero.cmp_action()
 			local cmp_format = lsp_zero.cmp_format()
-			local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
 			local cmp_kinds = {
 				Text = " ",
@@ -147,27 +148,29 @@ return {
 			cmp.setup({
 				sources = cmp.config.sources({
 					{ name = "copilot", priority = 100 },
-					{ name = "nvim_lsp", priority = 90 },
-					{ name = "nvim_lsp_signature_help", priority = 80 },
+					{ name = "nvim_lsp_signature_help", priority = 90 },
+					{ name = "nvim_lsp", priority = 80 },
 				}, {
 					{ name = "luasnip", keyword_length = 2 },
 					{ name = "buffer", keyword_length = 3 },
-					{ name = "nvim_lua", group_index = 4 },
+					{ name = "nvim_lua" },
 				}, {
-					{ name = "path", group_index = 4 },
+					{ name = "path" },
 				}),
 				formatting = {
+					expandable_indicator = true,
 					fields = { "abbr", "kind", "menu" },
 					format = function(entry, vim_item)
 						vim_item = cmp_format.format(entry, vim_item)
+						if entry.source.name == "nvim_lsp_signature_help" then
+							vim_item.menu = "[lsp sig]"
+						end
 						vim_item.kind = cmp_kinds[vim_item.kind] or vim_item.kind
 						return vim_item
 					end,
 				},
 				mapping = cmp.mapping.preset.insert({
 					["<C-Space>"] = cmp.mapping.complete(),
-					["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
-					["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
 					["<C-k>"] = cmp_action.luasnip_jump_forward(),
 					["<C-l>"] = cmp_action.luasnip_jump_backward(),
 					["<C-u>"] = cmp.mapping.scroll_docs(-4),
@@ -187,7 +190,7 @@ return {
 						vim.lsp.buf.signature_help()
 					end,
 				}),
-				preselect = cmp.PreselectMode.Item,
+				preselect = cmp.PreselectMode.None,
 				completion = {
 					completeopt = "menu,menuone,noinsert",
 				},
@@ -219,7 +222,7 @@ return {
 	-- Editing
 	{
 		"nvim-treesitter/nvim-treesitter",
-		tag = "v0.9.2",
+		-- tag = "v0.9.2",
 		build = ":TSUpdate",
 		opts = {
 			highlight = { enable = true },
@@ -378,5 +381,10 @@ return {
 	},
 	{
 		"wsdjeg/vim-fetch",
+	},
+	{ "folke/neodev.nvim", opts = {} },
+	{
+		"dmmulroy/ts-error-translator.nvim",
+		ft = { "typescript", "typescriptreact" },
 	},
 }
