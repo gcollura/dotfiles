@@ -1,34 +1,41 @@
-vim.o.undofile = true
-vim.o.autowriteall = true
-vim.o.colorcolumn = "+1"
-vim.o.number = true
-vim.o.relativenumber = true
-vim.o.numberwidth = 5
-vim.o.scrolloff = 4
-vim.o.cursorline = true
-vim.o.list = true
-vim.o.listchars = "tab:▸ ,eol:¬"
-vim.o.tabstop = 2
-vim.o.shiftwidth = 2
-vim.o.smartindent = true
-vim.o.hidden = true
+vim.opt.undofile = true
+vim.opt.autowriteall = true
+vim.opt.colorcolumn = "+1"
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.numberwidth = 5
+vim.opt.scrolloff = 4
+vim.opt.cursorline = true
+vim.opt.list = true
+vim.opt.listchars = { tab = "▸ ", trail = "·", extends = ">", precedes = "<" }
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.smartindent = true
+vim.opt.hidden = true
+vim.opt.inccommand = "split"
 
-vim.o.pumblend = 15
-vim.o.winblend = 15
-vim.o.pumheight = 15
+vim.opt.splitright = true
+vim.opt.splitbelow = true
 
-vim.o.ignorecase = true
-vim.o.smartcase = true
+vim.opt.pumblend = 15
+vim.opt.winblend = 15
+vim.opt.pumheight = 15
 
-vim.o.updatetime = 250
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+
+vim.opt.updatetime = 250
 
 vim.keymap.set("n", "<leader>w", ":w!<CR>", { silent = true })
 vim.keymap.set({ "n", "v" }, "<C-c>", ":nohls<CR><C-l>", { silent = true })
 vim.keymap.set({ "n", "v" }, "<leader>L", "<cmd>b #<cr>")
 vim.keymap.set("n", "<s-tab>", "<c-o>", { noremap = true })
 
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { noremap = true })
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { noremap = true })
+
+vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 if vim.g.vscode then
 	return
@@ -36,8 +43,8 @@ end
 
 if vim.g.neovide then
 	-- Put anything you want to happen only in Neovide here
-	vim.o.guifont = "JetBrainsMono Nerd Font:h12"
-	vim.o.linespace = -1
+	vim.opt.guifont = "JetBrainsMono Nerd Font:h12"
+	vim.opt.linespace = -1
 	vim.g.neovide_theme = "dark"
 	vim.g.neovide_remember_window_size = true
 	vim.g.neovide_input_macos_alt_is_meta = true
@@ -54,7 +61,7 @@ end
 local generalSettingsGroup = vim.api.nvim_create_augroup("ft settings", { clear = true })
 
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "typescript", "typescriptreact", "graphql", "json" },
+	pattern = { "typescript", "typescriptreact", "graphql", "json", "proto" },
 	callback = function()
 		vim.bo.expandtab = true
 	end,

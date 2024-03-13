@@ -110,7 +110,8 @@ return {
 					"./generated/.",
 					"./node_modules/.",
 				},
-				path_display = { "smart" },
+				-- come up with a clever path display that doesn't hurt perf
+				-- path_display = { "" },
 				winblend = 15,
 				mappings = {
 					n = {
@@ -154,7 +155,7 @@ return {
 		keys = {
 			{ "<leader>t", "<cmd>Telescope <cr>", mode = { "n", "i", "v" } },
 			{ "<leader>p", "<cmd>Telescope find_files<cr>", mode = { "n", "i", "v" } },
-			{ "<leader>g", "<cmd>Telescope live_grep<cr>", mode = { "n", "i", "v" } },
+			{ "<leader>gg", "<cmd>Telescope live_grep<cr>", mode = { "n", "i", "v" } },
 			{ "<leader>P", "<cmd>Telescope commands<cr>", mode = { "n", "i", "v" } },
 			{ "<leader>c", "<cmd>Telescope command_history<cr>", mode = { "n", "i", "v" } },
 			{ "<leader>r", "<cmd>Telescope registers<cr>", mode = { "n", "i", "v" } },
@@ -211,7 +212,6 @@ return {
 					show_diff = neotree_diff,
 				},
 			},
-			group_empty_dirs = true,
 		},
 	},
 	{

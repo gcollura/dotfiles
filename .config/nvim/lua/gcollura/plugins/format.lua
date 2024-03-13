@@ -71,7 +71,7 @@ return {
 	{
 		"stevearc/conform.nvim",
 		event = { "BufWritePre" },
-		cmd = { "ConformInfo" },
+		cmd = { "ConformInfo", "Format" },
 		opts = {
 			-- Define your formatters
 			formatters_by_ft = {
@@ -85,6 +85,11 @@ return {
 			},
 			-- Set up format-on-save
 			format_on_save = { timeout_ms = 500, lsp_fallback = true },
+			formatters = {
+				golines = {
+					prepend_args = { "--base-formatter=gofmt" },
+				},
+			},
 		},
 		init = function()
 			-- If you want the formatexpr, here is the place to set it

@@ -10,6 +10,13 @@ return {
 		branch = "v3.x",
 		config = function()
 			local lsp_zero = require("lsp-zero")
+			local float_config = {
+				border = "rounded",
+				max_width = 100,
+			}
+			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, float_config)
+			vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, float_config)
+			vim.diagnostic.config({ float = float_config })
 
 			lsp_zero.on_attach(function(_, bufnr)
 				-- see :help lsp-zero-keybindings
@@ -32,11 +39,9 @@ return {
 						vim.diagnostic.open_float(nil, {
 							focusable = false,
 							close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-							border = "rounded",
 							source = "always",
 							prefix = " ",
 							scope = "cursor",
-							max_width = 100,
 						})
 					end,
 				})
@@ -361,6 +366,7 @@ return {
 		opts = {
 			trouble = true,
 			luasnip = true,
+			run_in_floaterm = true,
 		},
 	},
 	{

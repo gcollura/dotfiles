@@ -36,12 +36,17 @@ return {
 			current_line_blame_opts = {
 				virt_text = true,
 				virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
-				delay = 2000,
+				delay = 1000,
 				ignore_whitespace = false,
 				virt_text_priority = 100,
 			},
 			on_attach = function(bufnr)
 				local gs = package.loaded.gitsigns
+
+				-- do not attach the fugitive buffers
+				if vim.startswith(vim.api.nvim_buf_get_name(bufnr), "fugitive://") then
+					return false
+				end
 
 				local function map(mode, l, r, opts)
 					opts = opts or {}

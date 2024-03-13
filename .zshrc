@@ -27,7 +27,9 @@ bindkey -r '^[[A'
 bindkey -r '^[[B'
 function __bind_history_keys() {
   bindkey '^[[A' history-substring-search-up
+  bindkey '^p' history-substring-search-up
   bindkey '^[[B' history-substring-search-down
+  bindkey '^n' history-substring-search-down
 }
 # History substring searching
 zinit ice wait lucid atload'__bind_history_keys'
@@ -59,6 +61,7 @@ autoload -Uz zed
 autoload -Uz chpwd_recent_dirs
 autoload -Uz cdr
 autoload -Uz colors && colors
+autoload -U edit-command-line
 # }}}
 
 # History {{{
@@ -271,6 +274,11 @@ bindkey '^H' backward-delete-char      # Control-h also deletes the previous cha
 bindkey '^U' backward-kill-line
 
 bindkey '^R' history-incremental-search-backward
+
+# Emacs style
+zle -N edit-command-line
+bindkey '^xe' edit-command-line
+bindkey '^x^e' edit-command-line
 # }}}
 
 # Aliases {{{
@@ -318,7 +326,7 @@ alias cpv="rsync -poghb --backup-dir=/tmp/rsync -e /dev/null --progress --"
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # Programming
-alias build='mkdir build ; cd build && cmake .. && make ; cd .. && ls'
+# alias build='mkdir build ; cd build && cmake .. && make ; cd .. && ls'
 
 # System info
 alias pg='ps aux | grep'  # requires an argument
