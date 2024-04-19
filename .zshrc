@@ -40,6 +40,7 @@ zinit light zsh-users/zsh-autosuggestions
 zinit ice wait lucid
 zinit light zdharma/fast-syntax-highlighting
 
+GEOMETRY_PROMPT=(geometry_echo geometry_status geometry_path geometry_virtualenv)
 zinit light geometry-zsh/geometry
 
 export NVM_COMPLETION=true

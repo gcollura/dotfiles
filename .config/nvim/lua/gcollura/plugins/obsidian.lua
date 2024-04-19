@@ -2,6 +2,7 @@ local personal_vault = vim.fn.expand("~") .. "/OneDrive/Obsidian/personal"
 
 return {
 	"epwalsh/obsidian.nvim",
+	cmd = { "ObsidianNew", "ObsidianQuickSwitch" },
 	version = "*", -- recommended, use latest release instead of latest commit
 	lazy = true,
 	event = {
@@ -13,8 +14,8 @@ return {
 	dependencies = {
 		-- Required.
 		"nvim-lua/plenary.nvim",
-
-		-- see below for full list of optional dependencies 👇
+		"nvim-telescope/telescope.nvim",
+		"hrsh7th/nvim-cmp",
 	},
 	opts = {
 		workspaces = {

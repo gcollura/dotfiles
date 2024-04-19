@@ -6,9 +6,17 @@ return {
 			options = { "buffers", "curdir" }, -- sessionoptions used for saving
 		},
 		keys = {
-			{ "<leader>zs", "<cmd>lua require('persistence').load()<cr>" },
-			{ "<leader>zc", "<cmd>lua require('persistence').load({ last = true })<cr>" },
-			{ "<leader>zd", "<cmd>lua require('persistence').stop()<cr>" },
+			{
+				"<leader>zc",
+				"<cmd>lua require('persistence').load()<cr>",
+				desc = "Load session for current directory",
+			},
+			{
+				"<leader>zs",
+				"<cmd>lua require('persistence').load({ last = true })<cr>",
+				desc = "Load last session",
+			},
+			{ "<leader>zd", "<cmd>lua require('persistence').stop()<cr>", desc = "Stop session persistence" },
 		},
 	},
 }

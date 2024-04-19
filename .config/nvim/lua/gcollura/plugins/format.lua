@@ -28,7 +28,6 @@ return {
 				javascript = { "eslint" },
 				javascriptreact = { "eslint" },
 				go = { "revive" },
-				python = { "black" },
 				graphql = { "graphql_schema_linter" },
 			}
 			lint.linters.eslint.cmd = find_node_modules_bin_from_cur_buf("eslint")
@@ -76,7 +75,7 @@ return {
 			-- Define your formatters
 			formatters_by_ft = {
 				lua = { "stylua" },
-				python = { "black" },
+				python = { "black", "isort" },
 				javascript = { "prettier" },
 				typescript = { "prettier" },
 				typescriptreact = { "prettier" },

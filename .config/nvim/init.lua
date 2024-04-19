@@ -69,6 +69,14 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "go" },
+	callback = function()
+		vim.opt_local.textwidth = 100
+	end,
+	group = generalSettingsGroup,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "markdown" },
 	callback = function()
 		vim.opt_local.conceallevel = 2

@@ -153,15 +153,20 @@ return {
 			},
 		},
 		keys = {
-			{ "<leader>t", "<cmd>Telescope <cr>", mode = { "n", "i", "v" } },
-			{ "<leader>p", "<cmd>Telescope find_files<cr>", mode = { "n", "i", "v" } },
-			{ "<leader>gg", "<cmd>Telescope live_grep<cr>", mode = { "n", "i", "v" } },
-			{ "<leader>P", "<cmd>Telescope commands<cr>", mode = { "n", "i", "v" } },
-			{ "<leader>c", "<cmd>Telescope command_history<cr>", mode = { "n", "i", "v" } },
-			{ "<leader>r", "<cmd>Telescope registers<cr>", mode = { "n", "i", "v" } },
-			{ "<leader>o", "<cmd>Telescope oldfiles<cr>", mode = { "n", "i", "v" } },
-			{ "<leader>f", "<cmd>Telescope grep_string<cr>", mode = { "n", "i", "v" } },
-			{ "<leader>l", "<cmd>Telescope buffers<cr>", mode = { "n", "i", "v" } },
+			{ "<leader>t", "<cmd>Telescope <cr>", mode = { "n", "i", "v" }, desc = "Telescope" },
+			{ "<leader>p", "<cmd>Telescope find_files<cr>", mode = { "n", "i", "v" }, desc = "Telescope find files" },
+			{ "<leader>gg", "<cmd>Telescope live_grep<cr>", mode = { "n", "i", "v" }, desc = "Telescope live grep" },
+			{ "<leader>P", "<cmd>Telescope commands<cr>", mode = { "n", "i", "v" }, desc = "Telescope commands" },
+			{
+				"<leader>c",
+				"<cmd>Telescope command_history<cr>",
+				mode = { "n", "i", "v" },
+				desc = "Telescope command history",
+			},
+			{ "<leader>r", "<cmd>Telescope registers<cr>", mode = { "n", "i", "v" }, desc = "Telescope registers" },
+			{ "<leader>o", "<cmd>Telescope oldfiles<cr>", mode = { "n", "i", "v" }, desc = "Telescope old files" },
+			{ "<leader>f", "<cmd>Telescope grep_string<cr>", mode = { "n", "i", "v" }, desc = "Telescope grep string" },
+			{ "<leader>l", "<cmd>Telescope buffers<cr>", mode = { "n", "i", "v" }, desc = "Telescope buffers" },
 		},
 	},
 	-- this doesn't work because it requires nvim 0.10+
@@ -185,6 +190,7 @@ return {
 			{
 				"<leader>s",
 				"<cmd>Neotree left toggle<cr>",
+				desc = "Neotree",
 			},
 		},
 		opts = {
@@ -221,6 +227,7 @@ return {
 			{
 				"<leader>u",
 				vim.cmd.UndotreeToggle,
+				desc = "Toggle Undotree",
 			},
 		},
 	},

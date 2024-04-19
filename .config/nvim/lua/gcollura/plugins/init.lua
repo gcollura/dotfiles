@@ -23,15 +23,25 @@ return {
 				-- to learn the available actions
 				lsp_zero.default_keymaps({ buffer = bufnr })
 
-				vim.keymap.set("n", "gr", "<cmd>Glance references<cr>", { buffer = bufnr })
-				vim.keymap.set("n", "gi", "<cmd>Glance implementations<cr>", { buffer = bufnr })
-				vim.keymap.set("n", "gd", "<cmd>Glance definitions<cr>", { buffer = bufnr })
-				vim.keymap.set("n", "go", "<cmd>Glance type_definitions<cr>", { buffer = bufnr })
+				vim.keymap.set("n", "gr", "<cmd>Glance references<cr>", { buffer = bufnr, desc = "References" })
+				vim.keymap.set(
+					"n",
+					"gi",
+					"<cmd>Glance implementations<cr>",
+					{ buffer = bufnr, desc = "Implementations" }
+				)
+				vim.keymap.set("n", "gd", "<cmd>Glance definitions<cr>", { buffer = bufnr, desc = "Definitions" })
+				vim.keymap.set(
+					"n",
+					"go",
+					"<cmd>Glance type_definitions<cr>",
+					{ buffer = bufnr, desc = "Type Definitions" }
+				)
 				vim.keymap.set(
 					"n",
 					"<leader>.",
 					"<cmd>lua vim.lsp.buf.code_action()<CR>",
-					{ noremap = true, silent = true, buffer = bufnr }
+					{ noremap = true, silent = true, buffer = bufnr, desc = "Code actions" }
 				)
 				vim.api.nvim_create_autocmd("CursorHold", {
 					buffer = bufnr,
@@ -120,6 +130,7 @@ return {
 			local cmp = require("cmp")
 			local cmp_action = lsp_zero.cmp_action()
 			local cmp_format = lsp_zero.cmp_format()
+			local compare = require("cmp.config.compare")
 
 			local cmp_kinds = {
 				Text = " ",
@@ -157,11 +168,28 @@ return {
 					{ name = "nvim_lsp", priority = 80 },
 				}, {
 					{ name = "luasnip", keyword_length = 2 },
-					{ name = "buffer", keyword_length = 3 },
+					{ name = "buffer", keyword_length = 3, max_item_count = 15 },
 					{ name = "nvim_lua" },
 				}, {
 					{ name = "path" },
 				}),
+				-- sorting = {
+				-- 	priority_weight = 2.0,
+				-- 	comparators = {
+				-- 		-- compare.score_offset, -- not good at all
+				-- 		compare.score, -- based on :  score = score + ((#sources - (source_index - 1)) * sorting.priority_weight)
+				-- 		compare.kind,
+				-- 		compare.exact,
+				-- 		compare.locality,
+				-- 		compare.recently_used,
+				-- 		compare.offset,
+				-- 		compare.order,
+				-- 		-- compare.scopes, -- what?
+				-- 		compare.sort_text,
+				-- 		-- compare.kind,
+				-- 		-- compare.length, -- useless
+				-- 	},
+				-- },
 				formatting = {
 					expandable_indicator = true,
 					fields = { "abbr", "kind", "menu" },
@@ -230,7 +258,12 @@ return {
 		-- tag = "v0.9.2",
 		build = ":TSUpdate",
 		opts = {
-			highlight = { enable = true },
+			highlight = {
+				enable = true,
+				disable = function(_, bufnr) -- Disable in large buffers
+					return vim.api.nvim_buf_line_count(bufnr) > 50000
+				end,
+			},
 			indent = { enable = true },
 			ensure_installed = {
 				"bash",
@@ -302,12 +335,22 @@ return {
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		cmd = "TroubleToggle",
 		keys = {
-			{ "<leader>xx", "<cmd>TroubleToggle<cr>", mode = { "n" } },
-			{ "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>", mode = { "n" } },
-			{ "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", mode = { "n" } },
-			{ "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", mode = { "n" } },
-			{ "<leader>xl", "<cmd>TroubleToggle loclist<cr>", mode = { "n" } },
-			{ "gR", "<cmd>TroubleToggle lsp_references<cr>", mode = { "n" } },
+			{ "<leader>xx", "<cmd>TroubleToggle<cr>", mode = { "n" }, desc = "Trouble toggle" },
+			{
+				"<leader>xw",
+				"<cmd>TroubleToggle workspace_diagnostics<cr>",
+				mode = { "n" },
+				desc = "Trouble workspace diagnostics",
+			},
+			{
+				"<leader>xd",
+				"<cmd>TroubleToggle document_diagnostics<cr>",
+				mode = { "n" },
+				desc = "Trouble document diagnostics",
+			},
+			{ "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", mode = { "n" }, desc = "Trouble quickfix" },
+			{ "<leader>xl", "<cmd>TroubleToggle loclist<cr>", mode = { "n" }, desc = "Trouble location list" },
+			{ "gR", "<cmd>TroubleToggle lsp_references<cr>", mode = { "n" }, desc = "Trouble lsp references" },
 		},
 	},
 
@@ -366,7 +409,16 @@ return {
 		opts = {
 			trouble = true,
 			luasnip = true,
+			dap_debug_keymap = false,
 			run_in_floaterm = true,
+			floaterm = { -- position
+				posititon = "auto", -- one of {`top`, `bottom`, `left`, `right`, `center`, `auto`}
+				width = 0.45, -- width of float window if not auto
+				height = 0.85, -- height of float window if not auto
+				title_colors = "tokyo", -- default to nord, one of {'nord', 'tokyo', 'dracula', 'rainbow', 'solarized ', 'monokai'}
+				-- can also set to a list of colors to define colors to choose from
+				-- e.g {'#D8DEE9', '#5E81AC', '#88C0D0', '#EBCB8B', '#A3BE8C', '#B48EAD'}
+			},
 		},
 	},
 	{
@@ -382,6 +434,7 @@ return {
 			{
 				"<leader>q",
 				vim.cmd.Bdelete,
+				desc = "Delete current buffer",
 			},
 		},
 	},
@@ -392,5 +445,7 @@ return {
 	{
 		"dmmulroy/ts-error-translator.nvim",
 		ft = { "typescript", "typescriptreact" },
+		config = true,
 	},
+	"amadeus/vim-mjml",
 }
