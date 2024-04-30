@@ -169,14 +169,14 @@ return {
 			{ "<leader>l", "<cmd>Telescope buffers<cr>", mode = { "n", "i", "v" }, desc = "Telescope buffers" },
 		},
 	},
-	-- this doesn't work because it requires nvim 0.10+
-	-- {
-	-- 	"Bekaboo/dropbar.nvim",
-	-- 	-- optional, but required for fuzzy finder support
-	-- 	dependencies = {
-	-- 		"nvim-telescope/telescope-fzf-native.nvim",
-	-- 	},
-	-- },
+	{
+		"Bekaboo/dropbar.nvim",
+		cond = vim.fn.has("nvim-0.10"),
+		-- optional, but required for fuzzy finder support
+		dependencies = {
+			"nvim-telescope/telescope-fzf-native.nvim",
+		},
+	},
 	{
 		"nvim-neo-tree/neo-tree.nvim",
 		branch = "v3.x",
@@ -247,6 +247,7 @@ return {
 	},
 	{
 		"j-hui/fidget.nvim",
+		cond = vim.fn.has("nvim-0.10"),
 		opts = {
 			-- options
 		},

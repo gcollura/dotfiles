@@ -10,6 +10,7 @@ return {
 		branch = "v3.x",
 		config = function()
 			local lsp_zero = require("lsp-zero")
+
 			local float_config = {
 				border = "rounded",
 				max_width = 100,
@@ -18,6 +19,7 @@ return {
 			vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, float_config)
 			vim.diagnostic.config({ float = float_config })
 
+			lsp_zero.extend_lspconfig()
 			lsp_zero.on_attach(function(_, bufnr)
 				-- see :help lsp-zero-keybindings
 				-- to learn the available actions
@@ -83,8 +85,13 @@ return {
 							},
 						})
 					end,
+					gopls = function()
+						require("lspconfig").gopls.setup(require("go.lsp").config())
+					end,
 				},
 			})
+
+			lsp_zero.setup()
 		end,
 	},
 	{
@@ -129,8 +136,7 @@ return {
 			-- And you can configure cmp even more, if you want to.
 			local cmp = require("cmp")
 			local cmp_action = lsp_zero.cmp_action()
-			local cmp_format = lsp_zero.cmp_format()
-			local compare = require("cmp.config.compare")
+			local cmp_format = lsp_zero.cmp_format({})
 
 			local cmp_kinds = {
 				Text = " ",
@@ -370,15 +376,17 @@ return {
 	},
 	{
 		"numToStr/Comment.nvim",
-		event = { "BufReadPre", "BufNewFile" },
-		config = true,
+		-- cond = function()
+		-- 	return not vim.fn.has("nvim-0.10")
+		-- end,
+		-- event = { "BufReadPre", "BufNewFile" },
+		lazy = false,
+		config = function(_, opts)
+			opts.pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook()
+			require("Comment").setup(opts)
+		end,
 		dependencies = {
-			{
-				"JoosepAlviste/nvim-ts-context-commentstring",
-				opts = {
-					enable_autocmd = false,
-				},
-			},
+			"JoosepAlviste/nvim-ts-context-commentstring",
 		},
 	},
 
@@ -394,25 +402,31 @@ return {
 			disable_filetype = { "TelescopePrompt", "vim" },
 		},
 	},
+	{
+		"JoosepAlviste/nvim-ts-context-commentstring",
+	},
 
 	-- Languages
 	{
 		"ray-x/go.nvim",
-		lazy = true,
+		event = { "CmdlineEnter" },
+		ft = { "go", "gomod" },
 		dependencies = {
 			"ray-x/guihua.lua",
 			"neovim/nvim-lspconfig",
 			"nvim-treesitter/nvim-treesitter",
 		},
-		ft = { "go", "gomod" },
 		build = ':lua require("go.install").update_all_sync()',
 		opts = {
 			trouble = true,
 			luasnip = true,
 			dap_debug_keymap = false,
+			lsp_cfg = false,
 			run_in_floaterm = true,
+			lsp_codelens = true,
+			lsp_keymaps = false,
 			floaterm = { -- position
-				posititon = "auto", -- one of {`top`, `bottom`, `left`, `right`, `center`, `auto`}
+				posititon = "right", -- one of {`top`, `bottom`, `left`, `right`, `center`, `auto`}
 				width = 0.45, -- width of float window if not auto
 				height = 0.85, -- height of float window if not auto
 				title_colors = "tokyo", -- default to nord, one of {'nord', 'tokyo', 'dracula', 'rainbow', 'solarized ', 'monokai'}
