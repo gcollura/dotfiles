@@ -78,7 +78,7 @@ return {
 				python = { "black", "isort" },
 				javascript = { "prettier" },
 				typescript = { "prettier" },
-				typescriptreact = { "prettier" },
+				typescriptreact = { "prettier", "eslint" },
 				graphql = { "prettier" },
 				go = { "golines" },
 			},
@@ -89,6 +89,7 @@ return {
 					prepend_args = { "--base-formatter=gofmt" },
 				},
 			},
+			notify_on_error = false,
 		},
 		init = function()
 			-- If you want the formatexpr, here is the place to set it

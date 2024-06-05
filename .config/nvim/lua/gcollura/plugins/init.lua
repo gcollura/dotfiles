@@ -423,15 +423,21 @@ return {
 			dap_debug_keymap = false,
 			lsp_cfg = false,
 			run_in_floaterm = true,
-			lsp_codelens = true,
+			lsp_codelens = false,
 			lsp_keymaps = false,
 			floaterm = { -- position
 				posititon = "right", -- one of {`top`, `bottom`, `left`, `right`, `center`, `auto`}
 				width = 0.45, -- width of float window if not auto
 				height = 0.85, -- height of float window if not auto
-				title_colors = "tokyo", -- default to nord, one of {'nord', 'tokyo', 'dracula', 'rainbow', 'solarized ', 'monokai'}
+				title_colors = "nord", -- default to nord, one of {'nord', 'tokyo', 'dracula', 'rainbow', 'solarized ', 'monokai'}
 				-- can also set to a list of colors to define colors to choose from
 				-- e.g {'#D8DEE9', '#5E81AC', '#88C0D0', '#EBCB8B', '#A3BE8C', '#B48EAD'}
+			},
+			lsp_inlay_hints = {
+				enable = true,
+				-- hint style, set to 'eol' for end-of-line hints, 'inlay' for inline hints
+				-- inlay only avalible for 0.10.x
+				style = "eol",
 			},
 		},
 	},

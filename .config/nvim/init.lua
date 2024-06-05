@@ -14,6 +14,9 @@ vim.opt.smartindent = true
 vim.opt.hidden = true
 vim.opt.inccommand = "split"
 
+vim.opt.guicursor =
+	[[n-v-c:block,i-ci-ve:ver35,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff150-blinkon450-Cursor/lCursor,sm:block-blinkwait300-blinkoff150-blinkon300]]
+
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
