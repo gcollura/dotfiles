@@ -96,6 +96,8 @@ config.keys = {
 -- For example, changing the color scheme:
 -- config.color_scheme = "OneDark (base16)"
 config.color_scheme = "Catppuccin Frappe"
+-- config.color_scheme = "Catppuccin Latte"
+
 -- You can specify some parameters to influence the font selection;
 -- for example, this selects a Bold, Italic font variant.
 config.font = wezterm.font("JetBrains Mono")

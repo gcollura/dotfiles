@@ -85,8 +85,35 @@ return {
 							},
 						})
 					end,
+					eslint = function()
+						require("lspconfig").eslint.setup({
+							on_attach = function(_, bufnr)
+								vim.api.nvim_create_autocmd("BufWritePre", {
+									buffer = bufnr,
+									command = "EslintFixAll",
+								})
+							end,
+						})
+					end,
 					gopls = function()
-						require("lspconfig").gopls.setup(require("go.lsp").config())
+						local lsp_cfg = require("go.lsp").config()
+						lsp_cfg = vim.tbl_deep_extend("force", lsp_cfg, {
+							settings = {
+								gopls = {
+									analyses = {
+										fieldalignment = false,
+									},
+								},
+							},
+						})
+						require("lspconfig").gopls.setup(lsp_cfg)
+					end,
+					graphql = function()
+						require("lspconfig").graphql.setup({
+							flags = {
+								debounce_text_changes = 150,
+							},
+						})
 					end,
 				},
 			})
@@ -339,24 +366,32 @@ return {
 	{
 		"folke/trouble.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
-		cmd = "TroubleToggle",
+		cmd = "Trouble",
+		opts = {
+			focus = true,
+		},
 		keys = {
-			{ "<leader>xx", "<cmd>TroubleToggle<cr>", mode = { "n" }, desc = "Trouble toggle" },
+			{
+				"<leader>xx",
+				"<cmd>Trouble diagnostics toggle<cr>",
+				mode = { "n" },
+				desc = "Trouble toggle",
+			},
 			{
 				"<leader>xw",
-				"<cmd>TroubleToggle workspace_diagnostics<cr>",
+				"<cmd>Trouble toggle workspace_diagnostics<cr>",
 				mode = { "n" },
 				desc = "Trouble workspace diagnostics",
 			},
 			{
 				"<leader>xd",
-				"<cmd>TroubleToggle document_diagnostics<cr>",
+				"<cmd>Trouble toggle document_diagnostics<cr>",
 				mode = { "n" },
 				desc = "Trouble document diagnostics",
 			},
-			{ "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", mode = { "n" }, desc = "Trouble quickfix" },
-			{ "<leader>xl", "<cmd>TroubleToggle loclist<cr>", mode = { "n" }, desc = "Trouble location list" },
-			{ "gR", "<cmd>TroubleToggle lsp_references<cr>", mode = { "n" }, desc = "Trouble lsp references" },
+			{ "<leader>xq", "<cmd>Trouble toggle qflist<cr>", mode = { "n" }, desc = "Trouble quickfix" },
+			{ "<leader>xl", "<cmd>Trouble loclist<cr>", mode = { "n" }, desc = "Trouble location list" },
+			{ "gR", "<cmd>Trouble lsp_references<cr>", mode = { "n" }, desc = "Trouble lsp references" },
 		},
 	},
 
@@ -461,11 +496,35 @@ return {
 	{
 		"wsdjeg/vim-fetch",
 	},
-	{ "folke/neodev.nvim", opts = {} },
+	{
+		"folke/lazydev.nvim",
+		ft = "lua", -- only load on lua files
+		opts = {
+			library = {
+				-- See the configuration section for more details
+				-- Load luvit types when the `vim.uv` word is found
+				{ path = "luvit-meta/library", words = { "vim%.uv" } },
+			},
+		},
+	},
+	{ "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
 	{
 		"dmmulroy/ts-error-translator.nvim",
 		ft = { "typescript", "typescriptreact" },
 		config = true,
 	},
 	"amadeus/vim-mjml",
+	{
+		dir = "~/personal/bufswapper.nvim", -- Your path
+		name = "bufswapper.nvim",
+		config = function()
+			require("bufswapper").setup({
+				keymaps = {
+					swap_next = "<C-j>",
+					swap_prev = "<C-k>",
+					swap_reset = "<C-l>",
+				},
+			})
+		end,
+	},
 }

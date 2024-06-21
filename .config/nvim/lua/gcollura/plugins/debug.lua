@@ -110,6 +110,38 @@ return {
 
 			vim.keymap.set("n", "<leader>dt", dapgo.debug_test, { desc = "Debug test" })
 			vim.keymap.set("n", "<leader>dT", dapgo.debug_last_test, { desc = "Debug last test" })
+
+			dap.adapters.go = {
+				type = "server",
+				port = 38697,
+				executable = {
+					command = "dlv",
+					args = { "dap", "-l", "127.0.0.1:38697" },
+				},
+				enrich_config = function(finalConfig, on_config)
+					local final_config = vim.deepcopy(finalConfig)
+
+					if final_config.envFile then
+						local filePath = final_config.envFile
+						for key, fn in pairs(var_placeholders) do
+							filePath = filePath:gsub(key, fn)
+						end
+
+						for line in io.lines(filePath) do
+							local words = {}
+							for word in string.gmatch(line, "[^=]+") do
+								table.insert(words, word)
+							end
+							if not final_config.env then
+								final_config.env = {}
+							end
+							final_config.env[words[1]] = words[2]
+						end
+					end
+
+					on_config(final_config)
+				end,
+			}
 		end,
 	},
 	{

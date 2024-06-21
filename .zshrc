@@ -43,6 +43,7 @@ zinit light zdharma/fast-syntax-highlighting
 GEOMETRY_PROMPT=(geometry_echo geometry_status geometry_path geometry_virtualenv)
 zinit light geometry-zsh/geometry
 
+export NVM_LAZY_LOAD_EXTRA_COMMANDS=('nv', 'nvim', 'make')
 export NVM_COMPLETION=true
 export NVM_LAZY_LOAD=true
 zinit light lukechilds/zsh-nvm

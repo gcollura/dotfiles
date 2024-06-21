@@ -23,14 +23,17 @@ return {
 			local parser = require("lint.parser")
 
 			lint.linters_by_ft = {
-				typescript = { "eslint" },
-				typescriptreact = { "eslint" },
-				javascript = { "eslint" },
-				javascriptreact = { "eslint" },
+				-- typescript = { "eslint" },
+				-- typescriptreact = { "eslint" },
+				-- javascript = { "eslint" },
+				-- javascriptreact = { "eslint" },
 				go = { "revive" },
-				graphql = { "graphql_schema_linter" },
+				-- graphql = { "graphql_schema_linter" },
 			}
-			lint.linters.eslint.cmd = find_node_modules_bin_from_cur_buf("eslint")
+			-- lint.linters.eslint = {
+			-- 	ignore_exitcode = true,
+			-- 	cmd = find_node_modules_bin_from_cur_buf("eslint")
+			-- }
 			lint.linters.graphql_schema_linter = {
 				cmd = find_node_modules_bin_from_cur_buf("graphql-schema-linter"),
 				stdin = false,
@@ -76,10 +79,10 @@ return {
 			formatters_by_ft = {
 				lua = { "stylua" },
 				python = { "black", "isort" },
-				javascript = { "prettier" },
-				typescript = { "prettier" },
-				typescriptreact = { "prettier", "eslint" },
-				graphql = { "prettier" },
+				javascript = { { "prettierd", "prettier" } },
+				typescript = { { "prettierd", "prettier" } },
+				typescriptreact = { { "prettierd", "prettier" } },
+				graphql = { { "prettierd", "prettier" } },
 				go = { "golines" },
 			},
 			-- Set up format-on-save

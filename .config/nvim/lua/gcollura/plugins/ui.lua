@@ -110,13 +110,13 @@ return {
 					"./generated/.",
 					"./node_modules/.",
 				},
-				-- come up with a clever path display that doesn't hurt perf
-				-- path_display = { "" },
 				winblend = 15,
 				mappings = {
 					n = {
 						["q"] = "close",
+						["<c-t>"] = require("trouble.sources.telescope").open,
 					},
+					i = { ["<c-t>"] = require("trouble.sources.telescope").open },
 				},
 				vimgrep_arguments = {
 					"rg",
@@ -139,6 +139,11 @@ return {
 					layout_strategy = "vertical",
 				},
 				buffers = {
+					layout_strategy = "vertical",
+					layout_config = { width = { 0.35, min = 110 } },
+					-- theme = "dropdown",
+					file_ignore_patterns = {},
+					previewer = false,
 					sort_lastused = true,
 					sort_mru = true,
 					mappings = {
@@ -167,6 +172,12 @@ return {
 			{ "<leader>o", "<cmd>Telescope oldfiles<cr>", mode = { "n", "i", "v" }, desc = "Telescope old files" },
 			{ "<leader>f", "<cmd>Telescope grep_string<cr>", mode = { "n", "i", "v" }, desc = "Telescope grep string" },
 			{ "<leader>l", "<cmd>Telescope buffers<cr>", mode = { "n", "i", "v" }, desc = "Telescope buffers" },
+			{
+				"<c-r>",
+				"<plug>(TelescopeFuzzyCommandSearch)",
+				mode = { "c" },
+				desc = "Telescope fuzzy command search",
+			},
 		},
 	},
 	{
@@ -189,8 +200,13 @@ return {
 		keys = {
 			{
 				"<leader>s",
-				"<cmd>Neotree left toggle<cr>",
+				"<cmd>Neotree filesystem reveal float<cr>",
 				desc = "Neotree",
+			},
+			{
+				"<leader>S",
+				"<cmd>Neotree toggle<cr>",
+				desc = "Neotree toggle",
 			},
 		},
 		opts = {
@@ -199,6 +215,7 @@ return {
 				statusline = false, -- toggle to show selector on statusline
 			},
 			window = {
+				position = "float",
 				mappings = {
 					["gd"] = "show_diff",
 				},

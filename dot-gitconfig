@@ -6,12 +6,16 @@
 
 [includeif "gitdir:~/code/"]
 	path = ~/code/.gitconfig
+[includeif "gitdir:~/personal/"]
+	path = ~/personal/.gitconfig
 
 [includeif "gitdir:~/Code/"]
 	path = ~/Code/.gitconfig
 
 [includeif "gitdir:~/src/"]
 	path = ~/src/.gitconfig
+[includeif "gitdir:~/work/"]
+	path = ~/work/.gitconfig
 
 [core]
 	pager = delta

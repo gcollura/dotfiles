@@ -60,7 +60,7 @@ return {
 						return "]c"
 					end
 					vim.schedule(function()
-						gs.next_hunk()
+						gs.nav_hunk('next')
 					end)
 					return "<Ignore>"
 				end, { expr = true, desc = "Next hunk" })
@@ -70,7 +70,7 @@ return {
 						return "[c"
 					end
 					vim.schedule(function()
-						gs.prev_hunk()
+						gs.nav_hunk('prev')
 					end)
 					return "<Ignore>"
 				end, { expr = true, desc = "Previous hunk" })
@@ -85,6 +85,7 @@ return {
 					gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
 				end, { desc = "Reset selected hunk" })
 				map("n", "<leader>gp", gs.preview_hunk, { desc = "Preview hunk" })
+				map("n", "<leader>gb", gs.blame_line, { desc = "Blame line" })
 			end,
 		},
 	},
