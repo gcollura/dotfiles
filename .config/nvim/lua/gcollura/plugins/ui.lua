@@ -109,6 +109,7 @@ return {
 				file_ignore_patterns = {
 					"./generated/.",
 					"./node_modules/.",
+					".git/.",
 				},
 				winblend = 15,
 				mappings = {

@@ -394,7 +394,6 @@ return {
 			{ "gR", "<cmd>Trouble lsp_references<cr>", mode = { "n" }, desc = "Trouble lsp references" },
 		},
 	},
-
 	-- Extend and create a/i textobjects
 	{
 		"echasnovski/mini.ai",
