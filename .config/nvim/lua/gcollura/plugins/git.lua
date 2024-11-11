@@ -1,10 +1,6 @@
 return {
 	{
 		"tpope/vim-fugitive",
-		cmd = { "Git", "Gdiffsplit" },
-		keys = {
-			{ "<leader>G", "<cmd>Git<cr>" },
-		},
 	},
 	{
 		"linrongbin16/gitlinker.nvim",
@@ -60,7 +56,7 @@ return {
 						return "]c"
 					end
 					vim.schedule(function()
-						gs.nav_hunk('next')
+						gs.nav_hunk("next")
 					end)
 					return "<Ignore>"
 				end, { expr = true, desc = "Next hunk" })
@@ -70,7 +66,7 @@ return {
 						return "[c"
 					end
 					vim.schedule(function()
-						gs.nav_hunk('prev')
+						gs.nav_hunk("prev")
 					end)
 					return "<Ignore>"
 				end, { expr = true, desc = "Previous hunk" })

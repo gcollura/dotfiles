@@ -30,6 +30,7 @@ vim.opt.smartcase = true
 vim.opt.updatetime = 250
 
 vim.keymap.set("n", "<leader>w", ":w!<CR>", { silent = true })
+vim.keymap.set("n", "<leader>W", ":!mkdir -p %:h<CR> :w!<CR>", { silent = true })
 vim.keymap.set({ "n", "v" }, "<C-c>", ":nohls<CR><C-l>", { silent = true })
 vim.keymap.set({ "n", "v" }, "<leader>L", "<cmd>b #<cr>")
 vim.keymap.set("n", "<s-tab>", "<c-o>", { noremap = true })
@@ -64,7 +65,7 @@ end
 local generalSettingsGroup = vim.api.nvim_create_augroup("ft settings", { clear = true })
 
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "typescript", "typescriptreact", "graphql", "json", "proto" },
+	pattern = { "typescript", "typescriptreact", "graphql", "json", "proto", "javascript" },
 	callback = function()
 		vim.bo.expandtab = true
 	end,

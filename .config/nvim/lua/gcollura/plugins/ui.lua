@@ -1,20 +1,3 @@
-local function neotree_diff(state)
-	local node = state.tree:get_node()
-	local is_file = node.type == "file"
-	if not is_file then
-		vim.notify("Diff only for files", vim.log.levels.ERROR)
-		return
-	end
-	-- open file
-	local cc = require("neo-tree.sources.common.commands")
-	cc.open(state, function()
-		-- do nothing for dirs
-	end)
-
-	-- Fugitive
-	vim.cmd([[Gdiffsplit]])
-end
-
 return {
 	{
 		"navarasu/onedark.nvim",
@@ -49,6 +32,35 @@ return {
 		init = function()
 			vim.cmd.colorscheme("catppuccin")
 		end,
+	},
+	{
+		"folke/snacks.nvim",
+		priority = 1000,
+		lazy = false,
+		opts = {
+			notifier = {
+				enabled = true,
+				timeout = 3000,
+				style = "minimal",
+				top_down = false,
+			},
+		},
+		keys = {
+			{
+				"<leader>q",
+				function()
+					Snacks.bufdelete()
+				end,
+				desc = "Delete current buffer",
+			},
+			{
+				"<leader>z",
+				function()
+					Snacks.lazygit()
+				end,
+				desc = "Lazygit",
+			},
+		},
 	},
 	{
 		"nvim-lualine/lualine.nvim",
@@ -87,6 +99,7 @@ return {
 		"dnlhc/glance.nvim",
 		cmd = "Glance",
 		opts = {
+			use_trouble_qf = true,
 			hooks = {
 				before_open = function(results, open, jump, _)
 					if #results == 1 then
@@ -190,51 +203,23 @@ return {
 		},
 	},
 	{
-		"nvim-neo-tree/neo-tree.nvim",
-		branch = "v3.x",
-		cmd = "Neotree",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-			"MunifTanjim/nui.nvim",
+		"stevearc/oil.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		opts = {
+			float = {
+				-- Padding around the floating window
+				max_width = 180,
+				border = "rounded",
+				win_options = {
+					winblend = 15,
+				},
+			},
 		},
 		keys = {
 			{
 				"<leader>s",
-				"<cmd>Neotree filesystem reveal float<cr>",
-				desc = "Neotree",
-			},
-			{
-				"<leader>S",
-				"<cmd>Neotree toggle<cr>",
-				desc = "Neotree toggle",
-			},
-		},
-		opts = {
-			source_selector = {
-				winbar = false, -- toggle to show selector on winbar
-				statusline = false, -- toggle to show selector on statusline
-			},
-			window = {
-				position = "float",
-				mappings = {
-					["gd"] = "show_diff",
-				},
-			},
-			filesystem = {
-				find_command = "fd",
-				follow_current_file = {
-					enabled = true,
-					leave_dirs_open = true,
-				},
-				commands = {
-					show_diff = neotree_diff,
-				},
-			},
-			git_status = {
-				commands = {
-					show_diff = neotree_diff,
-				},
+				"<cmd>Oil --float<cr>",
+				desc = "Open directory in Oil",
 			},
 		},
 	},

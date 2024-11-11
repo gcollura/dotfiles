@@ -68,15 +68,15 @@ return {
 
 			require("mason").setup({})
 			require("mason-lspconfig").setup({
-				ensure_installed = { "tsserver", "gopls", "graphql", "lua_ls" },
+				ensure_installed = { "ts_ls", "gopls", "graphql", "lua_ls" },
 				handlers = {
 					lsp_zero.default_setup,
 					lua_ls = function()
 						local lua_opts = lsp_zero.nvim_lua_ls()
 						require("lspconfig").lua_ls.setup(lua_opts)
 					end,
-					tsserver = function()
-						require("lspconfig").tsserver.setup({
+					ts_ls = function()
+						require("lspconfig").ts_ls.setup({
 							init_options = {
 								preferences = {
 									importModuleSpecifierPreference = "non-relative",
@@ -113,7 +113,11 @@ return {
 							flags = {
 								debounce_text_changes = 150,
 							},
+							filetypes = { "graphql", "typescriptreact", "javascriptreact", "typescript" },
 						})
+					end,
+					rust_analyzer = function()
+						return true
 					end,
 				},
 			})
@@ -121,15 +125,39 @@ return {
 			lsp_zero.setup()
 		end,
 	},
+	-- {
+	-- 	"pmizio/typescript-tools.nvim",
+	-- 	dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+	-- 	opts = {
+	-- 		settings = {
+	-- 			typescript_file_preferences = {
+	-- 				importModuleSpecifierPreference = "non-relative",
+	-- 				importModuleSpecifierEnding = "minimal",
+	-- 			},
+	-- 		},
+	-- 	},
+	-- 	config = function(opts)
+	-- 		local lsp_zero = require("lsp-zero")
+	-- 		require("typescript-tools").setup(vim.tbl_extend("force", opts, {
+	-- 			capatibilities = lsp_zero.get_capabilities(),
+	-- 		}))
+	-- 	end,
+	-- },
 	{
-		"hrsh7th/nvim-cmp",
+		-- "hrsh7th/nvim-cmp",
+		"iguanacucumber/magazine.nvim",
+		name = "nvim-cmp",
 		dependencies = {
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-buffer",
+			{ "iguanacucumber/mag-nvim-lsp", name = "cmp-nvim-lsp", opts = {} },
+			{ "iguanacucumber/mag-nvim-lua", name = "cmp-nvim-lua" },
+			{ "iguanacucumber/mag-buffer", name = "cmp-buffer" },
+			{ "iguanacucumber/mag-cmdline", name = "cmp-cmdline" },
+			-- "hrsh7th/cmp-nvim-lsp",
+			-- "hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
-			"hrsh7th/cmp-nvim-lua",
+			-- "hrsh7th/cmp-nvim-lua",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
-			"hrsh7th/cmp-cmdline",
+			-- "hrsh7th/cmp-cmdline",
 			"saadparwaiz1/cmp_luasnip",
 			{
 				"L3MON4D3/LuaSnip",
@@ -148,6 +176,7 @@ return {
 								auto_trigger = false,
 								debounce = 75,
 							},
+							copilot_node_command = vim.fn.expand("$HOME") .. "/.nvm/versions/node/v20.14.0/bin/node", -- Node.js version must be > 18.x
 						},
 					},
 				},
@@ -322,6 +351,7 @@ return {
 				"vim",
 				"vimdoc",
 				"yaml",
+				"graphql",
 			},
 			incremental_selection = {
 				enable = true,
@@ -361,6 +391,8 @@ return {
 	-- Show context of the current function
 	{
 		"nvim-treesitter/nvim-treesitter-context",
+		-- TODO change this back when https://github.com/nvim-treesitter/nvim-treesitter-context/issues/509 is fixed
+		commit = "7f7eeaa99e5a9beab518f502292871ae5f20de6f",
 		opts = { mode = "cursor", max_lines = 5 },
 	},
 	{
@@ -373,7 +405,7 @@ return {
 		keys = {
 			{
 				"<leader>xx",
-				"<cmd>Trouble diagnostics toggle<cr>",
+				"<cmd>Trouble diagnostics toggle filter = { severity=vim.diagnostic.severity.ERROR }<cr>",
 				mode = { "n" },
 				desc = "Trouble toggle",
 			},
@@ -410,10 +442,6 @@ return {
 	},
 	{
 		"numToStr/Comment.nvim",
-		-- cond = function()
-		-- 	return not vim.fn.has("nvim-0.10")
-		-- end,
-		-- event = { "BufReadPre", "BufNewFile" },
 		lazy = false,
 		config = function(_, opts)
 			opts.pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook()
@@ -453,7 +481,7 @@ return {
 		build = ':lua require("go.install").update_all_sync()',
 		opts = {
 			trouble = true,
-			luasnip = true,
+			luasnip = false,
 			dap_debug_keymap = false,
 			lsp_cfg = false,
 			run_in_floaterm = true,
@@ -477,23 +505,14 @@ return {
 	},
 	{
 		"jparise/vim-graphql",
-		ft = "graphql",
-		init = false,
-	},
-
-	{
-		"famiu/bufdelete.nvim",
-		cmd = { "Bdelete", "Bwipeout" },
-		keys = {
-			{
-				"<leader>q",
-				vim.cmd.Bdelete,
-				desc = "Delete current buffer",
-			},
-		},
+		init = function()
+			vim.g.graphql_javascript_tags = { "gql", "graphql", "Relay.QL" }
+		end,
 	},
 	{
-		"wsdjeg/vim-fetch",
+		"mrcjkb/rustaceanvim",
+		version = "^5", -- Recommended
+		lazy = false, -- This plugin is already lazy
 	},
 	{
 		"folke/lazydev.nvim",
@@ -513,6 +532,28 @@ return {
 		config = true,
 	},
 	"amadeus/vim-mjml",
+
+	{
+		"famiu/bufdelete.nvim",
+		cmd = { "Bdelete", "Bwipeout" },
+		keys = {
+			{
+				"<leader>q",
+				vim.cmd.Bdelete,
+				desc = "Delete current buffer",
+			},
+		},
+	},
+	{
+		"wsdjeg/vim-fetch",
+	},
+
+	{
+		"chrisgrieser/nvim-lsp-endhints",
+		event = "LspAttach",
+		opts = {},
+	},
+
 	{
 		dir = "~/personal/bufswapper.nvim", -- Your path
 		name = "bufswapper.nvim",

@@ -37,4 +37,7 @@
 [merge]
 	conflictstyle = diff3
 
+[format]
+	pretty = format:%C(yellow)%h %Cblue%>(12)%ar %Cgreen%<(7)%aN%Cred%d \n\t%Creset%s
+
 # vim: ft=gitconfig

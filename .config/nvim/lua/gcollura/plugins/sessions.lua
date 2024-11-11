@@ -2,14 +2,17 @@ return {
 	{
 		"folke/persistence.nvim",
 		event = "BufReadPre", -- this will only start session saving when an actual file was opened
-		opts = {
-			options = { "buffers", "curdir" }, -- sessionoptions used for saving
-		},
+		opts = {},
 		keys = {
 			{
 				"<leader>zc",
 				"<cmd>lua require('persistence').load()<cr>",
 				desc = "Load session for current directory",
+			},
+			{
+				"<leader>zC",
+				"<cmd>lua require('persistence').select()<cr>",
+				desc = "Select session to load for current directory",
 			},
 			{
 				"<leader>zs",

@@ -35,6 +35,7 @@ return {
 			-- 	cmd = find_node_modules_bin_from_cur_buf("eslint")
 			-- }
 			lint.linters.graphql_schema_linter = {
+				name = "graphql_schema_linter",
 				cmd = find_node_modules_bin_from_cur_buf("graphql-schema-linter"),
 				stdin = false,
 				ignore_exitcode = true,
@@ -55,6 +56,7 @@ return {
 				}),
 			}
 			lint.linters.revive = {
+				name = "revive",
 				cmd = "revive",
 				ignore_exitcode = true,
 				stdin = false,
@@ -79,17 +81,17 @@ return {
 			formatters_by_ft = {
 				lua = { "stylua" },
 				python = { "black", "isort" },
-				javascript = { { "prettierd", "prettier" } },
-				typescript = { { "prettierd", "prettier" } },
-				typescriptreact = { { "prettierd", "prettier" } },
-				graphql = { { "prettierd", "prettier" } },
+				javascript = { "prettierd", "prettier", stop_after_first = true },
+				typescript = { "prettierd", "prettier", stop_after_first = true },
+				typescriptreact = { "prettierd", "prettier", stop_after_first = true },
+				graphql = { "prettierd", "prettier", stop_after_first = true },
 				go = { "golines" },
 			},
 			-- Set up format-on-save
-			format_on_save = { timeout_ms = 500, lsp_fallback = true },
+			format_on_save = { timeout_ms = 300, lsp_format = "fallback", quiet = true },
 			formatters = {
 				golines = {
-					prepend_args = { "--base-formatter=gofmt" },
+					prepend_args = { "--no-ignore-generated", "--base-formatter=gofmt" },
 				},
 			},
 			notify_on_error = false,
@@ -110,7 +112,7 @@ return {
 						["end"] = { args.line2, end_line:len() },
 					}
 				end
-				require("conform").format({ async = true, lsp_fallback = true, range = range })
+				require("conform").format({ async = true, lsp_format = "fallback", range = range })
 			end, { range = true })
 		end,
 	},
