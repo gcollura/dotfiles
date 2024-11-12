@@ -42,21 +42,20 @@ return {
 				enabled = true,
 				timeout = 3000,
 				style = "minimal",
-				top_down = false,
 			},
 		},
 		keys = {
 			{
 				"<leader>q",
 				function()
-					Snacks.bufdelete()
+					require("snacks").bufdelete()
 				end,
 				desc = "Delete current buffer",
 			},
 			{
 				"<leader>z",
 				function()
-					Snacks.lazygit()
+					require("snacks").lazygit()
 				end,
 				desc = "Lazygit",
 			},
@@ -114,7 +113,10 @@ return {
 	{
 		"nvim-telescope/telescope.nvim",
 		cmd = "Telescope",
-		dependencies = { "nvim-lua/plenary.nvim" },
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope-fzf-native.nvim",
+		},
 		opts = {
 			defaults = {
 				prompt_prefix = "❯ ",
@@ -127,7 +129,7 @@ return {
 				winblend = 15,
 				mappings = {
 					n = {
-						["q"] = "close",
+						["q"] = require("telescope.actions").close,
 						["<c-t>"] = require("trouble.sources.telescope").open,
 					},
 					i = { ["<c-t>"] = require("trouble.sources.telescope").open },
@@ -139,6 +141,7 @@ return {
 					"--with-filename",
 					"--line-number",
 					"--column",
+					"--hidden",
 					"--smart-case",
 					"--trim",
 				},
@@ -170,6 +173,15 @@ return {
 					},
 				},
 			},
+			extensions = {
+				fzf = {
+					fuzzy = true, -- false will only do exact matching
+					override_generic_sorter = true, -- override the generic sorter
+					override_file_sorter = true, -- override the file sorter
+					case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+					-- the default case_mode is "smart_case"
+				},
+			},
 		},
 		keys = {
 			{ "<leader>t", "<cmd>Telescope <cr>", mode = { "n", "i", "v" }, desc = "Telescope" },
@@ -193,15 +205,72 @@ return {
 				desc = "Telescope fuzzy command search",
 			},
 		},
+		config = function(_, opts)
+			require("telescope").setup(opts)
+			require("telescope").load_extension("fzf")
+		end,
 	},
 	{
 		"Bekaboo/dropbar.nvim",
+		event = "BufReadPost",
 		cond = vim.fn.has("nvim-0.10"),
-		-- optional, but required for fuzzy finder support
+		opts = {
+			bar = {
+				pick = {
+					pivots = "asdfghjkl;'zxcvbnm,./",
+				},
+			},
+			menu = {
+				keymaps = {
+					["h"] = function()
+						local utils = require("dropbar.utils")
+						local menu = utils.menu.get_current()
+						if not menu then
+							return
+						end
+						if menu.prev_menu then
+							menu:close()
+						else
+							local bar = require("dropbar.utils.bar").get({ win = menu.prev_win })
+							local bar_components = bar and bar.components[1]._.bar.components or {}
+							for _, component in ipairs(bar_components) do
+								if component.menu then
+									local idx = component._.bar_idx
+									menu:close()
+									require("dropbar.api").pick(idx - 1)
+								end
+							end
+						end
+					end,
+					["l"] = function()
+						local utils = require("dropbar.utils")
+						local menu = utils.menu.get_current()
+						if not menu then
+							return
+						end
+						local cursor = vim.api.nvim_win_get_cursor(menu.win)
+						local component = menu.entries[cursor[1]]:first_clickable(cursor[2])
+						if component then
+							menu:click_on(component, nil, 1, "l")
+						end
+					end,
+				},
+			},
+		},
 		dependencies = {
 			"nvim-telescope/telescope-fzf-native.nvim",
 		},
+		keys = {
+			{
+				"<leader>S",
+				function()
+					require("dropbar.api").pick()
+				end,
+				desc = "Dropbar",
+			},
+		},
 	},
+	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 	{
 		"stevearc/oil.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },

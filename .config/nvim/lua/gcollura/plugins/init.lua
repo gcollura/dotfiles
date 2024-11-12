@@ -7,22 +7,12 @@ return {
 			"williamboman/mason-lspconfig.nvim",
 			"neovim/nvim-lspconfig",
 		},
-		branch = "v3.x",
+		branch = "v4.x",
 		config = function()
 			local lsp_zero = require("lsp-zero")
 
-			local float_config = {
-				border = "rounded",
-				max_width = 100,
-			}
-			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, float_config)
-			vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, float_config)
-			vim.diagnostic.config({ float = float_config })
-
-			lsp_zero.extend_lspconfig()
-			lsp_zero.on_attach(function(_, bufnr)
+			local lsp_attach = function(_, bufnr)
 				-- see :help lsp-zero-keybindings
-				-- to learn the available actions
 				lsp_zero.default_keymaps({ buffer = bufnr })
 
 				vim.keymap.set("n", "gr", "<cmd>Glance references<cr>", { buffer = bufnr, desc = "References" })
@@ -57,33 +47,63 @@ return {
 						})
 					end,
 				})
-			end)
+			end
 
-			lsp_zero.set_sign_icons({
-				error = "✘",
-				warn = "▲",
-				hint = "⚑",
-				info = "»",
+			lsp_zero.extend_lspconfig({
+				capabilities = require("cmp_nvim_lsp").default_capabilities(),
+				lsp_attach = lsp_attach,
+			})
+
+			local float_config = {
+				border = "rounded",
+				max_width = 100,
+			}
+			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, float_config)
+			vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, float_config)
+			vim.diagnostic.config({
+				float = float_config,
+				update_in_insert = false,
+				severity_sort = true,
+				virtual_text = {
+					spacing = 4,
+					source = "if_many",
+					prefix = "●",
+				},
+				signs = {
+					text = {
+						[vim.diagnostic.severity.ERROR] = "✘",
+						[vim.diagnostic.severity.WARN] = "▲",
+						[vim.diagnostic.severity.HINT] = "⚑",
+						[vim.diagnostic.severity.INFO] = "»",
+					},
+				},
 			})
 
 			require("mason").setup({})
 			require("mason-lspconfig").setup({
 				ensure_installed = { "ts_ls", "gopls", "graphql", "lua_ls" },
 				handlers = {
-					lsp_zero.default_setup,
+					-- this first function is the "default handler"
+					-- it applies to every language server without a "custom handler"
+					function(server_name)
+						require("lspconfig")[server_name].setup({})
+					end,
 					lua_ls = function()
 						local lua_opts = lsp_zero.nvim_lua_ls()
 						require("lspconfig").lua_ls.setup(lua_opts)
 					end,
 					ts_ls = function()
-						require("lspconfig").ts_ls.setup({
-							init_options = {
-								preferences = {
-									importModuleSpecifierPreference = "non-relative",
-									importModuleSpecifierEnding = "minimal",
-								},
-							},
-						})
+						-- require("lspconfig").ts_ls.setup({
+						-- 	init_options = {
+						-- 		preferences = {
+						-- 			importModuleSpecifierPreference = "non-relative",
+						-- 			importModuleSpecifierEnding = "minimal",
+						-- 		},
+						-- 	},
+						-- })
+					end,
+					vtsls = function()
+						require("lspconfig").vtsls.setup({})
 					end,
 					eslint = function()
 						require("lspconfig").eslint.setup({
@@ -185,14 +205,15 @@ return {
 		},
 		config = function()
 			-- Here is where you configure the autocompletion settings.
-			local lsp_zero = require("lsp-zero")
-			lsp_zero.extend_cmp()
 			require("luasnip.loaders.from_vscode").lazy_load()
 
 			-- And you can configure cmp even more, if you want to.
 			local cmp = require("cmp")
+			local lsp_zero = require("lsp-zero")
 			local cmp_action = lsp_zero.cmp_action()
-			local cmp_format = lsp_zero.cmp_format({})
+			local cmp_format = lsp_zero.cmp_format({
+				details = true,
+			})
 
 			local cmp_kinds = {
 				Text = " ",
@@ -235,23 +256,11 @@ return {
 				}, {
 					{ name = "path" },
 				}),
-				-- sorting = {
-				-- 	priority_weight = 2.0,
-				-- 	comparators = {
-				-- 		-- compare.score_offset, -- not good at all
-				-- 		compare.score, -- based on :  score = score + ((#sources - (source_index - 1)) * sorting.priority_weight)
-				-- 		compare.kind,
-				-- 		compare.exact,
-				-- 		compare.locality,
-				-- 		compare.recently_used,
-				-- 		compare.offset,
-				-- 		compare.order,
-				-- 		-- compare.scopes, -- what?
-				-- 		compare.sort_text,
-				-- 		-- compare.kind,
-				-- 		-- compare.length, -- useless
-				-- 	},
-				-- },
+				snippet = {
+					expand = function(args)
+						require("luasnip").lsp_expand(args.body)
+					end,
+				},
 				formatting = {
 					expandable_indicator = true,
 					fields = { "abbr", "kind", "menu" },
@@ -464,9 +473,6 @@ return {
 			disable_filetype = { "TelescopePrompt", "vim" },
 		},
 	},
-	{
-		"JoosepAlviste/nvim-ts-context-commentstring",
-	},
 
 	-- Languages
 	{
@@ -477,12 +483,14 @@ return {
 			"ray-x/guihua.lua",
 			"neovim/nvim-lspconfig",
 			"nvim-treesitter/nvim-treesitter",
+			"mfussenegger/nvim-dap",
 		},
 		build = ':lua require("go.install").update_all_sync()',
 		opts = {
 			trouble = true,
 			luasnip = false,
 			dap_debug_keymap = false,
+			dap_enrich_config = require("gcollura.dap.enrich_config").enrich_config,
 			lsp_cfg = false,
 			run_in_floaterm = true,
 			lsp_codelens = false,
@@ -500,6 +508,22 @@ return {
 				-- hint style, set to 'eol' for end-of-line hints, 'inlay' for inline hints
 				-- inlay only avalible for 0.10.x
 				style = "eol",
+			},
+			verbose = false,
+			log_path = vim.fn.stdpath("cache") .. "/go.nvim.log",
+			-- don't let go.nvim mess with global vim.diagnostics
+			diagnostic = false,
+		},
+		keys = {
+			{
+				"<leader>dt",
+				"<cmd>GoDebug -t<CR>",
+				desc = "Go: Start debug session for go test file",
+			},
+			{
+				"<leader>dT",
+				"<cmd>GoDebug -n<CR>",
+				desc = "Go: Start debug session for nearest go test function",
 			},
 		},
 	},
@@ -531,20 +555,10 @@ return {
 		ft = { "typescript", "typescriptreact" },
 		config = true,
 	},
+	-- mjml email templating
 	"amadeus/vim-mjml",
-
 	{
-		"famiu/bufdelete.nvim",
-		cmd = { "Bdelete", "Bwipeout" },
-		keys = {
-			{
-				"<leader>q",
-				vim.cmd.Bdelete,
-				desc = "Delete current buffer",
-			},
-		},
-	},
-	{
+		-- handle line and column numbers in file names
 		"wsdjeg/vim-fetch",
 	},
 
@@ -552,19 +566,5 @@ return {
 		"chrisgrieser/nvim-lsp-endhints",
 		event = "LspAttach",
 		opts = {},
-	},
-
-	{
-		dir = "~/personal/bufswapper.nvim", -- Your path
-		name = "bufswapper.nvim",
-		config = function()
-			require("bufswapper").setup({
-				keymaps = {
-					swap_next = "<C-j>",
-					swap_prev = "<C-k>",
-					swap_reset = "<C-l>",
-				},
-			})
-		end,
 	},
 }
