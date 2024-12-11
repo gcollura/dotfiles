@@ -1,4 +1,4 @@
-local personal_vault = vim.fn.expand("~") .. "/OneDrive/Obsidian/personal"
+local personal_vault = vim.fn.expand("~") .. "/Documents/personal"
 
 return {
 	"epwalsh/obsidian.nvim",

@@ -125,5 +125,7 @@ config.use_fancy_tab_bar = true
 config.initial_cols = 160
 config.initial_rows = 50
 
+config.max_fps = 144
+
 -- and finally, return the configuration to wezterm
 return config

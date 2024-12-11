@@ -28,6 +28,14 @@ return {
 			dim_inactive = {
 				enabled = true, -- dims the background color of inactive window
 			},
+			default_integrations = true,
+			integrations = {
+				cmp = true,
+				snacks = true,
+				lsp_trouble = true,
+				mason = true,
+				fidget = true,
+			},
 		},
 		init = function()
 			vim.cmd.colorscheme("catppuccin")
@@ -38,9 +46,25 @@ return {
 		priority = 1000,
 		lazy = false,
 		opts = {
+			lazygit = { enable = true },
+			bufdelete = { enabled = true },
+			quickfile = { enabled = true },
+			bigfile = { enabled = true },
+			statuscolumn = { enabled = true },
+			words = {
+				enabled = true, -- enable/disable the plugin
+				debounce = 200, -- time in ms to wait before updating
+			},
+			scroll = {
+				enabled = true,
+				animate = {
+					duration = { step = 15, total = 125 },
+					easing = "linear",
+				},
+			},
 			notifier = {
 				enabled = true,
-				timeout = 3000,
+				timeout = 5000,
 				style = "minimal",
 			},
 		},
@@ -53,12 +77,44 @@ return {
 				desc = "Delete current buffer",
 			},
 			{
-				"<leader>z",
+				"<leader>zg",
 				function()
 					require("snacks").lazygit()
 				end,
 				desc = "Lazygit",
 			},
+			{
+				"gn",
+				function()
+					require("snacks").words.jump(1, true)
+				end,
+				mode = { "n", "v" },
+				desc = "Jump to next word (LSP)",
+			},
+			{
+				"gp",
+				function()
+					require("snacks").words.jump(-1, true)
+				end,
+				mode = { "n", "v" },
+				desc = "Jump to previous word (LSP)",
+			},
+			-- 		{
+			-- 			"<leader>gl",
+			-- 			"<cmd>GitLink<cr>",
+			-- 			mode = { "n", "v" },
+			-- 			silent = true,
+			-- 			noremap = true,
+			-- 			desc = "Copy git permlink to clipboard",
+			-- 		},
+			-- 		{
+			-- 			"<leader>gL",
+			-- 			"<cmd>GitLink!<cr>",
+			-- 			mode = { "n", "v" },
+			-- 			silent = true,
+			-- 			noremap = true,
+			-- 			desc = "Open git permlink in browser",
+			-- 		},
 		},
 	},
 	{
@@ -109,106 +165,6 @@ return {
 				end,
 			},
 		},
-	},
-	{
-		"nvim-telescope/telescope.nvim",
-		cmd = "Telescope",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope-fzf-native.nvim",
-		},
-		opts = {
-			defaults = {
-				prompt_prefix = "❯ ",
-				selection_caret = "❯ ",
-				file_ignore_patterns = {
-					"./generated/.",
-					"./node_modules/.",
-					".git/.",
-				},
-				winblend = 15,
-				mappings = {
-					n = {
-						["q"] = require("telescope.actions").close,
-						["<c-t>"] = require("trouble.sources.telescope").open,
-					},
-					i = { ["<c-t>"] = require("trouble.sources.telescope").open },
-				},
-				vimgrep_arguments = {
-					"rg",
-					"--color=never",
-					"--no-heading",
-					"--with-filename",
-					"--line-number",
-					"--column",
-					"--hidden",
-					"--smart-case",
-					"--trim",
-				},
-			},
-			pickers = {
-				find_files = {
-					hidden = true,
-				},
-				lsp_references = {
-					fname_width = 100,
-					trim_text = true,
-					layout_strategy = "vertical",
-				},
-				buffers = {
-					layout_strategy = "vertical",
-					layout_config = { width = { 0.35, min = 110 } },
-					-- theme = "dropdown",
-					file_ignore_patterns = {},
-					previewer = false,
-					sort_lastused = true,
-					sort_mru = true,
-					mappings = {
-						n = {
-							["dd"] = "delete_buffer",
-						},
-						i = {
-							["<c-d>"] = "delete_buffer",
-						},
-					},
-				},
-			},
-			extensions = {
-				fzf = {
-					fuzzy = true, -- false will only do exact matching
-					override_generic_sorter = true, -- override the generic sorter
-					override_file_sorter = true, -- override the file sorter
-					case_mode = "smart_case", -- or "ignore_case" or "respect_case"
-					-- the default case_mode is "smart_case"
-				},
-			},
-		},
-		keys = {
-			{ "<leader>t", "<cmd>Telescope <cr>", mode = { "n", "i", "v" }, desc = "Telescope" },
-			{ "<leader>p", "<cmd>Telescope find_files<cr>", mode = { "n", "i", "v" }, desc = "Telescope find files" },
-			{ "<leader>gg", "<cmd>Telescope live_grep<cr>", mode = { "n", "i", "v" }, desc = "Telescope live grep" },
-			{ "<leader>P", "<cmd>Telescope commands<cr>", mode = { "n", "i", "v" }, desc = "Telescope commands" },
-			{
-				"<leader>c",
-				"<cmd>Telescope command_history<cr>",
-				mode = { "n", "i", "v" },
-				desc = "Telescope command history",
-			},
-			{ "<leader>r", "<cmd>Telescope registers<cr>", mode = { "n", "i", "v" }, desc = "Telescope registers" },
-			{ "<leader>o", "<cmd>Telescope oldfiles<cr>", mode = { "n", "i", "v" }, desc = "Telescope old files" },
-			{ "<leader>f", "<cmd>Telescope grep_string<cr>", mode = { "n", "i", "v" }, desc = "Telescope grep string" },
-			{ "<leader>l", "<cmd>Telescope buffers<cr>", mode = { "n", "i", "v" }, desc = "Telescope buffers" },
-			{
-				"<c-r>",
-				"<plug>(TelescopeFuzzyCommandSearch)",
-				mode = { "c" },
-				desc = "Telescope fuzzy command search",
-			},
-		},
-		config = function(_, opts)
-			require("telescope").setup(opts)
-			require("telescope").load_extension("fzf")
-		end,
 	},
 	{
 		"Bekaboo/dropbar.nvim",
@@ -270,7 +226,6 @@ return {
 			},
 		},
 	},
-	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 	{
 		"stevearc/oil.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -293,17 +248,6 @@ return {
 		},
 	},
 	{
-		"mbbill/undotree",
-		cmd = { "UndoTree" },
-		keys = {
-			{
-				"<leader>u",
-				vim.cmd.UndotreeToggle,
-				desc = "Toggle Undotree",
-			},
-		},
-	},
-	{
 		"RRethy/vim-illuminate",
 		config = function()
 			require("illuminate").configure({
@@ -322,6 +266,19 @@ return {
 		cond = vim.fn.has("nvim-0.10"),
 		opts = {
 			-- options
+		},
+	},
+	{
+		"nvim-tree/nvim-web-devicons",
+		opts = {
+			override = {
+				["graphqls"] = {
+					icon = "",
+					color = "#e535ab",
+					cterm_color = "199",
+					name = "GraphQL",
+				},
+			},
 		},
 	},
 }

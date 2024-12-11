@@ -33,6 +33,7 @@
 	hunk-header-decoration-style = none
 	hunk-header-style = file line-number syntax
 	syntax-theme = OneHalfDark
+	tabs = 2
 
 [merge]
 	conflictstyle = diff3
