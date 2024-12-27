@@ -55,6 +55,24 @@ if vim.version().minor >= 11 then
 	vim.notify("Vim version is 11 or greater")
 end
 
+vim.keymap.set("n", "]]", function()
+	local t = require("nvim-treesitter.ts_utils")
+	local node = t.get_node_at_cursor()
+	if node == nil then
+		return
+	end
+	t.goto_node(t.get_next_node(node, true, true), false, true)
+end)
+
+vim.keymap.set("n", "[[", function()
+	local t = require("nvim-treesitter.ts_utils")
+	local node = t.get_node_at_cursor()
+	if node == nil then
+		return
+	end
+	t.goto_node(t.get_previous_node(node, true, true), false, true)
+end)
+
 if vim.version().minor < 11 then
 	-- Quickfix mappings
 	vim.keymap.set("n", "[q", function()
@@ -279,7 +297,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("gcollura.plugins", {
-	change_detection = {
+	change_detection = { ---@type LazyConfig
 		enabled = true,
 		notify = false,
 	},

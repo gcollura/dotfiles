@@ -1,24 +1,5 @@
+---@type LazyPluginSpec[]
 return {
-	{
-		"navarasu/onedark.nvim",
-		lazy = false,
-		priority = 1000,
-		init = function()
-			-- vim.cmd.colorscheme("onedark")
-		end,
-	},
-	{
-		"rose-pine/neovim",
-		name = "rose-pine",
-		priority = 1000,
-		opts = {
-			dim_inactive_windows = true,
-			variant = "auto",
-		},
-		init = function()
-			-- vim.cmd.colorscheme("rose-pine")
-		end,
-	},
 	{
 		"catppuccin/nvim",
 		name = "catppuccin",
@@ -35,6 +16,9 @@ return {
 				lsp_trouble = true,
 				mason = true,
 				fidget = true,
+				telescope = {
+					enabled = true,
+				},
 			},
 		},
 		init = function()
@@ -45,7 +29,7 @@ return {
 		"folke/snacks.nvim",
 		priority = 1000,
 		lazy = false,
-		opts = {
+		opts = { ---@type snacks.plugins.Config
 			lazygit = { enable = true },
 			bufdelete = { enabled = true },
 			quickfile = { enabled = true },
@@ -56,7 +40,7 @@ return {
 				debounce = 200, -- time in ms to wait before updating
 			},
 			scroll = {
-				enabled = true,
+				enabled = false,
 				animate = {
 					duration = { step = 15, total = 125 },
 					easing = "linear",
@@ -64,7 +48,7 @@ return {
 			},
 			notifier = {
 				enabled = true,
-				timeout = 5000,
+				-- timeout = 5000,
 				style = "minimal",
 			},
 		},
@@ -169,7 +153,7 @@ return {
 	{
 		"Bekaboo/dropbar.nvim",
 		event = "BufReadPost",
-		cond = vim.fn.has("nvim-0.10"),
+		cond = vim.fn.has("nvim-0.10") == 1,
 		opts = {
 			bar = {
 				pick = {
@@ -238,6 +222,9 @@ return {
 					winblend = 15,
 				},
 			},
+			keymaps = {
+				["q"] = { "actions.close", mode = "n" },
+			},
 		},
 		keys = {
 			{
@@ -263,7 +250,7 @@ return {
 	},
 	{
 		"j-hui/fidget.nvim",
-		cond = vim.fn.has("nvim-0.10"),
+		cond = vim.fn.has("nvim-0.10") == 1,
 		opts = {
 			-- options
 		},

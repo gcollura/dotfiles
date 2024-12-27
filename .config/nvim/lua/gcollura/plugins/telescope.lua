@@ -5,6 +5,7 @@ return {
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+			{ "graphite.nvim", dir = "~/personal/graphite.nvim" },
 		},
 		opts = {
 			defaults = {
@@ -96,7 +97,7 @@ return {
 				mode = { "n", "i", "v" },
 				desc = "Telescope command history",
 			},
-			{ "<leader>r", "<cmd>Telescope registers<cr>", mode = { "n", "i", "v" }, desc = "Telescope registers" },
+			{ "<leader>r", "<cmd>Telescope registers<cr>", mode = { "n", "v" }, desc = "Telescope registers" },
 			{ "<leader>o", "<cmd>Telescope oldfiles<cr>", mode = { "n", "i", "v" }, desc = "Telescope old files" },
 			{ "<leader>f", "<cmd>Telescope grep_string<cr>", mode = { "n", "i", "v" }, desc = "Telescope grep string" },
 			{ "<leader>l", "<cmd>Telescope buffers<cr>", mode = { "n", "i", "v" }, desc = "Telescope buffers" },
@@ -110,6 +111,7 @@ return {
 		config = function(_, opts)
 			require("telescope").setup(opts)
 			require("telescope").load_extension("fzf")
+			require("telescope").load_extension("graphite")
 		end,
 	},
 

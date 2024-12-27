@@ -1,13 +1,10 @@
 -- Pull in the wezterm API
-local wezterm = require("wezterm")
+local wezterm = require("wezterm") --[[@as Wezterm]]
 
 -- This will hold the configuration.
 local config = wezterm.config_builder()
 
--- This is where you actually apply your config choices
-
 config.disable_default_key_bindings = true
-
 config.keys = {
 	-- Turn off the default CMD-m Hide action, allowing CMD-m to
 	-- be potentially recognized and handled by the tab
@@ -24,22 +21,22 @@ config.keys = {
 	{
 		key = "p",
 		mods = "SUPER",
-		action = wezterm.action.ActivateCommandPalette,
+		action = "ActivateCommandPalette",
 	},
 	{
 		key = "-",
 		mods = "SUPER",
-		action = wezterm.action.DecreaseFontSize,
+		action = "DecreaseFontSize",
 	},
 	{
 		key = "+",
 		mods = "SUPER",
-		action = wezterm.action.IncreaseFontSize,
+		action = "IncreaseFontSize",
 	},
 	{
 		key = "0",
 		mods = "SUPER",
-		action = wezterm.action.ResetFontSize,
+		action = "ResetFontSize",
 	},
 	{
 		key = "t",
@@ -51,58 +48,35 @@ config.keys = {
 		mods = "SUPER",
 		action = wezterm.action.CloseCurrentTab({ confirm = true }),
 	},
-	{
-		key = "1",
-		mods = "SUPER",
-		action = wezterm.action.ActivateTab(0),
-	},
-	{
-		key = "2",
-		mods = "SUPER",
-		action = wezterm.action.ActivateTab(1),
-	},
-	{
-		key = "3",
-		mods = "SUPER",
-		action = wezterm.action.ActivateTab(2),
-	},
-	{
-		key = "4",
-		mods = "SUPER",
-		action = wezterm.action.ActivateTab(3),
-	},
-	{
-		key = "5",
-		mods = "SUPER",
-		action = wezterm.action.ActivateTab(4),
-	},
-	{
-		key = "6",
-		mods = "SUPER",
-		action = wezterm.action.ActivateTab(5),
-	},
-	{
-		key = "7",
-		mods = "SUPER",
-		action = wezterm.action.ActivateTab(6),
-	},
-	{
-		key = "8",
-		mods = "SUPER",
-		action = wezterm.action.ActivateTab(7),
-	},
 }
 
--- For example, changing the color scheme:
--- config.color_scheme = "OneDark (base16)"
+for i = 1, 9 do
+	table.insert(config.keys, {
+		key = tostring(i),
+		mods = "SUPER",
+		action = wezterm.action.ActivateTab(i - 1),
+	})
+end
+
 config.color_scheme = "Catppuccin Frappe"
--- config.color_scheme = "Catppuccin Latte"
 
 -- You can specify some parameters to influence the font selection;
 -- for example, this selects a Bold, Italic font variant.
-config.font = wezterm.font("JetBrains Mono")
+config.font = wezterm.font_with_fallback({
+	"JetBrains Mono",
+	"icons-in-terminal",
+	"Material Icons",
+	"Symbols Nerd Font Mono",
+	"Apple Color Emoji",
+	"Apple Symbols",
+})
 config.font_size = 11.0
+---@diagnostic disable-next-line: inject-field
 config.cursor_thickness = "0.5pt"
+---@diagnostic disable-next-line: assign-type-mismatch
+config.allow_square_glyphs_to_overflow_width = "Always"
+config.custom_block_glyphs = true
+config.cell_width = 1.0
 
 -- config.window_background_opacity = 0.95
 config.window_padding = {
@@ -118,6 +92,7 @@ config.window_padding = {
 -- }
 
 -- sets up appearance in retro style; monospace font, no extra padding, no symbol glyphs
+---@diagnostic disable-next-line: assign-type-mismatch
 config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 config.integrated_title_button_style = "MacOsNative"
 config.use_fancy_tab_bar = true

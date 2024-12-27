@@ -15,7 +15,7 @@ return {
 		-- Required.
 		"nvim-lua/plenary.nvim",
 		"nvim-telescope/telescope.nvim",
-		"hrsh7th/nvim-cmp",
+		-- "hrsh7th/nvim-cmp",
 	},
 	opts = {
 		workspaces = {
@@ -28,7 +28,7 @@ return {
 			folder = "daily",
 		},
 		completion = {
-			nvim_cmp = true,
+			nvim_cmp = false,
 		},
 		picker = {
 			name = "telescope.nvim",

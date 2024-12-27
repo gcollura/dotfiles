@@ -2,7 +2,6 @@ return {
 	-- Editing
 	{
 		"nvim-treesitter/nvim-treesitter",
-		-- tag = "v0.9.2",
 		build = ":TSUpdate",
 		opts = {
 			highlight = {
@@ -12,6 +11,15 @@ return {
 				end,
 			},
 			indent = { enable = true },
+			incremental_selection = { enable = true },
+			textobjects = { enable = true },
+			disable = function(_, buf)
+				local max_filesize = 100 * 1024 -- 100 KB
+				local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+				if ok and stats and stats.size > max_filesize then
+					return true
+				end
+			end,
 			ensure_installed = {
 				"bash",
 				"diff",
@@ -38,22 +46,6 @@ return {
 				"yaml",
 				"graphql",
 			},
-			incremental_selection = {
-				enable = true,
-				keymaps = {
-					init_selection = "<C-space>",
-					node_incremental = "<C-space>",
-					scope_incremental = false,
-					node_decremental = "<bs>",
-				},
-			},
-			disable = function(_, buf)
-				local max_filesize = 100 * 1024 -- 100 KB
-				local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-				if ok and stats and stats.size > max_filesize then
-					return true
-				end
-			end,
 		},
 		config = function(_, opts)
 			if type(opts.ensure_installed) == "table" then
@@ -162,6 +154,7 @@ return {
 			"mfussenegger/nvim-dap",
 		},
 		build = ':lua require("go.install").update_all_sync()',
+		dir = "~/personal/go.nvim",
 		opts = {
 			trouble = true,
 			luasnip = false,
@@ -213,17 +206,6 @@ return {
 		"mrcjkb/rustaceanvim",
 		version = "^5", -- Recommended
 		lazy = false, -- This plugin is already lazy
-	},
-	{
-		"folke/lazydev.nvim",
-		ft = "lua", -- only load on lua files
-		opts = {
-			library = {
-				-- See the configuration section for more details
-				-- Load luvit types when the `vim.uv` word is found
-				{ path = "luvit-meta/library", words = { "vim%.uv" } },
-			},
-		},
 	},
 	{ "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
 	{

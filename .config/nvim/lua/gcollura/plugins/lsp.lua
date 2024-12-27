@@ -88,6 +88,7 @@ return {
 
 			lsp_zero.extend_lspconfig({
 				capabilities = require("cmp_nvim_lsp").default_capabilities(),
+				-- capabilities = require("blink.cmp").get_lsp_capabilities(),
 				lsp_attach = lsp_attach,
 			})
 
@@ -125,10 +126,10 @@ return {
 					function(server_name)
 						require("lspconfig")[server_name].setup({})
 					end,
-					lua_ls = function()
-						local lua_opts = lsp_zero.nvim_lua_ls()
-						require("lspconfig").lua_ls.setup(lua_opts)
-					end,
+					-- lua_ls = function()
+					-- 	-- local lua_opts = lsp_zero.nvim_lua_ls()
+					-- 	-- require("lspconfig").lua_ls.setup(lua_opts)
+					-- end,
 					ts_ls = function()
 						-- require("lspconfig").ts_ls.setup({
 						-- 	init_options = {
@@ -214,7 +215,6 @@ return {
 							suggestion = {
 								enabled = false,
 								auto_trigger = false,
-								debounce = 75,
 							},
 						},
 					},
@@ -267,12 +267,13 @@ return {
 			cmp.setup({
 				sources = cmp.config.sources({
 					{ name = "copilot", priority = 100 },
+					{ name = "lazydev", priority = 80 },
 					{ name = "nvim_lsp_signature_help", priority = 90 },
 					{ name = "nvim_lsp", priority = 80 },
 					{ name = "luasnip", keyword_length = 2 },
 					{ name = "buffer", keyword_length = 3, max_item_count = 15, priority = 0 },
-					{ name = "nvim_lua" },
-					{ name = "path" },
+					{ name = "nvim_lua", priority = 0 },
+					{ name = "path", priority = 0 },
 				}),
 				snippet = {
 					expand = function(args)
@@ -280,7 +281,7 @@ return {
 					end,
 				},
 				sorting = {
-					priority_weight = 2,
+					priority_weight = 4,
 					comparators = {
 						require("copilot_cmp.comparators").prioritize,
 
@@ -302,7 +303,7 @@ return {
 				},
 				formatting = {
 					expandable_indicator = true,
-					fields = { "abbr", "kind", "menu" },
+					fields = { "kind", "abbr", "menu" },
 					format = function(entry, vim_item)
 						vim_item = cmp_format.format(entry, vim_item)
 						if entry.source.name == "nvim_lsp_signature_help" then
@@ -358,5 +359,23 @@ return {
 		"chrisgrieser/nvim-lsp-endhints",
 		event = "LspAttach",
 		opts = {},
+	},
+	{
+		"folke/lazydev.nvim",
+		ft = "lua", -- only load on lua files
+		dependencies = {
+			{ "gonstoll/wezterm-types", lazy = true },
+		},
+		opts = {
+			library = {
+				"lazy.nvim",
+				"nvim-treesitter",
+				"blink.cmp",
+				-- See the configuration section for more details
+				-- Load luvit types when the `vim.uv` word is found
+				{ path = "luvit-meta/library", words = { "vim%.uv" } },
+				{ path = "wezterm-types", mods = { "wezterm" } },
+			},
+		},
 	},
 }
