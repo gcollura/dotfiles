@@ -305,11 +305,6 @@ alias free='free -h'
 alias zshrc="$EDITOR ~/.zshrc" # Quick access to the ~/.zshrc file
 alias zshreload="source ~/.zshrc"
 
-if type tmux2 > /dev/null ; then
-  alias tmux=tmux2
-  alias tm="agenttmux2 new-session -A -s work"
-fi
-
 # Show progress while file is copying
 # Rsync options are:
 # -p - preserve permissions

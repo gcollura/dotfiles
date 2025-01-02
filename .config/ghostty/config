@@ -1,0 +1,23 @@
+command = /bin/zsh
+initial-command = /bin/zsh -l -c 'tmux new-session -A -s personal'
+
+auto-update-channel = stable
+
+font-family = "JetBrains Mono"
+font-style = "Light"
+font-size = 11
+adjust-cell-width = -1
+theme = catppuccin-frappe
+click-repeat-interval = 500
+
+window-padding-x = 0
+window-padding-y = 0
+window-padding-balance = true
+window-save-state = always
+
+macos-icon = custom-style
+macos-icon-frame = plastic
+macos-titlebar-style = transparent
+
+background-opacity = 
+background-blur-radius = 40

@@ -6,6 +6,7 @@ return {
 		priority = 1000,
 		opts = {
 			flavour = "frappe",
+			-- transparent_background = true,
 			dim_inactive = {
 				enabled = true, -- dims the background color of inactive window
 			},
@@ -21,6 +22,13 @@ return {
 				},
 			},
 		},
+		-- config = function(_, opts)
+		-- 	require("catppuccin").setup(opts)
+		-- 	vim.cmd.colorscheme("catppuccin-frappe")
+		-- 	for _, element in ipairs({ "FloatBorder", "NormalFloat", "Normal" }) do
+		-- 		vim.api.nvim_set_hl(0, element, { bg = "none" })
+		-- 	end
+		-- end,
 		init = function()
 			vim.cmd.colorscheme("catppuccin")
 		end,
