@@ -16,7 +16,7 @@ return {
 					"./node_modules/.",
 					".git/.",
 				},
-				winblend = 15,
+				-- winblend = 15,
 				mappings = {
 					n = {
 						["q"] = require("telescope.actions").close,

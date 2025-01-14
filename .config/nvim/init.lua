@@ -22,7 +22,7 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 
 vim.opt.pumblend = 15
-vim.opt.winblend = 15
+-- vim.opt.winblend = 15
 vim.opt.pumheight = 15
 
 vim.opt.ignorecase = true

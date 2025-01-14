@@ -227,7 +227,7 @@ return {
 				max_width = 180,
 				border = "rounded",
 				win_options = {
-					winblend = 15,
+					-- winblend = 15,
 				},
 			},
 			keymaps = {
