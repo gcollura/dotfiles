@@ -82,9 +82,9 @@ return {
 				lua = { "stylua" },
 				python = { "black", "isort" },
 				javascript = { "prettierd", "prettier", stop_after_first = true },
-				typescript = { "prettierd", "prettier", stop_after_first = true },
-				typescriptreact = { "prettierd", "prettier", stop_after_first = true },
-				graphql = { "prettierd", "prettier", stop_after_first = true },
+				typescript = { "biome-check", "prettierd", "prettier", stop_after_first = true },
+				typescriptreact = { "biome-check", "prettierd", "prettier", stop_after_first = true },
+				graphql = { "biome-check", "prettierd", "prettier", stop_after_first = true },
 				go = { "golines" },
 			},
 			-- Set up format-on-save
@@ -92,6 +92,9 @@ return {
 			formatters = {
 				golines = {
 					prepend_args = { "--no-ignore-generated", "--base-formatter=gofmt" },
+				},
+				["biome-check"] = {
+					require_cwd = true,
 				},
 			},
 			notify_on_error = false,

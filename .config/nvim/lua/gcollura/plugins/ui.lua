@@ -17,97 +17,35 @@ return {
 				lsp_trouble = true,
 				mason = true,
 				fidget = true,
-				telescope = {
-					enabled = true,
-				},
 			},
 		},
-		-- config = function(_, opts)
-		-- 	require("catppuccin").setup(opts)
-		-- 	vim.cmd.colorscheme("catppuccin-frappe")
-		-- 	for _, element in ipairs({ "FloatBorder", "NormalFloat", "Normal" }) do
-		-- 		vim.api.nvim_set_hl(0, element, { bg = "none" })
-		-- 	end
-		-- end,
 		init = function()
-			vim.cmd.colorscheme("catppuccin")
+			-- vim.cmd.colorscheme("catppuccin")
 		end,
 	},
 	{
-		"folke/snacks.nvim",
+		"rose-pine/neovim",
+		name = "rose-pine",
 		priority = 1000,
-		lazy = false,
-		opts = { ---@type snacks.plugins.Config
-			lazygit = { enable = true },
-			bufdelete = { enabled = true },
-			quickfile = { enabled = true },
-			bigfile = { enabled = true },
-			statuscolumn = { enabled = true },
-			words = {
-				enabled = true, -- enable/disable the plugin
-				debounce = 200, -- time in ms to wait before updating
+		opts = {
+			variant = "moon",
+			dark_variant = "moon",
+			dim_inactive_windows = true,
+			styles = {
+				bold = true,
+				italic = false,
+				transparency = false,
 			},
-			scroll = {
-				enabled = false,
-				animate = {
-					duration = { step = 15, total = 125 },
-					easing = "linear",
-				},
-			},
-			notifier = {
-				enabled = true,
-				-- timeout = 5000,
-				style = "minimal",
+			disable_italics = true,
+			highlight_groups = {
+				-- Comment = { fg = "foam" },
+				Comment = { italic = true },
+				WhiteSpace = { fg = "highlight_med" },
 			},
 		},
-		keys = {
-			{
-				"<leader>q",
-				function()
-					require("snacks").bufdelete()
-				end,
-				desc = "Delete current buffer",
-			},
-			{
-				"<leader>zg",
-				function()
-					require("snacks").lazygit()
-				end,
-				desc = "Lazygit",
-			},
-			{
-				"gn",
-				function()
-					require("snacks").words.jump(1, true)
-				end,
-				mode = { "n", "v" },
-				desc = "Jump to next word (LSP)",
-			},
-			{
-				"gp",
-				function()
-					require("snacks").words.jump(-1, true)
-				end,
-				mode = { "n", "v" },
-				desc = "Jump to previous word (LSP)",
-			},
-			-- 		{
-			-- 			"<leader>gl",
-			-- 			"<cmd>GitLink<cr>",
-			-- 			mode = { "n", "v" },
-			-- 			silent = true,
-			-- 			noremap = true,
-			-- 			desc = "Copy git permlink to clipboard",
-			-- 		},
-			-- 		{
-			-- 			"<leader>gL",
-			-- 			"<cmd>GitLink!<cr>",
-			-- 			mode = { "n", "v" },
-			-- 			silent = true,
-			-- 			noremap = true,
-			-- 			desc = "Open git permlink in browser",
-			-- 		},
-		},
+		init = function()
+			vim.cmd("colorscheme rose-pine")
+		end,
 	},
 	{
 		"nvim-lualine/lualine.nvim",
@@ -115,7 +53,8 @@ return {
 		opts = {
 			options = {
 				-- theme = "onedark",
-				theme = "catppuccin",
+				-- theme = "catppuccin",
+				theme = "rose-pine",
 				globalstatus = true,
 				ignore_focus = {
 					"lspinfo",
@@ -206,7 +145,7 @@ return {
 			},
 		},
 		dependencies = {
-			"nvim-telescope/telescope-fzf-native.nvim",
+			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 		},
 		keys = {
 			{

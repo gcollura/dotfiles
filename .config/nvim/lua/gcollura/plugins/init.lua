@@ -1,6 +1,6 @@
 return {
 	-- Editing
-	{
+	{ ---@type LazyPlugin
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		opts = {
@@ -68,8 +68,6 @@ return {
 	-- Show context of the current function
 	{
 		"nvim-treesitter/nvim-treesitter-context",
-		-- TODO change this back when https://github.com/nvim-treesitter/nvim-treesitter-context/issues/509 is fixed
-		commit = "7f7eeaa99e5a9beab518f502292871ae5f20de6f",
 		opts = { mode = "cursor", max_lines = 5 },
 	},
 	{
@@ -143,7 +141,7 @@ return {
 	},
 
 	-- Languages
-	{
+	{ ---@type LazyPlugin
 		"ray-x/go.nvim",
 		event = { "CmdlineEnter" },
 		ft = { "go", "gomod" },
@@ -154,7 +152,8 @@ return {
 			"mfussenegger/nvim-dap",
 		},
 		build = ':lua require("go.install").update_all_sync()',
-		dir = "~/personal/go.nvim",
+		-- dir = "~/personal/go.nvim",
+		-- enabled = false,
 		opts = {
 			trouble = true,
 			luasnip = false,
@@ -165,7 +164,7 @@ return {
 			lsp_codelens = false,
 			lsp_keymaps = false,
 			floaterm = { -- position
-				posititon = "right", -- one of {`top`, `bottom`, `left`, `right`, `center`, `auto`}
+				posititon = "auto", -- one of {`top`, `bottom`, `left`, `right`, `center`, `auto`}
 				width = 0.45, -- width of float window if not auto
 				height = 0.85, -- height of float window if not auto
 				title_colors = "nord", -- default to nord, one of {'nord', 'tokyo', 'dracula', 'rainbow', 'solarized ', 'monokai'}

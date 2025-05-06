@@ -26,32 +26,6 @@ return {
 				-- see :help lsp-zero-keybindings
 				lsp_zero.default_keymaps({ buffer = bufnr })
 
-				if vim.version().minor < 11 then
-					-- remove once 0.11 is out
-					vim.keymap.set("n", "grn", function()
-						vim.lsp.buf.rename()
-					end, { desc = "vim.lsp.buf.rename()" })
-
-					vim.keymap.set({ "n", "x" }, "gra", function()
-						vim.lsp.buf.code_action()
-					end, { desc = "vim.lsp.buf.code_action()" })
-
-					vim.keymap.set("n", "grr", function()
-						vim.lsp.buf.references()
-					end, { desc = "vim.lsp.buf.references()" })
-
-					vim.keymap.set("n", "gri", function()
-						vim.lsp.buf.implementation()
-					end, { desc = "vim.lsp.buf.implementation()" })
-
-					vim.keymap.set("n", "gO", function()
-						vim.lsp.buf.document_symbol()
-					end, { desc = "vim.lsp.buf.document_symbol()" })
-
-					vim.keymap.set({ "i", "s" }, "<C-S>", function()
-						vim.lsp.buf.signature_help()
-					end, { desc = "vim.lsp.buf.signature_help()" })
-				end
 				vim.keymap.set("n", "gr", "<cmd>Glance references<cr>", { buffer = bufnr, desc = "References" })
 				vim.keymap.set(
 					"n",
@@ -87,8 +61,8 @@ return {
 			end
 
 			lsp_zero.extend_lspconfig({
-				capabilities = require("cmp_nvim_lsp").default_capabilities(),
-				-- capabilities = require("blink.cmp").get_lsp_capabilities(),
+				-- capabilities = require("cmp_nvim_lsp").default_capabilities(),
+				capabilities = require("blink.cmp").get_lsp_capabilities(),
 				lsp_attach = lsp_attach,
 			})
 
@@ -96,17 +70,20 @@ return {
 				border = "rounded",
 				max_width = 100,
 			}
-			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, float_config)
-			vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, float_config)
 			vim.diagnostic.config({
 				float = float_config,
-				update_in_insert = false,
+				update_in_insert = true,
 				severity_sort = true,
 				virtual_text = {
 					spacing = 4,
 					source = "if_many",
 					prefix = "●",
 				},
+				-- virtual_lines = {
+				-- 	-- Only show virtual line diagnostics for the current cursor line
+				-- 	current_line = false,
+				-- },
+				underline = true,
 				signs = {
 					text = {
 						[vim.diagnostic.severity.ERROR] = "✘",
@@ -119,6 +96,7 @@ return {
 
 			require("mason").setup({})
 			require("mason-lspconfig").setup({
+				automatic_installation = false,
 				ensure_installed = { "ts_ls", "gopls", "graphql", "lua_ls" },
 				handlers = {
 					-- this first function is the "default handler"
@@ -141,7 +119,20 @@ return {
 						-- })
 					end,
 					vtsls = function()
-						require("lspconfig").vtsls.setup({})
+						require("lspconfig").vtsls.setup({
+							settings = {
+								typescript = {
+									inlayHints = {
+										parameterNames = { enabled = "literals" },
+										parameterTypes = { enabled = true },
+										variableTypes = { enabled = true },
+										propertyDeclarationTypes = { enabled = true },
+										functionLikeReturnTypes = { enabled = true },
+										enumMemberValues = { enabled = true },
+									},
+								},
+							},
+						})
 					end,
 					eslint = function()
 						require("lspconfig").eslint.setup({
@@ -154,14 +145,18 @@ return {
 						})
 					end,
 					gopls = function()
-						---@type table
 						local lsp_cfg = require("go.lsp").config()
+						if type(lsp_cfg) ~= "table" then
+							lsp_cfg = {}
+						end
 						lsp_cfg = vim.tbl_deep_extend("force", lsp_cfg, {
 							settings = {
 								gopls = {
 									analyses = {
 										fieldalignment = false,
 									},
+									diagnosticsDelay = "3s",
+									diagnosticsTrigger = "Edit",
 								},
 							},
 						})
@@ -187,6 +182,7 @@ return {
 	{
 		-- "hrsh7th/nvim-cmp",
 		"iguanacucumber/magazine.nvim",
+		enabled = false,
 		name = "nvim-cmp",
 		dependencies = {
 			{ "iguanacucumber/mag-nvim-lsp", name = "cmp-nvim-lsp", opts = {} },
@@ -209,15 +205,7 @@ return {
 			{
 				"zbirenbaum/copilot-cmp",
 				dependencies = {
-					{
-						"zbirenbaum/copilot.lua",
-						opts = {
-							suggestion = {
-								enabled = false,
-								auto_trigger = false,
-							},
-						},
-					},
+					"zbirenbaum/copilot.lua",
 				},
 				config = true,
 			},
@@ -323,9 +311,6 @@ return {
 						behavior = cmp.ConfirmBehavior.Replace,
 						select = true,
 					}),
-					["<C-h>"] = function()
-						vim.lsp.buf.signature_help()
-					end,
 				}),
 				preselect = cmp.PreselectMode.None,
 				completion = {
@@ -377,5 +362,17 @@ return {
 				{ path = "wezterm-types", mods = { "wezterm" } },
 			},
 		},
+	},
+	{
+		"CopilotC-Nvim/CopilotChat.nvim",
+		dependencies = {
+			{ "zbirenbaum/copilot.lua" }, -- or zbirenbaum/copilot.lua
+			{ "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
+		},
+		build = "make tiktoken", -- Only on MacOS or Linux
+		opts = {
+			-- See Configuration section for options
+		},
+		-- See Commands section for default commands if you want to lazy load on them
 	},
 }

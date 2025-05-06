@@ -1,8 +1,7 @@
 local personal_vault = vim.fn.expand("~") .. "/Documents/personal"
 
 return {
-	"epwalsh/obsidian.nvim",
-	cmd = { "ObsidianNew", "ObsidianQuickSwitch" },
+	"obsidian-nvim/obsidian.nvim",
 	version = "*", -- recommended, use latest release instead of latest commit
 	lazy = true,
 	event = {
@@ -14,8 +13,7 @@ return {
 	dependencies = {
 		-- Required.
 		"nvim-lua/plenary.nvim",
-		"nvim-telescope/telescope.nvim",
-		-- "hrsh7th/nvim-cmp",
+		"hrsh7th/nvim-cmp",
 	},
 	opts = {
 		workspaces = {
@@ -28,10 +26,10 @@ return {
 			folder = "daily",
 		},
 		completion = {
-			nvim_cmp = false,
+			nvim_cmp = true,
 		},
 		picker = {
-			name = "telescope.nvim",
+			name = "snacks.pick",
 			mappings = {
 				new = "<C-x>", -- Create a new note from your query.
 				insert_link = "<C-l>", -- Insert a link to the selected note.

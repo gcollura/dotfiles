@@ -1,7 +1,6 @@
 return {
-	{
-		"tpope/vim-fugitive",
-	},
+	"tpope/vim-fugitive",
+	"sindrets/diffview.nvim",
 	{
 		"linrongbin16/gitlinker.nvim",
 		config = true,
