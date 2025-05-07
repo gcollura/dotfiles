@@ -4,7 +4,9 @@ if [[ -z "$ZSH_ROOT" ]]; then
   export ZSH_ROOT=$HOME/.zsh
 fi
 
-export SDKROOT="$(xcrun --sdk macosx --show-sdk-path)"
+if command -v xcrun &>/dev/null ; then
+  export SDKROOT="$(xcrun --sdk macosx --show-sdk-path)"
+fi
 
 # Plugins {{{
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"

@@ -15,6 +15,8 @@ window-padding-x = 0
 window-padding-y = 0
 window-padding-balance = true
 window-save-state = always
+window-width = 186
+window-height = 48
 
 macos-icon = custom-style
 macos-icon-frame = plastic
