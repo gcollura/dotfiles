@@ -14,8 +14,8 @@ return {
 	{
 		"VonHeikemen/lsp-zero.nvim",
 		dependencies = {
-			"williamboman/mason.nvim",
-			"williamboman/mason-lspconfig.nvim",
+			"mason-org/mason.nvim",
+			"mason-org/mason-lspconfig.nvim",
 			"neovim/nvim-lspconfig",
 		},
 		branch = "v4.x",
@@ -60,10 +60,17 @@ return {
 				})
 			end
 
-			lsp_zero.extend_lspconfig({
-				-- capabilities = require("cmp_nvim_lsp").default_capabilities(),
-				capabilities = require("blink.cmp").get_lsp_capabilities(),
-				lsp_attach = lsp_attach,
+			-- lsp_zero.extend_lspconfig({
+			-- 	-- capabilities = require("cmp_nvim_lsp").default_capabilities(),
+			-- 	capabilities = require("blink.cmp").get_lsp_capabilities(),
+			-- 	lsp_attach = lsp_attach,
+			-- })
+
+			vim.api.nvim_create_autocmd("LspAttach", {
+				callback = lsp_attach,
+			})
+			vim.lsp.config("*", {
+				capabilities = require("blink-cmp").get_lsp_capabilities(),
 			})
 
 			local float_config = {
@@ -98,85 +105,64 @@ return {
 			require("mason-lspconfig").setup({
 				automatic_installation = false,
 				ensure_installed = { "ts_ls", "gopls", "graphql", "lua_ls" },
-				handlers = {
-					-- this first function is the "default handler"
-					-- it applies to every language server without a "custom handler"
-					function(server_name)
-						require("lspconfig")[server_name].setup({})
-					end,
-					-- lua_ls = function()
-					-- 	-- local lua_opts = lsp_zero.nvim_lua_ls()
-					-- 	-- require("lspconfig").lua_ls.setup(lua_opts)
-					-- end,
-					ts_ls = function()
-						-- require("lspconfig").ts_ls.setup({
-						-- 	init_options = {
-						-- 		preferences = {
-						-- 			importModuleSpecifierPreference = "non-relative",
-						-- 			importModuleSpecifierEnding = "minimal",
-						-- 		},
-						-- 	},
-						-- })
-					end,
-					vtsls = function()
-						require("lspconfig").vtsls.setup({
-							settings = {
-								typescript = {
-									inlayHints = {
-										parameterNames = { enabled = "literals" },
-										parameterTypes = { enabled = true },
-										variableTypes = { enabled = true },
-										propertyDeclarationTypes = { enabled = true },
-										functionLikeReturnTypes = { enabled = true },
-										enumMemberValues = { enabled = true },
-									},
-								},
-							},
-						})
-					end,
-					eslint = function()
-						require("lspconfig").eslint.setup({
-							on_attach = function(_, bufnr)
-								vim.api.nvim_create_autocmd("BufWritePre", {
-									buffer = bufnr,
-									command = "EslintFixAll",
-								})
-							end,
-						})
-					end,
-					gopls = function()
-						local lsp_cfg = require("go.lsp").config()
-						if type(lsp_cfg) ~= "table" then
-							lsp_cfg = {}
-						end
-						lsp_cfg = vim.tbl_deep_extend("force", lsp_cfg, {
-							settings = {
-								gopls = {
-									analyses = {
-										fieldalignment = false,
-									},
-									diagnosticsDelay = "3s",
-									diagnosticsTrigger = "Edit",
-								},
-							},
-						})
-						require("lspconfig").gopls.setup(lsp_cfg)
-					end,
-					graphql = function()
-						require("lspconfig").graphql.setup({
-							flags = {
-								debounce_text_changes = 150,
-							},
-							filetypes = { "graphql", "typescriptreact", "javascriptreact", "typescript" },
-						})
-					end,
-					rust_analyzer = function()
-						return true
-					end,
+				automatic_enable = {
+					exclude = {
+						"rust_analyzer",
+						"ts_ls",
+					},
 				},
 			})
 
-			lsp_zero.setup()
+			vim.lsp.enable("vtsls")
+			vim.lsp.config("vtsls", {
+				settings = {
+					typescript = {
+						inlayHints = {
+							parameterNames = { enabled = "literals" },
+							parameterTypes = { enabled = true },
+							variableTypes = { enabled = true },
+							propertyDeclarationTypes = { enabled = true },
+							functionLikeReturnTypes = { enabled = true },
+							enumMemberValues = { enabled = true },
+						},
+					},
+				},
+			})
+
+			vim.lsp.enable("gopls")
+			local gopls_cfg = vim.tbl_deep_extend("force", require("go.lsp").config() or {}, {
+				settings = {
+					gopls = {
+						-- semanticTokens = false,
+						analyses = {
+							fieldalignment = false,
+						},
+						diagnosticsDelay = "3s",
+						diagnosticsTrigger = "Edit",
+					},
+				},
+			})
+			-- root_dir callback is not compatible with vim.lsp.config
+			gopls_cfg.root_dir = nil
+			vim.lsp.config("gopls", gopls_cfg)
+
+			vim.lsp.enable("eslint")
+			vim.lsp.config("eslint", {
+				on_attach = function(_, bufnr)
+					vim.api.nvim_create_autocmd("BufWritePre", {
+						buffer = bufnr,
+						command = "EslintFixAll",
+					})
+				end,
+			})
+
+			vim.lsp.enable("graphql")
+			vim.lsp.config("graphql", {
+				flags = {
+					debounce_text_changes = 150,
+				},
+				filetypes = { "graphql", "typescriptreact", "javascriptreact", "typescript" },
+			})
 		end,
 	},
 	{
