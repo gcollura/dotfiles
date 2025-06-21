@@ -96,9 +96,9 @@ return {
 				mode = { "n" },
 				desc = "Trouble document diagnostics",
 			},
-			{ "<leader>xq", "<cmd>Trouble toggle qflist<cr>", mode = { "n" }, desc = "Trouble quickfix" },
-			{ "<leader>xl", "<cmd>Trouble loclist<cr>", mode = { "n" }, desc = "Trouble location list" },
-			{ "gR", "<cmd>Trouble lsp_references<cr>", mode = { "n" }, desc = "Trouble lsp references" },
+			{ "<leader>xq", "<cmd>Trouble toggle qflist<cr>",  mode = { "n" }, desc = "Trouble quickfix" },
+			{ "<leader>xl", "<cmd>Trouble loclist<cr>",        mode = { "n" }, desc = "Trouble location list" },
+			{ "gR",         "<cmd>Trouble lsp_references<cr>", mode = { "n" }, desc = "Trouble lsp references" },
 		},
 	},
 	-- Extend and create a/i textobjects
@@ -163,10 +163,10 @@ return {
 			run_in_floaterm = true,
 			lsp_codelens = false,
 			lsp_keymaps = false,
-			floaterm = { -- position
+			floaterm = {         -- position
 				posititon = "auto", -- one of {`top`, `bottom`, `left`, `right`, `center`, `auto`}
-				width = 0.45, -- width of float window if not auto
-				height = 0.85, -- height of float window if not auto
+				width = 0.45,      -- width of float window if not auto
+				height = 0.85,     -- height of float window if not auto
 				title_colors = "nord", -- default to nord, one of {'nord', 'tokyo', 'dracula', 'rainbow', 'solarized ', 'monokai'}
 				-- can also set to a list of colors to define colors to choose from
 				-- e.g {'#D8DEE9', '#5E81AC', '#88C0D0', '#EBCB8B', '#A3BE8C', '#B48EAD'}
@@ -203,8 +203,20 @@ return {
 	},
 	{
 		"mrcjkb/rustaceanvim",
-		version = "^5", -- Recommended
+		version = "^6", -- Recommended
 		lazy = false, -- This plugin is already lazy
+		config = function(_, opts)
+			-- require("rustaceanvim").setup(opts)
+			vim.lsp.config("rust-analyzer", {
+				default_settings = {
+					["rust-analyzer"] = {
+						cargo = {
+							features = "all"
+						}
+					}
+				}
+			})
+		end,
 	},
 	{ "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
 	{

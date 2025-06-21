@@ -249,6 +249,14 @@ zstyle ':completion:*:history-words' stop yes
 
 # completion for cdr
 zstyle ':completion:*:*:cdr:*:*' menu selection
+
+if [[ -d $HOME/.local/share/kde-builder/data/completions/zsh ]]; then
+  fpath=($HOME/.local/share/kde-builder/data/completions/zsh $fpath)
+fi
+
+if command -v bevy &>/dev/null; then
+	source <(bevy completions zsh)
+fi
 # }}}
 # }}}
 

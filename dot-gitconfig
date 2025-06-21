@@ -1,5 +1,5 @@
 [user]
-	email = giulio@opal.dev
+	email = giulio.collura@gmail.com
 	name = Giulio Collura
 [core]
 	excludesfile = ~/.gitignore
@@ -42,3 +42,9 @@
 	pretty = format:%C(yellow)%h %Cblue%>(12)%ar %Cgreen%<(7)%aN%Cred%d \n\t%Creset%s
 
 # vim: ft=gitconfig
+[url "https://invent.kde.org/"]
+	insteadOf = kde:
+[url "ssh://git@invent.kde.org/"]
+	pushInsteadOf = kde:
+[push]
+	autoSetupRemote = true
