@@ -45,7 +45,7 @@ zinit light zdharma/fast-syntax-highlighting
 GEOMETRY_PROMPT=(geometry_echo geometry_status geometry_path geometry_virtualenv)
 zinit light geometry-zsh/geometry
 
-export NVM_LAZY_LOAD_EXTRA_COMMANDS=('nv' 'nvim' 'make' 'mprocs')
+export NVM_LAZY_LOAD_EXTRA_COMMANDS=('nv' 'nice nvim' 'nvim' 'make' 'mprocs' 'gt')
 export NVM_COMPLETION=true
 export NVM_LAZY_LOAD=true
 zinit light lukechilds/zsh-nvm
@@ -335,6 +335,7 @@ alias pg='ps aux | grep'  # requires an argument
 alias :q="exit"
 alias e="$EDITOR"
 alias ccat='pygmentize -O bg=dark'
+alias nvim="nice nvim"
 alias nv="nvim"
 
 # Git
@@ -457,5 +458,9 @@ _gt_yargs_completions()
 }
 compdef _gt_yargs_completions gt
 ###-end-gt-completions-###
+
+if command -v ngrok &>/dev/null; then
+	eval "$(ngrok completion)"
+fi
 
 # vim: fdm=marker et fen fdl=0 tw=0 shiftwidth=2
